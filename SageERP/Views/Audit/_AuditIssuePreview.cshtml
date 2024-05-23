@@ -1,0 +1,422 @@
+﻿@using Shampan.Models
+@model Shampan.Models.AuditIssue
+
+
+<style>
+
+    .modal-content {
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+
+
+    .ReportingCategory {
+        background-color: lightblue;
+        height: 200px;
+        border-radius: 5px
+    }
+
+    .ReportingCategoryHeading {
+        display: inline-block;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: lightslategray;
+    }
+
+    .IssueProcess {
+        background-color: lightblue;
+        height: 150px;
+        margin-top: 20px;
+        border-radius: 5px
+    }
+
+    .IssueProcessHeading {
+        display: inline-block;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: lightslategray;
+    }
+
+</style>
+
+<div class="modal-dialog draggable modal-lg" role="document" style="max-width:65%;">
+    @*<div class="modal-content" style="width:100%;">*@
+    <div class="modal-content">
+        <div class="modal-header">
+            @*<h4 class="modal-title">Issue Details</h4>*@
+            <h4 class="modal-title">Issue Preview</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+
+        <div class="modal fade" id="modal-IssueSubmit" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.ReasonOfUnPost)
+                            <div class="input-group ">
+                                @Html.TextArea("ReasonOfUnPost",null, new { @class = "  form-control form-control-sm " ,@id="UnPostReasonOfIssue"})
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="modelClose">Close</button>
+                        <button type="button" class="btn btn-primary IssueSubmit">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="modal-body">
+
+            <div class="container-fluid">
+                @*<div class="scrollable-container">*@
+
+                @using (Html.BeginForm("CreateEdit", "AuditIssue", FormMethod.Post, new { @Id = "frm_Audit_Issue" }))
+                {
+                    @Html.HiddenFor(model => model.Id,new {@Id  = "IssueId"})
+                    @Html.HiddenFor(model => model.AuditId)
+                    @Html.HiddenFor(model => model.IsPost)
+
+                    @Html.HiddenFor(model => model.Operation, new {@Id = "IssueOperation"})
+
+                    <div class="form-group row">
+
+
+                        <div class="col-sm-8">
+                            @Html.LabelFor(model => model.IssueName)
+                            @Html.TextAreaFor(model => model.IssueName, new { @class = "  form-control input-sm",@readonly="readonly" })
+                            @Html.ValidationMessageFor(model => model.IssueName)
+                        </div>
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.DateOfSubmission)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.DateOfSubmission, new { @class = "  form-control input-sm dateRange", @readonly="readonly" })
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.DateOfSubmission)
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.IssuePriority)
+                            @Html.TextBoxFor(model => model.IssuePriority, new { @class = "  form-control input-sm", @readonly="readonly" })
+                            @*@Html.DropDownListFor(model => model.IssuePriority, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.IssuePriority})*@
+                            @Html.ValidationMessageFor(model => model.IssuePriority)
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="ReportingCategory">
+
+                        <label class="ReportingCategoryHeading">Reporting Category</label>
+
+                        <label class="highlight-label">Reporting Category</label>
+
+                        <div class="form-group row">
+
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.LabelFor(model => model.InvestigationOrForensis, new { @class = "form-check-label", style = "margin-left: -18px; margin-top: 20px;font-weight: bold;"})
+
+                                        @Html.CheckBoxFor(model => model.InvestigationOrForensis, new { @class = "form-check-input",  style = "margin-left: 36px;    margin-top: 34px; transform: scale(1.9);", id = "InvestigationOrForensis" })
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.LabelFor(model => model.StratigicMeeting, new { @class = "form-check-label", style = "margin-top: 20px;font-weight: bold;"})
+
+                                        @Html.CheckBoxFor(model => model.StratigicMeeting, new { @class = "form-check-input",  style = "margin-left: 30px; margin-top: 34px; transform: scale(1.9);", id = "StratigicMeeting" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.LabelFor(model => model.ManagementReviewMeeting, new { @class = "form-check-label", style = "margin-top: 20px;font-weight: bold;"})
+
+                                        @Html.CheckBoxFor(model => model.ManagementReviewMeeting, new { @class = "form-check-input",  style = "margin-left: 26px; margin-top: 27px; transform: scale(1.9);", id = "ManagementReviewMeeting" })
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.LabelFor(model => model.OtherMeeting, new { @class = "form-check-label", style = "margin-left: -18px; margin-top: 20px;font-weight: bold;"})
+
+                                        @Html.CheckBoxFor(model => model.OtherMeeting, new { @class = "form-check-input",  style = "margin-left: 85px; margin-top: 34px; transform: scale(1.9);", id = "OtherMeeting" })
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.LabelFor(model => model.Training, new { @class = "form-check-label", style = "margin-top: 20px;font-weight: bold;"})
+
+                                        @Html.CheckBoxFor(model => model.Training, new { @class = "form-check-input",  style = "margin-left: 85px; margin-top: 34px; transform: scale(1.9);", id = "Training" })
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="IssueProcess">
+
+                        <label class="IssueProcessHeading">Issue Process</label>
+
+
+                        <div class="form-group row">
+
+
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.LabelFor(model => model.Operational, new { @class = "form-check-label", style = "margin-left: -18px; margin-top: 20px;font-weight: bold;"})
+
+                                        @Html.CheckBoxFor(model => model.Operational, new { @class = "form-check-input",  style = "margin-left: 97px;    margin-top: 25px; transform: scale(1.9);", id = "Operational" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.LabelFor(model => model.Financial, new { @class = "form-check-label", style = "margin-left: -18px; margin-top: 20px;font-weight: bold;"})
+
+                                        @Html.CheckBoxFor(model => model.Financial, new { @class = "form-check-input",  style = "margin-left: 98px;    margin-top: 25px; transform: scale(1.9);", id = "Financial" })
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.LabelFor(model => model.Compliance, new { @class = "form-check-label", style = "margin-left: -18px; margin-top: 20px;font-weight: bold;"})
+
+                                        @Html.CheckBoxFor(model => model.Compliance, new { @class = "form-check-input",  style = "margin-left: 151px;    margin-top: 25px; transform: scale(1.9);", id = "Compliance" })
+                                    </label>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row form-group mt-4">
+
+                        <div class="col-12">
+                            <div class="col-12">
+                                @Html.LabelFor(model => model.FeedbackDetails)
+                                @Html.TextAreaFor(model => model.FeedbackDetails, new { @class = "  form-control input-sm auditIssuePreviewSummernote" , @Id="FeedbackDetailsPreview", @name ="IssueDetails" })
+                                @Html.ValidationMessageFor(model => model.FeedbackDetails)
+                            </div>
+
+                            @*@Html.LabelFor(model => model.IssueDetailsData)
+                        @Html.TextAreaFor(model => model.IssueDetailsData, new { @class = "  form-control input-sm" , @Id="IssueDetailsData", @name ="IssueDetails" })
+                        @Html.ValidationMessageFor(model => model.IssueDetailsData)*@
+
+                        </div>
+
+                        @*<div class="col-12">
+                    @Html.LabelFor(model => model.Issues)
+                    @Html.TextAreaFor(model => model.Issues, new { @class = "  form-control input-sm" })
+                    @Html.ValidationMessageFor(model => model.Issues)
+                    </div>*@
+
+
+                    </div>
+
+
+                    <div class="row form-group">
+                        <div class="col-12">
+
+                            @Html.LabelFor(model => model.Risk)
+                            @Html.TextAreaFor(model => model.Risk, new { @class = "  form-control input-sm" })
+                            @Html.ValidationMessageFor(model => model.Risk)
+
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <div class="editor-label">
+                                <label>Attachments</label>
+                            </div>
+                            <input type="file" accept=".jpg,.jpeg, .png,.pdf, .xls, .xlsx,.docx" id="fileToUpload" name="Attachments" multiple="multiple" />
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                    </div>
+
+                    <div class="row mb-2">
+                        <ul class="list-group fileGroup">
+
+                            @foreach (AuditIssueAttachments item in Model.AttachmentsList)
+                            {
+                                <li class="list-group-item" id="file-@item.Id">
+                                    <span>
+                                        @item.DisplayName
+                                    </span>
+
+                                    <a target="_blank" href="/AuditIssue/DownloadFile?filePath=@item.FileName" class=" ml-2 btn btn-primary btn-sm float-right ml-2">Download</a>
+
+                                    @*<button onclick="AuditController.deleteIssueFile('@item.Id' ,'@item.FileName')" class=" ml-2 btn btn-danger btn-sm float-right" type="button">Delete</button>*@
+
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+
+                }
+
+                @if (Model.Edit.Equals("issue", StringComparison.CurrentCultureIgnoreCase))
+                {
+
+                    <div class="row">
+                        <div class="col-6">
+
+                            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+                            {
+
+                                <button type="button" class="button sslUpdate frm_Audit_IssuebtnMainSave pt-1 btnSaveIssue"> Update</button>
+                                <button type="button" class="button btnPost sslPost AuditIssuePost">Post</button>
+
+                                if (Model.IsPost.Equals("Y", StringComparison.OrdinalIgnoreCase))
+                                {
+
+                                    <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" data-target="#modal-IssueSubmit">UnPost</button>
+
+                                }
+                                else
+                                {
+                                    <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-IssueSubmit">UnPost</button>
+
+                                }
+
+                            }
+                            else
+                            {
+
+                                <button type="button" class="button sslSave frm_Audit_IssuebtnMainSave pt-1 btnSaveIssue">
+                                    Save &nbsp;
+                                </button>
+
+                                <button class="button btnPost sslPost AuditIssuePost" type="button" id="SavePost" style="display:none;">Post</button>
+
+
+                                <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-IssueSubmit">UnPost</button>
+
+
+                            }
+
+
+                            @*@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+                        {
+                        <button type="button" class="button sslUpdate frm_Audit_IssuebtnMainSave pt-1 btnSaveIssue"> Update</button>
+
+                        <button type="button" class="button btnPost sslPost">Post</button>
+
+
+                        }
+                        else
+                        {
+                        <button type="button" class="button sslSave frm_Audit_IssuebtnMainSave pt-1 btnSaveIssue">
+                        Save &nbsp;
+                        </button>
+
+
+                        <button class="button btnPost sslPost" type="button" id="SavePost" style="display:none;">Post</button>
+
+                        }*@
+                            <button type="button" class="button sslUnPost  pt-1" onclick="resetForm('frm_Audit_Issue',['IssueDetails'])">Reset</button>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-2">
+                            @*<button type="button" class="btn btn-outline-secondary  pt-1" onclick="resetForm('frm_Audit_Issue',['IssueDetails'])">Reset</button>*@
+
+                            @*<button type="button" class="button sslUnPost  pt-1" onclick="resetForm('frm_Audit_Issue',['IssueDetails'])">Reset</button>*@
+                        </div>
+                    </div>
+
+
+                }
+
+                <div style="display: none; width: 100%;background-color: whitesmoke;" id="allSectionsIssueUser">
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            @*<i class="fa fa-plus"></i>*@
+                            <button type="button" title="Add Email Details" id="addIssueAuditUser" class="button NewButton addNewButton mb-2">Add User Email</button>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered" id="issueUserAudit" style="width: 100% !important;">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="UserBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+            @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+            <button type="button" class="button sslClose" data-dismiss="modal">
+                <i class="fas fa-times-circle"></i>  Close
+            </button>
+
+        </div>
+    </div>
+</div>
+
+

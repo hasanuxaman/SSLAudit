@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BankEntrynumber\**" />
+    <EmbeddedResource Remove="BankEntrynumber\**" />
+    <None Remove="BankEntrynumber\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shampan.Core\Shampan.Core.csproj" />
+    <ProjectReference Include="..\Shampan.Models\Shampan.Models.csproj" />
+    <ProjectReference Include="..\Shampan.Repository.SqlServer\Shampan.Repository.SqlServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ACCPAC.Advantage">
+      <HintPath>..\Package\ACCPAC.Advantage.dll</HintPath>
+      <CopyLocal>True</CopyLocal>
+    </Reference>
+    <Reference Include="ACCPAC.Advantage.Types">
+      <HintPath>..\Package\ACCPAC.Advantage.Types.dll</HintPath>
+      <CopyLocal>True</CopyLocal>
+    </Reference>
+    <Reference Include="Interop.AccpacCOMAPI">
+      <HintPath>..\..\..\DBH\WindowsFormsApplication3\WindowsFormsApplication3\Package\Interop.AccpacCOMAPI.dll</HintPath>
+      <CopyLocal>True</CopyLocal>
+    </Reference>
+  </ItemGroup>
+
+</Project>

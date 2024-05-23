@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "wwwroot/AdminLte/CSS/CustomsWithMinCSS.css",
+    "inputFile": "wwwroot/AdminLte/CSS/CustomsWithMinCSS.scss"
+  },
+  {
+    "outputFile": "wwwroot/AdminLte/CSS/Custom.css",
+    "inputFile": "wwwroot/AdminLte/CSS/Custom.scss"
+  }
+]

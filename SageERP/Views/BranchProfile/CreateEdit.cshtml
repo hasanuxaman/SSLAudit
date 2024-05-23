@@ -1,0 +1,310 @@
+﻿@model Shampan.Models.BranchProfile
+
+@{
+	ViewData["Title"] = "Index";
+	//var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Branch Profile Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/BranchProfile","Index"},
+    {"","Index"},
+}})
+<link href="~/css/button.css" rel="stylesheet" />
+<div class="container-fluid">
+
+
+	<form id="frm_Branch">
+		<div class="card card-secondary">
+			<div class="card-header">
+				<h3 class="card-title">Create Branch Profile </h3>
+			</div>
+			<div class="card-body">
+				@Html.HiddenFor(model => model.BranchID)
+
+				@*@Html.HiddenFor(model => model.RequisitionNo)*@
+				@Html.HiddenFor(model => model.Operation)
+				<div class="form-group row">
+
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.BranchCode)
+						@Html.TextBoxFor(Model =>Model.BranchCode , new { @class = "  form-control form-control-sm" })
+						@Html.ValidationMessageFor(model => model.BranchCode)
+
+					</div>
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.BranchName)
+						<div class="input-group ">
+							@Html.TextBoxFor(model => model.BranchName, new { @class = "  form-control form-control-sm " })
+
+						</div>
+						@Html.ValidationMessageFor(model => model.BranchName)
+
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.BranchLegalName)
+						@Html.TextAreaFor(model => model.BranchLegalName, new { @class = "  form-control form-control-sm " })
+
+						@Html.ValidationMessageFor(model => model.BranchLegalName)
+					</div>
+
+
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.Address)
+						@Html.TextAreaFor(model => model.Address,  new {  @class = "form-control form-control-sm"})
+						@Html.ValidationMessageFor(model => model.Address)
+
+					</div>
+
+
+				</div>
+
+
+				<div class="form-group row">
+
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.TelephoneNo)
+						<div class="input-group ">
+							@Html.TextBoxFor(model => model.TelephoneNo, new { @class = "  form-control form-control-sm " })
+
+						</div>
+						@Html.ValidationMessageFor(model => model.TelephoneNo)
+					</div>
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.FaxNo)
+						@Html.TextBoxFor(model => model.FaxNo, new { @class = "  form-control form-control-sm "})
+						@Html.ValidationMessageFor(model => model.FaxNo)
+
+
+					</div>
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.Email)
+						@Html.TextBoxFor(model => model.Email, new { @class = "  form-control form-control-sm " })
+						@Html.ValidationMessageFor(model => model.Email)
+
+
+					</div>
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.City)
+						@Html.TextAreaFor(model => model.City,  new {  @class = "form-control form-control-sm" })
+						@Html.ValidationMessageFor(model => model.City)
+
+					</div>
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.ZipCode)
+						<div class="input-group date">
+							@Html.TextBoxFor(model => model.ZipCode, new { @class = "  form-control form-control-sm" })
+
+						</div>
+						@Html.ValidationMessageFor(model => model.ZipCode)
+
+					</div>
+
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.ContactPerson)
+						@Html.TextBoxFor(model => model.ContactPerson, new { @class = "  form-control form-control-sm " })
+						@Html.ValidationMessageFor(model => model.ContactPerson)
+
+
+					</div>
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.ContactPersonDesignation)
+						<div class="input-group ">
+							@Html.TextBoxFor(model => model.ContactPersonDesignation, new { @class = "  form-control form-control-sm " })
+
+						</div>
+						@Html.ValidationMessageFor(model => model.ContactPersonDesignation)
+					</div>
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.ContactPersonTelephone)
+						@Html.TextBoxFor(model => model.ContactPersonTelephone, new { @class = "  form-control form-control-sm " })
+						@Html.ValidationMessageFor(model => model.ContactPersonTelephone)
+
+
+					</div>
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.ContactPersonEmail)
+						@Html.TextBoxFor(model => model.ContactPersonEmail, new { @class = "  form-control form-control-sm "})
+
+						@Html.ValidationMessageFor(model => model.ContactPersonEmail)
+
+					</div>
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.Comments)
+						@Html.TextAreaFor(model => model.Comments, new { @class = "  form-control form-control-sm " })
+
+
+					</div>
+
+					<div class="col-sm-2">
+						<label>
+
+							ActiveStatus
+							@Html.CheckBoxFor(model => model.ActiveStatus, new { @class = "form-control form-control-sm", style = "margin-right: 5px;" })
+						</label>
+					</div>
+
+
+				</div>
+
+
+
+
+
+				<div class="form-group row">
+
+
+					<div class="col-sm-2">
+                        @Html.LabelFor(model => model.CogsCode)
+                        <div class="input-group ">
+							@Html.TextBoxFor(model => model.CogsCode, new { @class = "  form-control form-control-sm " })
+                            <div class="input-group-append"><button class="btn btn-success btn-sm btn-cogscode" type="button"><i class='fa fa-search'></i></button></div>
+                        </div>
+						@Html.ValidationMessageFor(model => model.CogsCode)
+
+                     </div>
+
+					<div class="col-sm-2">
+					
+						@Html.LabelFor(model => model.CogsCodeDescription)					
+						@Html.TextAreaFor(model => model.CogsCodeDescription, new { @class = "  form-control form-control-sm " ,@readonly="readonly"})
+						
+
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.TaxCode)
+						<div class="input-group ">
+							@Html.TextBoxFor(model => model.TaxCode, new { @class = "  form-control form-control-sm " })
+							<div class="input-group-append"><button class="btn btn-success btn-sm btn-taxcode" type="button"><i class='fa fa-search'></i></button></div>
+						</div>
+						@Html.ValidationMessageFor(model => model.TaxCode)
+
+					</div>
+
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.TaxCodeDescription)
+						
+						@Html.TextAreaFor(model => model.TaxCodeDescription, new { @class = "  form-control form-control-sm " ,@readonly="readonly"})
+
+
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.VatCode)
+						<div class="input-group ">
+							@Html.TextBoxFor(model => model.VatCode, new { @class = "  form-control form-control-sm " })
+							<div class="input-group-append"><button class="btn btn-success btn-sm btn-vatcode" type="button"><i class='fa fa-search'></i></button></div>
+						</div>
+						@Html.ValidationMessageFor(model => model.VatCode)
+
+					</div>
+
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.VatCodeDescription)
+						
+						@Html.TextAreaFor(model => model.VatCodeDescription, new { @class = "  form-control form-control-sm " ,@readonly="readonly"})
+
+
+					</div>
+
+
+				</div>
+				<div class="form-group row">
+				
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.CompanyCode)
+						@Html.TextBoxFor(model => model.CompanyCode, new { @class = "  form-control form-control-sm " })
+						@Html.ValidationMessageFor(model => model.CompanyCode)
+
+
+					</div>
+                    <div class="col-sm-4">
+
+                        @Html.LabelFor(model => model.CompanyName)
+                        @Html.TextBoxFor(model => model.CompanyName, new { @class = "  form-control form-control-sm " })
+                        @Html.ValidationMessageFor(model => model.CompanyName)
+
+
+                    </div>
+					
+                    <div class="col-sm-6">
+
+                        @Html.LabelFor(model => model.CompanyAddress)
+						@Html.TextAreaFor(model => model.CompanyAddress, new { @class = "  form-control form-control-sm " })
+
+
+                    </div>
+
+				
+
+
+
+
+
+                </div>
+
+
+			</div>
+		</div>
+	</form>
+
+
+
+
+
+	<div class="card">
+		<div class="card-header p-2">
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+			   <button type="button" class="button btnsave sslUpdate">Update</button>
+			   <button type="button" class="button btnDelete sslUnPost">Delete</button>
+			}
+			else
+			{
+				<button class="button btnsave sslSave" type="button" id="">Save</button>
+
+			}
+		</div>
+	</div>
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+
+	<script src="/js/app/Services/BranchProfileService.js"></script>
+	<script src="/js/app/Controllers/BranchProfileController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			BranchProfileController.init();
+
+		});
+
+	</script>
+
+
+}

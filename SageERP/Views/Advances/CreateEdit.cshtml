@@ -1,0 +1,291 @@
+﻿@model Shampan.Models.Advances
+
+@{
+	ViewData["Title"] = "Index";
+	////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Advance Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Advances","Index"},
+    {"","Index"},
+}})
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="modal fade" id="modal-default" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="col-sm-12">
+					@Html.LabelFor(model => model.ReasonOfUnPost)
+					<div class="input-group ">
+						@Html.TextArea("ReasonOfUnPost",null, new { @class = "  form-control form-control-sm " ,@id="UnPostReason"})
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="modelClose">Close</button>
+				<button type="button" class="btn btn-primary Submit">Submit</button>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<div class="modal fade" id="modal-defaultReject" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="col-sm-12">
+					@Html.LabelFor(model => model.RejectedComments)
+					<div class="input-group ">
+						@Html.TextArea("RejectedComments",null, new { @class = "  form-control form-control-sm " ,@id="RejectedComments"})
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="modelClose">Close</button>
+				<button type="button" class="btn btn-primary RejectSubmit">Submit</button>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+<div class="modal fade" id="modal-defaultApproved" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="col-sm-12">
+					@Html.LabelFor(model => model.CommentsL1)
+					<div class="input-group ">
+						@Html.TextArea("CommentsL1",null, new { @class = "  form-control form-control-sm " ,@id="CommentsL1"})
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="modelClose">Close</button>
+				<button type="button" class="btn btn-primary ApprovedSubmit">Submit</button>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+
+
+	<form id="frm_Advances">
+		<div class="card card-secondary">
+
+
+			<div class="card-header">
+				<h3 class="card-title">Create Advance</h3>
+			</div>
+
+
+			<div class="card-body">
+
+				@Html.HiddenFor(model => model.Id)
+				@Html.HiddenFor(model => model.Operation)
+				@Html.HiddenFor(model => model.IsPost)
+				@Html.HiddenFor(model => model.Edit)
+
+
+				<div class="form-group row">
+
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.Code)
+						@Html.TextBoxFor(Model =>Model.Code , new { @class = "  form-control form-control-sm",@readonly="readonly" })
+						@Html.ValidationMessageFor(model => model.Code)
+
+					</div>
+
+
+					<div class="col-sm-2">
+
+                        @Html.LabelFor(model => model.TeamId)
+                        @Html.DropDownListFor(model => model.TeamId,Enumerable.Empty<SelectListItem>(),  new {  @class = "form-control form-control-sm",@data_selected=Model.TeamId })
+                        @Html.ValidationMessageFor(model => model.TeamId)
+
+                    </div>
+
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.AuditId)
+						@Html.DropDownListFor(model => model.AuditId,Enumerable.Empty<SelectListItem>(),  new {  @class = "form-control form-control-sm",@data_selected=Model.AuditId })
+						@Html.ValidationMessageFor(model => model.AuditId)
+
+                    </div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.AdvanceDate)
+						<div class="input-group date">
+							@Html.TextBoxFor(model => model.AdvanceDate, new { @class = "  form-control form-control-sm dateRange" })
+							<div class="input-group-append">
+								<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.AdvanceAmount)
+						@Html.TextBoxFor(model => model.AdvanceAmount, new { @class = "  form-control form-control-sm ",@type="number" })
+
+					</div>
+
+					<div class="col-sm-4">
+						@Html.LabelFor(model => model.Description)
+						@Html.TextAreaFor(Model =>Model.Description , new { @class = "  form-control form-control-sm"})
+						@Html.ValidationMessageFor(model => model.Description)
+
+				    </div>
+
+				</div>
+
+
+			</div>
+		</div>
+	</form>
+
+
+
+	@*<div class="card">
+		<div class="card-header p-2">
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+				<button type="button" class="button btnsave sslUpdate">Update</button>
+			}
+			else
+			{
+				<button class="button btnsave sslSave" type="button" id="">Save</button>
+			}
+		</div>
+	</div>*@
+
+	@if (Model.Edit.Equals("approve", StringComparison.OrdinalIgnoreCase))
+	{
+		<div class="card">
+			<div class="card-header p-2">
+				<button type="button" class="button btnReject sslUnPost" data-toggle="modal" data-target="#modal-defaultReject">Reject</button>
+				<button type="button" class="button btnApproved sslUpdate" data-toggle="modal" data-target="#modal-defaultApproved">Approved</button>
+			</div>
+		</div>
+	}
+	else
+	{
+	<div class="card">
+		<div class="card-header p-2">
+
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+				<button type="button" class="button btnsave sslUpdate">Update</button>
+				<button type="button" class="button btnPost sslPost">Post</button>
+
+				
+					if (Model.IsPost.Equals("Y", StringComparison.OrdinalIgnoreCase))
+					{
+					
+						<button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" data-target="#modal-default">UnPost</button>
+
+
+
+					@*<button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" data-target="#modal-defaultReject">Reject</button>
+					<button type="button" class="button btnUnPost sslUpdate" data-toggle="modal" data-target="#modal-defaultApproved">Approved</button>*@
+					}
+					else
+					{
+						<button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-default">UnPost</button>
+
+
+					@*<button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-defaultReject">Reject</button>
+					<button type="button" class="button btnUnPost sslUpdate" data-toggle="modal" style="display:none;" data-target="#modal-defaultApproved">Approved</button>*@
+
+
+					}
+
+
+				
+					
+			
+				 
+			}
+			else
+			{
+				<button class="button btnsave sslSave" type="button" id="">Save</button>
+				<button class="button btnPost sslPost" type="button" id="SavePost" style="display:none;">Post</button>
+		
+
+				<button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-default">UnPost</button>
+
+
+
+
+				@*<button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-defaultReject">Reject</button>
+				<button type="button" class="button btnUnPost sslUpdate" data-toggle="modal" style="display:none;" data-target="#modal-defaultApproved">Approved</button>*@
+						
+			}
+
+		</div>
+	</div>
+		
+	}
+
+
+
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+	<script src="/js/app/Services/AdvancesService.js"></script>
+	<script src="/js/app/Services/AdvanceApproveStatusService.js"></script>
+
+
+
+	<script src="/js/app/Controllers/AdvancesController.js"></script>
+	<script src="/js/app/Controllers/AdvanceApproveStatusController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			AdvancesController.init();
+
+			AdvanceApproveStatusController.init();
+
+		});
+
+	</script>
+
+
+}

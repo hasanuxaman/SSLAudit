@@ -1,0 +1,141 @@
+﻿@using Shampan.Models
+@using Shampan.Models.AuditModule
+@model Shampan.Models.AuditModule.AuditFeedback
+@{
+    ViewData["Title"] = "Create";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    var UserId = @User.Identity.Name;
+}
+else
+{
+    <script>window.location.href = '@Url.Action("Index", "Login")';</script>
+}
+
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit Feedback Create", BreadCrums = new Dictionary<string, string>()
+{
+    {$"/AuditFeedback/index/{@Model.AuditId}","Audit Feedback"},
+    {"","Create"},
+}})
+
+
+<div class="container-fluid">
+
+    @using (Html.BeginForm("CreateEdit", "AuditFeedback", FormMethod.Post, new { @Id = "frm_Audit" }))
+    {
+        <!-- Master Start-->
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Audit Feedback </h3>
+            </div>
+            <div class="card-body">
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.AuditId)
+
+                @Html.HiddenFor(model => model.Operation)
+
+                <div class="form-group row">
+
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.AuditIssueId)
+                        @*@Html.TextBoxFor(model => model.AuditIssueId, new { @class = "  form-control input-sm" })*@
+                        @Html.DropDownListFor(model => model.AuditIssueId, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.AuditIssueId})
+                        @Html.ValidationMessageFor(model => model.AuditIssueId)
+                    </div>
+
+
+
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.Heading)
+                        @Html.TextAreaFor(model => model.Heading, new { @class = "  form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.Heading)
+                    </div>
+
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.FeedbackDetails)
+                        @Html.TextAreaFor(model => model.FeedbackDetails, new { @class = "  form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.FeedbackDetails)
+                    </div>
+
+
+                </div>
+
+
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        <div class="editor-label">
+                            <label>Attachments</label>
+                        </div>
+                        <input type="file" accept=".jpg,.jpeg, .png,.pdf, .xls, .xlsx,.docx" id="fileToUpload" name="Attachments" multiple="multiple" />
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <ul class="list-group fileGroup">
+
+                        @foreach (AuditFeedbackAttachments item in Model.AttachmentsList)
+                        {
+                            <li class="list-group-item" id="file-@item.Id">
+                                <span>
+                                    @item.DisplayName
+                                </span>
+                                <a target="_blank" href="/AuditIssue/DownloadFile?filePath=@item.FileName" class=" ml-2 btn btn-primary btn-sm float-right ml-2">Download</a>
+
+                                <button onclick="AuditFeedbackController.deleteFile('@item.Id' ,'@item.FileName')" class=" ml-2 btn btn-danger btn-sm float-right" type="button">Delete</button>
+
+
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Master End-->
+    }
+
+
+</div>
+
+
+
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+            {
+                <button type="button" class="btn btn-primary  pt-1 btnSave">Update</button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-primary  pt-1 btnSave">
+                    <i class="fa fa-save"></i>
+                    Save
+                </button>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="/js/app/Services/AuditFeedback/AuditFeedbackService.js"></script>
+    <script src="/js/app/Controllers/AuditFeedback/AuditFeedbackController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            AuditFeedbackController.init();
+        });
+
+    </script>
+
+
+}

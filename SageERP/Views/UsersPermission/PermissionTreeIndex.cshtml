@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "PermissionTreeIndex";
+}
+
+<h1>PermissionTreeIndex</h1>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Local jstree Scripts -->
+<link rel="stylesheet" href="~/lib/jstree-3.x.x/dist/themes/default/style.min.css" />
+<script src="~/lib/jstree-3.x.x/dist/jstree.min.js"></script>
+
+<form>
+    <div id="demoTree" style="height:300px"></div>
+    <div>
+        <input type="submit" value="Submit" id="btnSubmit" />
+    </div>
+</form>
+
+<script>
+    // Check if jQuery and jstree are defined
+    if (typeof jQuery !== 'undefined' && typeof jQuery.fn.jstree !== 'undefined') {
+        $(document).ready(function () {
+            $("#demoTree").jstree({
+                core: {
+                    themes: {
+                        name: "default",
+                        dots: false,
+                        icons: false
+                    }
+                },
+                plugins: ["checkbox", "json_data"],
+                json_data: {
+                    ajax: {
+                        type: "POST",
+                        url: "/UsersPermission/GetTreeData",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: function () {
+                            // Any additional data you want to send with the request
+                            return {};
+                        }
+                    }
+                }
+            });
+        });
+    } else {
+        console.error('jQuery or jstree is not defined. Check library paths and loading order.');
+    }
+</script>

@@ -1,0 +1,136 @@
+﻿
+@model Shampan.Models.AuditModule.AuditMaster
+
+
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit Excel Data", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Audit","Audit"},
+    {"","Index"},
+}})
+
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+
+@{
+    ViewData["Title"] = "ExcelCreateEdit";
+
+    List<Shampan.Models.AuditModule.AuditMaster> auditlist = ViewBag.AuditList as List<Shampan.Models.AuditModule.AuditMaster>;
+
+    if (auditlist == null)
+    {
+        auditlist = new List<Shampan.Models.AuditModule.AuditMaster>();
+    }
+
+
+
+}
+
+<div class="container-fluid">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+            @Html.HiddenFor(model => model.Edit)
+
+
+        </div>
+
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="ExcelAuditList">
+                    <thead>
+                        <tr>
+
+                            <th>Audit Name</th>
+                            <th>Audit Start Date</th>
+                            <th>Audit End Date</th>
+                            <th>Audit Planed</th>
+                            <th>Audit Type</th>
+                            <th>Audit Status</th>
+                            <th>Team Name</th>
+                            <th>Branch Name</th>
+                            <th>Business Target</th>
+                            <th>Remarks</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var audit in auditlist)
+                        {
+                            <tr>
+                                <td>@audit.Name</td>
+                                <td>@audit.StartDate</td>
+                                <td>@audit.EndDate</td>
+                                <td>@audit.IsPlaned</td>
+                                <td>@audit.AuditTypeName</td>
+                                <td>@audit.AuditStatus</td>
+                                <td>@audit.TeamName</td>
+                                <td>@audit.BranchID</td>
+                                <td>@audit.BusinessTarget</td>
+                                <td>@audit.Remarks</td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="card">
+        <div class="card-header p-2">
+            @*<button class="button btnSave sslSave" type="button" id="">Save</button>*@
+            <button class="button btnExcelSave sslSave" type="button" id="">ExcelSave</button>
+        </div>
+        <div class="card-header p-2">
+            
+
+            <a href="/Audit/ExcelIndex" class="sslSave">Back To Excel</a>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+@section scripts{
+    <script src="/js/app/Services/CommonService.js"></script>
+
+    <script src="/js/app/Services/AuditFeedBack/AuditFeedbackService.js"></script>
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Services/Audit/AuditService.js"></script>
+    <script src="/js/app/Controllers/Audit/AuditController.js"></script>
+
+    <script src="/js/app/controllers/dashcontroller.js"></script>
+
+    <script src="/js/app/Services/AuditApproveStatusService.js"></script>
+    <script src="/js/app/Controllers/AuditApproveStatusController.js"></script>
+
+
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            AuditController.init();
+
+
+        });
+
+    </script>
+
+
+    }

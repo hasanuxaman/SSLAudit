@@ -1,0 +1,59 @@
+﻿@model Shampan.Models.AuditReportHeading
+
+
+<div class="modal-dialog draggable modal-lg" role="document" style="max-width:70%;">
+	<div class="modal-content" style="width:100%;">
+		<div class="modal-header">
+			<h4 class="modal-title">See All Details</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		</div>
+		<div class="modal-body">
+
+			<form id="SeeAllReport">
+
+				@Html.HiddenFor(model => model.Id, new {@Id = "AuditReportId"})
+				@Html.HiddenFor(model => model.AuditId)
+				@Html.HiddenFor(model => model.Operation, new {@Id = "AuditReportOperation"})
+
+
+
+				<div class="row">
+					<div class="col-sm-12">
+						@Html.Label("AuditSeeAll Details")
+						@Html.TextAreaFor(model => model.AuditSeeAllDetails, new { @class = "auditSeeAllSummerNote  form-control input-sm",@data_ck = "true" })
+
+						@*@Html.TextBoxFor(model => model.AreaDetails, new {@class = "  form-control input-sm", @data_ck = "true"})*@
+					</div>
+				</div>
+
+			</form>
+
+
+
+				@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+				{
+				<button type="button" class="button sslUpdate AuditAreasbtnMainSave pt-1 btnSaveSeeAllReport">Update &nbsp;</button>
+
+				
+
+				}
+				else
+				{
+				<button type="button" class="button sslSave AuditAreasbtnMainSave pt-1 btnSaveSeeAllReport">Save &nbsp;</button>
+
+				
+
+				}
+
+
+		</div>
+
+		<div class="modal-footer">
+			
+			<button type="button" class="button sslUnPost" data-dismiss="modal">Close</button>
+
+		</div>
+
+
+	</div>
+</div>

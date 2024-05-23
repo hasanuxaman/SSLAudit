@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="ACCPAC.Advantage">
+      <HintPath>..\..\..\DBH\WindowsFormsApplication3\WindowsFormsApplication3\Package\ACCPAC.Advantage.dll</HintPath>
+    </Reference>
+    <Reference Include="ACCPAC.Advantage.Types">
+      <HintPath>..\..\..\DBH\WindowsFormsApplication3\WindowsFormsApplication3\Package\ACCPAC.Advantage.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.AccpacCOMAPI">
+      <HintPath>..\..\..\DBH\WindowsFormsApplication3\WindowsFormsApplication3\Package\Interop.AccpacCOMAPI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

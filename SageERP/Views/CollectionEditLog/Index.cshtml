@@ -1,0 +1,93 @@
+﻿@model Shampan.Models.CollectionEditLog
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+
+<style>
+    .pagination-left {
+        float: left;
+    }
+</style>
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "CollectionEditLog Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/CollectionEditLog","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New BankEntry"
+                    data-url="/CollectionEditLog/Create" onclick="GoTo(this)"
+                    id="" class="button NewButton addNewButton">
+                New
+            </button>
+
+
+        </div>
+    </div>
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" style="width:100%" id="CollectionEditLogList">
+                    <thead>
+                        <tr>
+
+                            <th class="action">&nbsp;Action</th>
+
+                            <th>MR</th>
+                            <th>PC Name</th>
+                            <th>User Id</th>
+                            <th>Edit Date</th>
+                            <th>Status</th>
+                            <th>Sl No</th>
+                            <th>Deposit</th>
+                            <th>Deposit Date</th>
+                            <th>Record</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    <script src="/js/app/Services/CollectionEditLogService.js"></script>
+    <script src="/js/app/Controllers/CollectionEditLogController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            CollectionEditLogController.init();
+
+
+        });
+
+    </script>
+    }
+

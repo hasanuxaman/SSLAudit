@@ -1,0 +1,484 @@
+﻿@model Shampan.Models.Tours
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/button.css" rel="stylesheet" />
+<link href="~/css/tourreport.css" rel="stylesheet" />
+
+<div class="container-fluid">
+
+
+    <div class="row no-print">
+        <div class="col-lg-6 col-md-6 col-sm-2 col-xs-2 pull-right">
+            <a id="printButton" class="btn btn-success pull-right">Print</a>
+        </div>
+    </div>
+
+
+
+    <div class="row ">
+
+
+        <div id="gdLabelContainer"></div>
+
+        @*Heading*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+
+                                        @*<td id="Heading" style="text-align: center;background-color: gray !important;"><strong>Approval For Official Tour</strong></td>*@
+                                        <td id="Heading"><strong>Approval For Official Tour</strong></td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*Date*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+
+                                        <td id="DatePart" style="width: 20%; text-align: left;"><strong>Date :  </strong></td>
+                                        <td id="DatePart" style="width: 80%; text-align: left;"><strong>@Model.Date</strong> </td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*Name*@
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+                                    <tr>
+
+                                        <td id="NamePart" style="width: 20%; text-align: left;"><strong>Name Of Officer :  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.Name</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+
+                                        <td id="NamePart" style="width: 20%; text-align: left;"><strong>Designation :  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.Designation</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*Department*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 12%; text-align: left;"><strong>Department / Branch :  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.BranchName</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*Visit*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 12%; text-align: left;"><strong>Purpose Of Audit :  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.VisitPurpose</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*Duration*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 15%; text-align: left;"><strong>Duration From :  </strong></td>
+                                        <td id="NamePart" style="width: 20%; text-align: left;"><strong>@Model.FromDate</strong> </td>
+
+                                        <td id="NamePart" style="width: 20%; text-align: left;"><strong>To :  </strong></td>
+                                        <td id="NamePart" style="width: 20%; text-align: left;"><strong>@Model.ToDate</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+
+                                        <td id="NamePart" style="width: 20%; text-align: left;"><strong>Total :  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.DayCount Days (including travel days)</strong> </td>
+
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*Transport*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 12%; text-align: left;"><strong>Mode Of Transport :  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.Transport</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*Amount*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 12%; text-align: left;"><strong>Amount Of Advance Required :  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.Amount</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*InWort*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 12%; text-align: left;"><strong>In Word:  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.Word Taka Only</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*Remarks*@
+
+        <div class="col-md-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 12%; text-align: left;"><strong>Remarks,if Any  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.Description</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <p>Submitted For Approval Please.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <p class="applicants-text">  <strong>Signature Of Applicants</strong> </p>
+
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <p class="underline-text"> <strong>Signature Of Hepartment Head</strong>  </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+@section scripts{
+
+
+    <script>
+        $(document).ready(function () {
+
+            $('#printButton').on('click', function () {
+                //window.print();
+
+                var gdImage = new Image();
+                gdImage.src = "/images/d.png";
+                gdImage.alt = "GD Image";
+                gdImage.className = "gd-image";
+                gdImage.width = 200;
+                gdImage.height = 100;
+
+
+                gdImage.onload = function () {
+
+                    $('#gdLabelContainer').prepend(gdImage);
+                    window.print();
+                    gdImage.remove();
+
+                };
+
+            });
+
+        });
+
+    </script>
+
+
+}
+
+
+
+@*@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $('#printButton').on('click', function () {
+                window.print();
+            });
+        });
+
+    </script>
+
+}*@

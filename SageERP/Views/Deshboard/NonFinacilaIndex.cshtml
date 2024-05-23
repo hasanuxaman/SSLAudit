@@ -1,0 +1,87 @@
+﻿@model Shampan.Models.PrePaymentMaster
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "NonFinancial Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Deshboard","NonFinacilaIndex"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New NorFinancial"
+                    data-url="/Deshboard/NonFinacilaCreate" onclick="GoTo(this)"
+                    id="" class="button NewButton addNewButton">
+                New
+            </button>
+        </div>
+    </div>
+
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" style="width:100%" id="NonFinancialList">
+                    <thead>
+                        <tr>
+
+                            <th class="action">&nbsp;Action</th>
+                         
+                            <th>Code</th>
+                            <th>Auditor</th>
+                            <th>Employee Name</th>
+                            <th>Details</th>
+                            <th>FinalCorrection Date</th>
+                            <th>Previous Amount</th>
+                            <th>Corrected Amount</th>
+                            <th>Additional Payment</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    <script src="/js/app/Services/DeshboardEntryService.js"></script>
+    <script src="/js/app/Controllers/DeshboardEntryController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            DeshboardEntryController.init();
+
+
+        });
+
+    </script>
+    }
+

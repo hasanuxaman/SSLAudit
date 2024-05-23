@@ -1,0 +1,256 @@
+﻿@model Shampan.Models.AuditModule.AuditMaster
+
+
+@{
+    ViewData["Title"] = "Index";
+    var edit = Model.Edit;
+    int end = 0;
+}
+
+
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Audit","Audit"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<style>
+    .visible-icon {
+        display: inline-block;
+    }
+
+
+    /* .hidden-icon:disabled {
+                    background-color: #dddddd;
+                    color: #999999;
+
+                }*/
+
+    .hidden-icon {
+        display: none;
+    }
+
+    .blue-icon {
+        color: blue;
+    }
+
+    .red-icon {
+        color:red;
+    }
+    .pagination-left {
+        float: left;
+    }
+
+
+</style>
+
+
+@if (edit == "Audit")
+{
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header p-2">
+
+                <button type="button" title="Add New Audit"
+                        data-url="/Audit/Create" onclick="GoTo(this)"
+                        id="" class="button NewButton addNewButton">
+                    New
+                </button>
+                <button type="button" title=""
+                        id="PostAU" class="button sslPost">
+
+                    Post
+                </button>
+
+            </div>
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="card-header p-2">
+                <h5>Filters</h5>
+            </div>
+            <div class="card-body p-2">              
+                <div class="form-group row">
+                    &nbsp;   &nbsp;&nbsp;
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.FromDate)
+                        <div class="input-group date">
+                            @Html.TextBoxFor(model => model.FromDate, new { @class = "  form-control form-control-sm dateRange" })
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.ToDate)
+                        <div class="input-group date">
+                            @Html.TextBoxFor(model => model.ToDate, new { @class = "  form-control form-control-sm dateRange" })
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1" style="margin-top: 28px;">
+                        <button type="button" id="indexSearch" class="buttonn searchButton">
+                            Search
+                        </button>
+                    </div>
+
+                    <div class="col-sm-1" style="margin-top: 28px;">
+                        <button type="button" id="download" class="buttonn excelButton">
+                            &nbsp;
+                            Excel
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+}
+
+
+   
+<div class="container-fluid">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Engagement
+            </h3>
+
+            @Html.HiddenFor(model => model.Edit)
+
+
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" id="AuditList">
+                    <thead>
+                        <tr>
+
+                            <th class="action"><input type="checkbox" class="chkAll" style="width: 100px;" />&nbsp;Action</th>
+                            @*<th>Action</th>*@
+                             <th class="private">SL</th>
+                            <th>Code </th>
+                            <th>Name</th>
+                            <th>Branch Name</th>
+                            <th>Audit Type</th>
+                            <th>Audit Status</th>
+                            <th>Issue Status</th>
+                            <th>Total Issues</th>
+                            <th class="plan">Audit Plan</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            @*<th hidden>Approved Level</th>*@
+                            @*<th>Approved Level</th>*@                        
+                            <th class="auditapprove">Audit Approve</th>                       
+                            @*<th class="issuecomplete">Issue Complete</th>*@
+                            @*<th hidden>CompleteFeedback</th>*@
+                            <th class="feedbackcomplete">Feedback</th>
+                            <th class="branchfeedbackcomplete">BranchFeedback</th>
+                            @*<th>IssueStatus</th>*@
+                            <th class="bool">Post</th>
+                            @*<th>Post</th>*@
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<div id="forauditstatusModal" class="modal fade"></div>
+
+
+
+
+@section scripts{
+
+    <script src="/js/app/Services/AuditFeedBack/AuditFeedbackService.js"></script>
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Services/Audit/AuditService.js"></script>
+    <script src="/js/app/Controllers/Audit/AuditController.js"></script>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+
+            AuditController.init();
+
+
+            //function autoReloadPageOnce() {
+            //	location.reload();
+            //}
+
+
+            //window.addEventListener('load', function () {
+            //	autoReloadPageOnce();
+            //});
+
+
+
+            //function autoReloadPage() {
+            //	setTimeout(function () {
+            //		location.reload();
+            //	}, 1000);
+            //}
+
+            //window.addEventListener('load', function () {
+            //	autoReloadPage();
+            //});
+
+            //var pageReloaded = false;
+            //var eventliser = true;
+
+            //function autoReloadPageOnce() {
+            //	if (!pageReloaded) {
+            //		location.reload();
+            //		pageReloaded = true;
+            //	}
+            //}
+
+            //      if(eventliser)
+            //{
+            //	window.addEventListener('load', function () {
+            //		autoReloadPageOnce();
+            //		eventliser=false;
+            //	});
+            //}
+
+
+        });
+
+
+
+
+
+
+    </script>
+}

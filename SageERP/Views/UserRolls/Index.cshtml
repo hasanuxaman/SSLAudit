@@ -1,0 +1,91 @@
+﻿@model Shampan.Models.UserRolls
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "User Rolls", BreadCrums = new Dictionary<string, string>()
+{
+    {"/UserRolls","Branch Profile"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New BankEntry"
+                    data-url="/UserRolls/Create" onclick="GoTo(this)"
+                    id="" class="button NewButton addNewButton">
+                New
+            </button>
+
+           
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" style="width:100%" id="UserRollsList">
+                    <thead>
+                        <tr>
+
+                            <th class="action">&nbsp;Action</th>
+                           
+
+                            <th>User Name</th>
+                            <th class="bool">Audit</th>
+                            <th class="bool">Tour</th>
+                            <th class="bool">Advance</th>
+                            <th class="bool">Transport</th>
+                            <th class="bool">Tour Completion Report</th>
+                           
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    <script src="/js/app/Services/UserRollsService.js"></script>
+    <script src="/js/app/Controllers/UserRollsController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            UserRollsController.init();
+
+
+        });
+
+    </script>
+    }
+

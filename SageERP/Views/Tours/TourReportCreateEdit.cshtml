@@ -1,0 +1,187 @@
+﻿@model Shampan.Models.Tours
+
+@{
+    ViewData["Title"] = "Index";
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Tour Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Tours","Index"},
+    {"","Index"},
+}})
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+    <form id="frm_Tours">
+        <div class="card card-secondary">
+
+
+            <div class="card-header">
+                <h3 class="card-title">Create Tour</h3>
+            </div>
+
+
+            <div class="card-body">
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Operation)
+                @Html.HiddenFor(model => model.IsPost)
+                @Html.HiddenFor(model => model.Edit)
+
+
+
+                <div class="form-group row">
+
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Code)
+                        @Html.TextBoxFor(Model =>Model.Code , new { @class = "  form-control form-control-sm",@readonly="readonly" })
+                        @Html.ValidationMessageFor(model => model.Code)
+
+                    </div>
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Name)
+                        @Html.TextAreaFor(Model =>Model.Name , new { @class = "  form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.Name)
+
+                    </div>
+
+
+                    <div class="col-sm-2">
+
+                        @Html.LabelFor(model => model.TeamId)
+                        @Html.DropDownListFor(model => model.TeamId,Enumerable.Empty<SelectListItem>(),  new {  @class = "form-control form-control-sm",@data_selected=Model.TeamId })
+                        @Html.ValidationMessageFor(model => model.TeamId)
+
+                    </div>
+
+                    <div class="col-sm-2">
+
+                        @Html.LabelFor(model => model.AuditId)
+                        @Html.DropDownListFor(model => model.AuditId,Enumerable.Empty<SelectListItem>(),  new {  @class = "form-control form-control-sm",@data_selected=Model.AuditId })
+                        @Html.ValidationMessageFor(model => model.AuditId)
+
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.FromDate)
+                        <div class="input-group date">
+                            @Html.TextBoxFor(model => model.FromDate, new { @class = "  form-control form-control-sm dateRange" })
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.ToDate)
+                        <div class="input-group date">
+                            @Html.TextBoxFor(model => model.ToDate, new { @class = "  form-control form-control-sm dateRange" })
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="form-group row">
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.VisitPurpose)
+                        @Html.TextBoxFor(Model =>Model.VisitPurpose , new { @class = "  form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.VisitPurpose)
+
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Transport)
+                        @Html.TextBoxFor(Model =>Model.Transport , new { @class = "  form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.Transport)
+
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Amount)
+                        @Html.TextBoxFor(model => model.Amount, new { @class = "  form-control form-control-sm ",@type="number" })
+
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Designation)
+                        @Html.TextBoxFor(Model =>Model.Designation , new { @class = "  form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.Designation)
+
+                    </div>
+
+                    <div class="col-sm-4">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextAreaFor(Model =>Model.Description , new { @class = "  form-control form-control-sm"})
+                        @Html.ValidationMessageFor(model => model.Description)
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="card">
+        <div class="card-header p-2">
+
+
+            <button id="downloadButton" title="Report preview" class="button  addNewButton mb-2 mb-2 pull-right ">Print Preview</button>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    <script src="/js/app/Services/ToursService.js"></script>
+    <script src="/js/app/Services/ApproveStatusService.js"></script>
+
+    <script src="/js/app/Controllers/ToursController.js"></script>
+    <script src="/js/app/Controllers/ApproveStatusController.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            ToursController.init();
+            ApproveStatusController.init();
+
+        });
+
+    </script>
+
+
+}

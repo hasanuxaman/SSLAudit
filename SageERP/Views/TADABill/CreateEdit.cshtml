@@ -1,0 +1,256 @@
+﻿@model Shampan.Models.TransportAllownaces
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "TADABill Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/TADABill","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">TADABill Details</h3>
+        </div>
+
+
+
+
+
+        <form id="frm_TransportAllownaces">
+            <div class="card card-secondary">
+
+
+                <div class="card-header">
+                    <h3 class="card-title">Create Transport Allownace</h3>
+                </div>
+
+
+                <div class="card-body">
+
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Operation)
+                    @Html.HiddenFor(model => model.IsPost)
+                    @Html.HiddenFor(model => model.Edit)
+
+                    <div class="form-group row">
+
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Code)
+                            @Html.TextBoxFor(Model =>Model.Code , new { @class = "  form-control form-control-sm",@readonly="readonly" })
+                            @Html.ValidationMessageFor(model => model.Code)
+
+                        </div>
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Name)
+                            @Html.TextBoxFor(Model =>Model.Name , new { @class = "  form-control form-control-sm" })
+                            @Html.ValidationMessageFor(model => model.Name)
+
+                        </div>
+
+
+                        <div class="col-sm-2">
+
+                            @Html.LabelFor(model => model.TeamId)
+                            @Html.DropDownListFor(model => model.TeamId,Enumerable.Empty<SelectListItem>(),  new {  @class = "form-control form-control-sm",@data_selected=Model.TeamId })
+                            @Html.ValidationMessageFor(model => model.TeamId)
+
+                        </div>
+
+                        <div class="col-sm-2">
+
+                            @Html.LabelFor(model => model.AuditId)
+                            @Html.DropDownListFor(model => model.AuditId,Enumerable.Empty<SelectListItem>(),  new {  @class = "form-control form-control-sm",@data_selected=Model.AuditId })
+                            @Html.ValidationMessageFor(model => model.AuditId)
+
+                        </div>
+
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.FromDate)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.FromDate, new { @class = "  form-control form-control-sm dateRange" })
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.ToDate)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.ToDate, new { @class = "  form-control form-control-sm dateRange" })
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.VisitingPalce)
+                            @Html.TextAreaFor(Model =>Model.VisitingPalce , new { @class = "  form-control form-control-sm"})
+                            @Html.ValidationMessageFor(model => model.VisitingPalce)
+
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.DepartureDate)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.DepartureDate, new { @class = "  form-control form-control-sm dateRange" })
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.ArrivalDate)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.ArrivalDate, new { @class = "  form-control form-control-sm dateRange" })
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Amount)
+                            @Html.TextBoxFor(model => model.Amount, new { @class = "  form-control form-control-sm ",@type="number" })
+
+                        </div>
+
+                        <div class="col-sm-2">
+                            @Html.LabelFor(model => model.Designation)
+                            @Html.TextBoxFor(model => model.Designation, new { @class = "  form-control form-control-sm " })
+                            @Html.ValidationMessageFor(model => model.Designation)
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-4">
+                            @Html.LabelFor(model => model.Description)
+                            @Html.TextAreaFor(Model =>Model.Description , new { @class = "  form-control form-control-sm"})
+                            @Html.ValidationMessageFor(model => model.Description)
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </form>
+
+
+
+
+        <div class="card-body">
+
+            @if (Model.Edit != "Close")
+            {
+                <button type="button" title="Add TADABill Details" id="TADABillAddRow" class="btn btn-lg btn-success mb-2"> <i class="fa fa-plus"></i> </button>
+
+            }
+
+            <table class="table table-bordered table-striped table-sm" id="TADABillDetails">
+                <thead>
+                    <tr>
+
+
+                        <th data-type="date" style="width: 30%;" data-name="Date">Date</th>
+                        <th data-type="text" style="width: 30%;" data-required="true" data-name="Particulars">Particulars</th>
+                        <th data-type="decimal" style="width: 35%;" data-name="Amount">Amount</th>
+
+
+                    </tr>
+
+
+                </thead>
+                <tbody id="MRWiseChangeLogBody">
+
+                    @foreach (var item in Model.TransportAllownaceDetails)
+                    {
+
+                        <tr>
+
+
+                            <td> @item.Date</td>
+                            <td> @item.Particulars</td>
+                            <td> @item.Amount</td>
+
+                            <td> <button class="btn btn-danger btn-sm remove-row-btn"><i class='fa fa-trash'></i></button> </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header p-2">
+
+            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+            {
+                <button type="button" class="button btnSaveTADABill sslUpdate">Update</button>
+            }
+            else
+            {
+                <button class="button btnSaveTADABill sslSave" type="button" id="">Save</button>
+            }
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    <script src="/js/app/Services/TransportAllownacesService.js"></script>
+    <script src="/js/app/Controllers/TransportAllownacesController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            TransportAllownacesController.init();
+
+
+        });
+
+    </script>
+
+
+}

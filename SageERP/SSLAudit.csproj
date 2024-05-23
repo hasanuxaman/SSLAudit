@@ -1,0 +1,440 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\CS\**" />
+    <Compile Remove="Views\Account\**" />
+    <Content Remove="Controllers\CS\**" />
+    <Content Remove="Views\Account\**" />
+    <EmbeddedResource Remove="Controllers\CS\**" />
+    <EmbeddedResource Remove="Views\Account\**" />
+    <None Remove="Controllers\CS\**" />
+    <None Remove="Views\Account\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Usere\.nuget\packages\bootstrap\4.6.0\contentFiles\any\any\wwwroot\css\bootstrap.css.map" />
+    <Content Remove="C:\Users\Usere\.nuget\packages\bootstrap\4.6.0\contentFiles\any\any\wwwroot\css\bootstrap.min.css" />
+    <Content Remove="C:\Users\Usere\.nuget\packages\bootstrap\4.6.0\contentFiles\any\any\wwwroot\css\bootstrap.min.css.map" />
+    <Content Remove="compilerconfig.json" />
+    <Content Remove="Views\Audit\_AuditIssueUser_______.cshtml" />
+    <Content Remove="wwwroot\js\app\Controllers\CalenderController.js" />
+    <Content Remove="wwwroot\js\app\Controllers\OragnogramController.js" />
+    <Content Remove="wwwroot\js\app\Controllers\SettingsController.js" />
+    <Content Remove="wwwroot\js\app\Controllers\UserRoleController.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net6.0\appsettings.Development.json" />
+    <Content Include="bin\Debug\net6.0\appsettings.json" />
+    <Content Include="bin\Debug\net6.0\ShampanERP.deps.json" />
+    <Content Include="bin\Debug\net6.0\ShampanERP.runtimeconfig.json" />
+    <Content Include="bin\Debug\net6.0\ShampanERP.staticwebassets.runtime.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="bootstrap" Version="4.6.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
+    <PackageReference Include="EPPlus" Version="6.2.4" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
+    <PackageReference Include="jQuery" Version="3.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.16.0" />
+    <PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.161" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.12.4" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.2.17" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net6.0\AutoMapper.dll" />
+    <None Include="bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\Dapper.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\dotnet-aspnet-codegenerator-design.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\Humanizer.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\MessagePack.Annotations.dll" />
+    <None Include="bin\Debug\net6.0\MessagePack.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.Build.Locator.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.Features.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.Features.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.Razor.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.Scripting.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.VisualBasic.Features.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.Workspaces.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.Data.SqlClient.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.DiaSymReader.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.DotNet.Scaffolding.Shared.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.Identity.Client.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.VisualStudio.Debugger.Contracts.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll" />
+    <None Include="bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll" />
+    <None Include="bin\Debug\net6.0\Newtonsoft.Json.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.Common.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.Configuration.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.DependencyResolver.Core.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.Frameworks.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.LibraryModel.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.Packaging.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.ProjectModel.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.Protocol.dll" />
+    <None Include="bin\Debug\net6.0\NuGet.Versioning.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ref\ShampanERP.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\unix\lib\netstandard1.3\System.Data.SqlClient.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win-arm64\lib\net6.0\dotnet-aspnet-codegenerator-design.exe" />
+    <None Include="bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win-arm\lib\net6.0\dotnet-aspnet-codegenerator-design.exe" />
+    <None Include="bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win7-x64\native\sni.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win7-x86\native\sni.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win\lib\netstandard1.3\System.Data.SqlClient.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll" />
+    <None Include="bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\Shampan.Core.dll" />
+    <None Include="bin\Debug\net6.0\Shampan.Core.pdb" />
+    <None Include="bin\Debug\net6.0\Shampan.Models.dll" />
+    <None Include="bin\Debug\net6.0\Shampan.Models.pdb" />
+    <None Include="bin\Debug\net6.0\Shampan.Repository.SqlServer.dll" />
+    <None Include="bin\Debug\net6.0\Shampan.Repository.SqlServer.pdb" />
+    <None Include="bin\Debug\net6.0\Shampan.Services.dll" />
+    <None Include="bin\Debug\net6.0\Shampan.Services.pdb" />
+    <None Include="bin\Debug\net6.0\Shampan.UnitOfWork.SqlServer.dll" />
+    <None Include="bin\Debug\net6.0\Shampan.UnitOfWork.SqlServer.pdb" />
+    <None Include="bin\Debug\net6.0\ShampanERP.dll" />
+    <None Include="bin\Debug\net6.0\ShampanERP.exe" />
+    <None Include="bin\Debug\net6.0\ShampanERP.pdb" />
+    <None Include="bin\Debug\net6.0\StackExchange.Exceptional.AspNetCore.dll" />
+    <None Include="bin\Debug\net6.0\StackExchange.Exceptional.Shared.dll" />
+    <None Include="bin\Debug\net6.0\System.Composition.AttributedModel.dll" />
+    <None Include="bin\Debug\net6.0\System.Composition.Convention.dll" />
+    <None Include="bin\Debug\net6.0\System.Composition.Hosting.dll" />
+    <None Include="bin\Debug\net6.0\System.Composition.Runtime.dll" />
+    <None Include="bin\Debug\net6.0\System.Composition.TypedParts.dll" />
+    <None Include="bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll" />
+    <None Include="bin\Debug\net6.0\System.Drawing.Common.dll" />
+    <None Include="bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll" />
+    <None Include="bin\Debug\net6.0\System.Runtime.Caching.dll" />
+    <None Include="bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll" />
+    <None Include="bin\Debug\net6.0\System.Security.Permissions.dll" />
+    <None Include="bin\Debug\net6.0\System.Windows.Extensions.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll" />
+    <None Include="bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll" />
+    <None Include="compilerconfig.json" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales-all.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales-all.min.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\af.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ar-dz.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ar-kw.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ar-ly.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ar-ma.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ar-sa.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ar-tn.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ar.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\az.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\bg.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\bn.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\bs.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ca.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\cs.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\cy.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\da.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\de-at.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\de.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\el.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\en-au.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\en-gb.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\en-nz.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\eo.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\es-us.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\es.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\et.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\eu.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\fa.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\fi.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\fr-ca.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\fr-ch.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\fr.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\gl.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\he.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\hi.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\hr.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\hu.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\hy-am.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\id.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\is.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\it.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ja.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ka.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\kk.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\km.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ko.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ku.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\lb.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\lt.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\lv.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\mk.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ms.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\nb.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ne.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\nl.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\nn.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\pl.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\pt-br.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\pt.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ro.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ru.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\si-lk.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\sk.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\sl.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\sm.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\sq.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\sr-cyrl.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\sr.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\sv.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ta-in.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\th.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\tr.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\ug.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\uk.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\uz.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\vi.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\zh-cn.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\locales\zh-tw.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\main.js" />
+    <None Include="wwwroot\AdminLte\plugins\fullcalendar\main.min.js" />
+    <None Include="wwwroot\js\app\Controllers\OragnogramController.js" />
+    <None Include="wwwroot\js\app\Controllers\CalenderController.js" />
+    <None Include="wwwroot\js\app\Controllers\SettingsController.js" />
+    <None Include="wwwroot\js\app\Controllers\UserRoleController.js" />
+    <None Include="wwwroot\js\app\Controllers\UserProfileController.js" />
+    <None Include="wwwroot\js\app\Controllers\UserBranchController.js" />
+    <None Include="wwwroot\js\app\Controllers\CompanyInfoController.js" />
+    <None Include="wwwroot\js\app\Controllers\BranchProfileController.js" />
+    <None Include="wwwroot\js\app\Controllers\DashController.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shampan.Core\Shampan.Core.csproj" />
+    <ProjectReference Include="..\Shampan.Models\Shampan.Models.csproj" />
+    <ProjectReference Include="..\Shampan.Services\Shampan.Services.csproj" />
+    <ProjectReference Include="..\Shampan.UnitOfWork.SqlServer\Shampan.UnitOfWork.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,132 @@
+﻿@using Shampan.Models
+@model Shampan.Models.AuditModule.AuditUser
+
+
+
+
+
+<div id="userModal" class="modal-dialog draggable modal-lg" role="document" style="max-width:50%;">
+
+
+
+	<div class="modal-content">
+
+
+
+	<div class="modal-content" style="width:100%;">
+		<div class="modal-header">
+			<h4 class="modal-title">User Emails</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		</div>
+		<div class="modal-body">
+
+			<div class="container-fluid">
+
+				@using (Html.BeginForm("AuditUserCreateEdit", "Audit", FormMethod.Post, new { @Id = "frm_Audit_User" }))
+				{
+					@Html.HiddenFor(model => model.Id,new {@Id  = "AuditUserId"})
+					@Html.HiddenFor(model => model.AuditId)
+
+					@Html.HiddenFor(model => model.Operation, new {@Id = "AuditUserOperation"})
+
+					<div class="form-group row">
+
+
+						<div class="col-sm-4">
+							@Html.LabelFor(model => model.UserId)
+							@Html.DropDownListFor(model => model.UserId, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.UserId})
+							@Html.ValidationMessageFor(model => model.UserId)
+						</div>
+
+
+						<div class="col-sm-4">
+							@Html.LabelFor(model => model.EmailAddress)
+								@Html.TextBoxFor(model => model.EmailAddress, new { @class = "  form-control input-sm", @readonly="readonly" })
+							@Html.ValidationMessageFor(model => model.EmailAddress)
+						</div>
+
+
+						@*<div class="col-sm-3">
+							@Html.LabelFor(model => model.IssuePriority)
+							@Html.DropDownListFor(model => model.IssuePriority, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.IssuePriority})
+							@Html.ValidationMessageFor(model => model.IssuePriority)
+						</div>*@
+
+					</div>
+
+
+					<div class="form-group row">
+						<div class="col-sm-6">
+							@Html.LabelFor(model => model.Remarks)
+							@Html.TextAreaFor(model => model.Remarks, new { @class = "  form-control input-sm" })
+							@Html.ValidationMessageFor(model => model.Remarks)
+						</div>
+					</div>
+
+				}
+
+				@if (Model.Edit.Equals("audit", StringComparison.CurrentCultureIgnoreCase))
+				{
+					<div class="row">
+						<div class="col-6">
+							@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+							{
+
+								<button type="button" class="button sslUpdate frm_Audit_UserbtnMainSave pt-1 btnSaveAuditUser">Update</button>
+								<button type="button" class="button sslUnPost  pt-1 btnDeleteAuditUser">Delete</button>
+								@*<button type="button" class="button sslUnPost  pt-1" onclick="resetForm('frm_Audit_User')">Reset</button>*@
+								<button type="button" class="button sslReset   pt-1" onclick="resetForm('frm_Audit_User')">
+										<i class="fas fa-sync-alt"></i> Reset
+								</button>
+
+							}
+							else
+							{
+								<button type="button" class="button sslSave frm_Audit_UserbtnMainSave pt-1 btnSaveAuditUser">Save &nbsp;</button>
+								<button type="button" class="button sslReset  pt-1" onclick="resetForm('frm_Audit_User')">
+										<i class="fas fa-sync-alt"></i> Reset
+								</button>
+							}
+						</div>
+
+
+					</div>
+					<div class="row mt-1">
+						<div class="col-2">
+							@*<button type="button" class="btn btn-outline-secondary  pt-1" onclick="resetForm('frm_Audit_User')">
+						Reset
+						</button>*@
+							@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+							{
+							}
+							else
+							{
+								@*<button type="button" class="button sslUnPost  pt-1" onclick="resetForm('frm_Audit_User')"> Reset </button>*@
+							}
+						</div>
+					</div>
+
+				}
+
+			</div>
+
+		</div>
+		<div class="modal-footer">
+
+				<button type="button" class="button sslClose" data-dismiss="modal">
+					<i class="fas fa-times-circle"></i> Close
+				</button>
+
+		</div>
+	</div>
+
+
+
+
+	</div>
+
+
+
+</div>
+
+

@@ -1,0 +1,135 @@
+﻿@model Shampan.Models.MRWiseChangeLog
+
+@{
+	ViewData["Title"] = "Index";
+	////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "MRWiseChangeLog Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/CISReport","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+	<div class="card card-secondary">
+		<div class="card-header">
+			<h3 class="card-title">MRWiseChangeLog Details</h3>
+		</div>
+
+
+		@Html.HiddenFor(model => model.Id)
+		@Html.HiddenFor(model => model.Operation)
+		@Html.HiddenFor(model => model.Edit)
+
+
+
+		<div class="card-body">
+
+			@if(Model.Edit != "Close")
+			{
+				<button type="button" title="Add MRWiseChangeLog Details" id="MRWiseChangeLogAddRow" class="btn btn-lg btn-success mb-2"> <i class="fa fa-plus"></i> </button>
+
+			}
+
+			<table class="table table-bordered table-striped table-sm" id="MRWiseChangeLogDetails">
+				<thead>
+					<tr>
+
+
+						<th data-type="text" style="width: 10%;" data-name="MRNo">MR No</th>
+						<th data-type="text" style="width: 10%;" data-required="true" data-name="PCNo">PC No</th>
+						<th data-type="text" style="width: 10%;" data-name="UserId">User Id</th>
+						<th data-type="date" style="width: 10%; text-align: right;" data-name="EditDate">Edit Date</th>
+					
+						<th data-type="text" style="width: 10%; text-align: right;" data-name="Status">Status</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="MRNet">MR Net</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="MRVat">MR Vat</th>
+
+
+						<th data-type="decimal" style="width: 10%;" data-name="MRStamp">MR Stamp</th>
+						<th data-type="decimal" style="width: 10%;"  data-name="MRCoinsPayable">MR CoinsPayable</th>
+						<th data-type="date" style="width: 10%;" data-required="true" data-name="MRDateTime">MR DateTime</th>
+
+
+					</tr>
+
+
+				</thead>
+				<tbody id="MRWiseChangeLogBody">
+
+					<tr>
+
+
+						<td> @Model.MRNo</td>
+						<td> @Model.PCNo</td>
+						<td> @Model.UserId</td>
+						<td> @Model.EditDate </td>					
+						<td> @Model.Status</td>
+						<td> @Model.MRNet</td>
+						<td> @Model.MRVat</td>
+						<td> @Model.MRStamp</td>
+						<td> @Model.MRCoinsPayable</td>
+						<td> @Model.MRDateTime</td>
+
+
+
+						<td> <button class="btn btn-danger btn-sm remove-row-btn"><i class='fa fa-trash'></i></button> </td>
+
+					</tr>
+
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+	</div>
+
+
+	<div class="card">
+		<div class="card-header p-2">
+
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+				<button type="button" class="button btnSaveMRWiseChangeLog sslUpdate">Update</button>
+			}
+			else
+			{
+				<button class="button btnSaveMRWiseChangeLog sslSave" type="button" id="">Save</button>
+			}
+
+		</div>
+	</div>
+
+
+
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+	<script src="/js/app/Services/CISReportService.js"></script>
+	<script src="/js/app/Controllers/CISReportController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			CISReportController.init();
+
+
+		});
+
+	</script>
+
+
+}

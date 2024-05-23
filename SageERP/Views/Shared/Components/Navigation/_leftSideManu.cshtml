@@ -1,0 +1,50 @@
+﻿@*@model List<Shampan.Models.CS.Screen>*@
+
+<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <li class="nav-item ">
+        <a href="/Home" class="nav-link ">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+                Dashboard
+            </p>
+        </a>
+    </li>
+
+
+  
+        @foreach (var item in Model)
+        {  <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class='@item.IconName'></i>
+                <p>
+                    @item.ScreenName
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+
+           @* var chiledScreen = @item.chieldScreens.Where(p => p.ParentScreenId == @item.ScreenId).ToList();*@
+
+         @foreach(var chields in @item.chieldScreens){
+           
+              
+
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller=@chields.ActionName    asp-action=@chields.Index class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>@chields.ScreenName</p>
+                    </a>
+                </li>
+            </ul>
+         }
+
+
+              </li>
+
+        }
+  
+</ul>
+
+
+
+

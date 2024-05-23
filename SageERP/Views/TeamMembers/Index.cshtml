@@ -1,0 +1,124 @@
+﻿@model Shampan.Models.TeamMembers
+
+
+@{
+    ViewData["Title"] = "Index";
+    //var message = ViewBag.SuccessMsg;
+}
+@{
+    string firstKey = "";
+    if (ViewBag.MemberId != null)
+    {
+        firstKey = "/Teams";
+    }
+    else
+    {
+        firstKey = "/Teams";
+    }
+}
+
+@Html.Partial("_Header", new HeaderModel()
+{
+    HeaderName = "Team Member",
+    BreadCrums = new Dictionary<string, string>()
+    {
+        {firstKey, "Index"},
+        {"", "Index"}
+    }
+})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+@*
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "User Branch", BreadCrums = new Dictionary<string, string>()
+{
+    {"/UserBranch","User Branch"},
+    {"","Index"},
+}})*@
+
+
+
+@*<input type="hidden" value="@ViewBag.MemberId" id="memberId" />*@
+@Html.HiddenFor(Model=>Model.memberId);
+
+
+
+
+
+@*<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New Branch"
+                    data-url="/TeamMembers/Create"
+                    id="ubNew" class="button NewButton addNewButton">
+
+                New
+            </button>
+
+
+        </div>
+    </div>
+</div>*@
+<div class="card">
+    <div class="card-header p-2">
+        <button type="button" title="Add New BankEntry"
+                data-url="/TeamMembers/Create" onclick="GoTo(this)"
+                id="ubNew" class="button NewButton addNewButton">
+
+
+            New
+        </button>
+
+
+    </div>
+</div>
+
+<div class="container-fluid">
+
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" style="width:100%" id="teamMembersLists">
+                    <thead>
+                        <tr>
+                            <th class="action">&nbsp;Action</th>
+                            <th>User Name</th>
+                            <th>Team Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/TeamMembersService.js"></script>
+    <script src="/js/app/Controllers/TeamMembersController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            TeamMembersController.init();
+
+
+        });
+
+    </script>
+    }
+

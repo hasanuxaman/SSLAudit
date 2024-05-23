@@ -1,0 +1,193 @@
+﻿@model Shampan.Models.Users
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "User Permission Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/UsersPermission","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+    <form id="frm_UsersPermission">
+
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Create Advance</h3>
+            </div>
+
+
+            <div class="card-body">
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Operation)
+
+
+                <div class="form-group row">
+
+
+                    @*<div class="col-sm-2">
+                        @Html.LabelFor(model => model.Code)
+                        @Html.TextBoxFor(Model =>Model.Code , new { @class = "  form-control form-control-sm",@readonly="readonly" })
+                        @Html.ValidationMessageFor(model => model.Code)
+                    </div>*@
+
+                    <div class="col-sm-2">
+                        <div>
+
+                            @Html.LabelFor(model => model.UserId)
+                            @Html.DropDownListFor(model => model.UserId, Enumerable.Empty<SelectListItem>(), new { @class = "form-control form-control-sm", @data_readonly=Model.UserId, @data_selected=Model.UserId })
+                            @Html.ValidationMessageFor(model => model.UserId)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div class="row">
+
+        @*Module*@
+
+        <div class="col-md-6">
+            <div class="card card-secondary">
+
+                <div class="card-header">
+                    <h3 class="card-title">
+                        List Of Module
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-striped" style="width:100%" id="ModuleList">
+                            <thead>
+                                <tr>
+
+                                    <th hidden>Id</th>
+                                    <th hidden>UserPermissionId</th>
+                                    <th>Module Name</th>
+                                    <th>&nbsp;Action</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @{
+                                    int i = 1;
+                                }
+                                @foreach (var module in Model.ModuleList)
+                                {
+                                    <tr>                                      
+                                        <td hidden id="moduleId_@i">@module.Id</td>
+                                        <td hidden>@module.UserPermissionId</td>
+                                        <td>@module.Modul</td>
+                                        <td>
+                                                                                  
+                                        @Html.CheckBoxFor(model => module.IsActive,new {@class = "form-check-input module-checkbox",style = "margin-left: 15px; transform: scale(1.9);",id = "CheckBox" + i,@checked = module.IsActive ? "checked" : ""})
+
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*Node*@
+        <div class="col-md-6">
+
+            <div class="card card-secondary">
+
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            List Of Nodes
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                        <table class="table table-bordered table-striped" style="width:100%" id="NodesList">
+                                <thead>
+                                    <tr>    
+                                        
+                                        <th>Id</th>
+                                        @*<th hidden class="action"><input type="checkbox" class="chkAll" style="width: 100px;"/>Id</th>*@
+                                        <th>Node Name</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>                        
+                                </tbody>
+
+                         </table>
+                     </div>
+                 </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    
+
+
+    <div class="card">
+        <div class="card-header p-2">
+
+            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+            {
+                <button type="button" class="button btnsave sslUpdate">Update</button>
+
+            }
+            else
+            {
+                <button class="button btnsave sslSave" type="button" id="">Save</button>
+             
+            }
+
+        </div>
+    </div>
+
+
+</div>
+
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+    <script src="/js/app/Services/UsersPermissionService.js"></script>
+    <script src="/js/app/Controllers/UsersPermissionController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            UsersPermissionController.init();
+
+        });
+
+    </script>
+    }

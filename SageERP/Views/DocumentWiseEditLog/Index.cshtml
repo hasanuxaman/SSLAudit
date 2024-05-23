@@ -1,0 +1,99 @@
+﻿@model Shampan.Models.DocumentWiseEditLog
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+
+<style>
+    .pagination-left {
+        float: left;
+    }
+</style>
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "DocumentWiseEditLog Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/DocumentWiseEditLog","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New BankEntry"
+                    data-url="/DocumentWiseEditLog/Create" onclick="GoTo(this)"
+                    id="" class="button NewButton addNewButton">
+                New
+            </button>
+
+
+        </div>
+    </div>
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" style="width:100%" id="DocumentWiseEditLogList">
+                    <thead>
+                        <tr>
+
+                            <th class="action">&nbsp;Action</th>
+
+                            <th>Doc No</th>
+                            <th>PC Name</th>
+                            <th>User Id</th>
+                            <th>Entry Date</th>                        
+                            <th>Class Code</th>
+                            <th>Status</th>
+                            <th>Doc Date</th>
+                            <th>Customer Id</th>
+                            <th>Net Premium</th>
+                            <th>Sum Insured</th>
+                            <th>Sum Insured</th>
+                            <th>Stamp Amount</th>
+                            <th>Producer Code</th>
+                            <th>Business Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    
+    <script src="/js/app/Services/DocumentWiseEditLogService.js"></script>
+    <script src="/js/app/Controllers/DocumentWiseEditLogController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            DocumentWiseEditLogController.init();
+
+
+        });
+
+    </script>
+    }
+

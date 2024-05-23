@@ -1,0 +1,51 @@
+﻿
+<div class="card card-secondary">
+    <div class="card-header">
+        <h3 class="card-title">Audit Response</h3>
+    </div>
+    <div class="card-body">
+
+
+        <table class="table table-bordered" id="AuditResponseDetails" style="width: 100% !important;">
+            <thead>
+                <tr>
+
+                    <th>Audit Name</th>
+                    <th>Issue Name</th>
+                    <th>Issue Priority</th>
+                    <th>Date Of Summission</th>
+                    <th>Action</th>
+
+
+
+
+                </tr>
+            </thead>
+            <tbody id="BranchFeedbackBody">
+            </tbody>
+
+        </table>
+
+
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="/js/app/Services/CommonService.js"></script>
+    <script src="/js/app/Services/AuditFeedBack/AuditFeedbackService.js"></script>
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Services/Audit/AuditService.js"></script>
+    <script src="/js/app/Controllers/Audit/AuditController.js"></script>
+
+
+
+    <script>
+        $(document).ready(function () {
+
+            AuditController.init();
+
+        });
+    </script>
+}

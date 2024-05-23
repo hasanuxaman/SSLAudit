@@ -1,0 +1,251 @@
+﻿@model Shampan.Models.TransportAllownaces
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/button.css" rel="stylesheet" />
+@*<link href="~/css/tourreport.css" rel="stylesheet" />*@
+<style>
+    .main-footer {
+        display: none;
+    }
+
+    #Heading {
+        -webkit-print-color-adjust: exact;
+        text-align: center;
+        background-color: cadetblue !important;
+        color: white;
+        font-size: 24px;
+    }
+
+    #Brances {
+        -webkit-print-color-adjust: exact;
+        border: 2px solid #000 !important;
+        background-color: darkseagreen !important;
+        width: 12%;
+        text-align: center;
+    }
+
+    #Details {
+        -webkit-print-color-adjust: exact;
+        border: 2px solid #000 !important;
+        background-color: darkseagreen !important;
+    }
+
+    #Total {
+        border: 2px solid #000 !important;
+    }
+
+</style>
+
+<div class="container-fluid">
+
+
+    <div class="row no-print">
+        <div class="col-lg-6 col-md-6 col-sm-2 col-xs-2 pull-right">
+            <a id="printButton" class="btn btn-success pull-right">Print</a>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+
+
+        @*Heading*@
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-sm table-bordered" id="LoacalTADA">
+                                <tbody>
+
+                                    <tr>
+
+                                        <td id="Heading"><strong>Local Conveyance Bill</strong></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*BranchName*@
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="Brances"><strong>At Rajshahi And Bogura Branch</strong></td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        @*Details*@
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+                                    <tr>
+
+
+                                        <td id="Details" style="width: 20%; text-align: center;"><strong>Date</strong></td>
+                                        <td id="Details" style="width: 60%; text-align: center;"><strong>Particulars</strong> </td>
+                                        <td id="Details" style="width: 20%; text-align: center;"><strong>Total(Taka)</strong> </td>
+
+
+                                    </tr>
+
+                                    @for (int i = 0; i < 10; i++)
+                                    {
+                                        <tr>
+
+                                            <td id="" style="width: 20%; text-align: center;">@DateTime.Now</td>
+                                            <td id="" style="width: 60%; text-align: left;">Demo items</td>
+                                            <td id="" style="width: 20%; text-align: right;">4000</td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*Total*@
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+                                    <tr>
+
+                                        <td id="Total" style="width: 80%; text-align: center;"><strong>Total</strong> </td>
+                                        <td id="Total" style="width: 20%; text-align: right;"><strong>80000</strong> </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        
+        @*InWord*@
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 12%; text-align: left;"><strong>In Word:  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>Eleven Hundred and ten Taka Only</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+@section scripts{
+
+
+    <script>
+        $(document).ready(function () {
+
+            $('#printButton').on('click', function () {
+                //window.print();
+
+                var gdImage = new Image();
+                gdImage.src = "/images/d.png";
+                gdImage.alt = "GD Image";
+                gdImage.className = "gd-image";
+                gdImage.width = 200;
+                gdImage.height = 100;
+
+
+                gdImage.onload = function () {
+
+                    $('#gdLabelContainer').prepend(gdImage);
+                    window.print();
+                    gdImage.remove();
+
+                };
+
+            });
+
+        });
+
+    </script>
+
+
+}

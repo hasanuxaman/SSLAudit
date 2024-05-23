@@ -1,0 +1,137 @@
+﻿@model Shampan.Models.CollectionEditLog
+
+@{
+	ViewData["Title"] = "Index";
+	////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "CollectionEditLog Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/CollectionEditLog","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+	<div class="card card-secondary">
+		<div class="card-header">
+			<h3 class="card-title">DateWisePolicyEditLogWithDetails Details</h3>
+		</div>
+
+
+		@Html.HiddenFor(model => model.Id)
+		@Html.HiddenFor(model => model.Operation)
+		@Html.HiddenFor(model => model.Edit)
+
+
+
+		<div class="card-body">
+
+			<button type="button" title="Add Order Details" id="CollectionEditLogAddRow" class="btn btn-lg btn-success mb-2"> <i class="fa fa-plus"></i> </button>
+
+			<table class="table table-bordered table-striped table-sm" id="CollectionEditLogDetails">
+				<thead>
+					<tr>
+
+
+						<th data-type="text" style="width: 10%;" data-name="MR">MR</th>
+						<th data-type="text" style="width: 10%;" data-required="true" data-name="PCName">PC Name</th>
+						<th data-type="text" style="width: 10%;" data-name="UserId">User Id</th>
+						<th data-type="date" style="width: 10%; text-align: right;" data-name="EditDate">EditDate</th>
+						<th data-type="text" style="width: 10%; text-align: right;" data-name="Status">Status</th>
+						<th data-type="text" style="width: 10%; text-align: right;" data-name="SlNo">SlNo</th>
+					
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="Deposit">Deposit</th>
+						<th data-type="date" style="width: 10%; text-align: right;" data-name="DepositDate">Deposit Date</th>
+
+						<th data-type="decimal" style="width: 10%;" data-name="Record">Record</th>
+						
+
+
+
+
+
+					</tr>
+
+
+				</thead>
+				<tbody id="CollectionEditLogBody">
+
+					<tr>
+
+
+						<td> @Model.MR</td>
+						<td> @Model.PCName</td>
+						<td> @Model.UserId</td>
+						<td> @Model.EditDate </td>
+						<td> @Model.Status</td>
+						<td> @Model.SlNo</td>
+						<td> @Model.Deposit</td>
+						<td> @Model.DepositDate</td>
+						<td> @Model.Record</td>
+						
+
+						<td> <button class="btn btn-danger btn-sm remove-row-btn"><i class='fa fa-trash'></i></button> </td>
+
+					</tr>
+
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+	</div>
+
+
+
+	<div class="card">
+		<div class="card-header p-2">
+
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+				<button type="button" class="button btnSaveCollectionEditLog sslUpdate">Update</button>
+
+
+
+			}
+			else
+			{
+				<button class="button btnSaveCollectionEditLog sslSave" type="button" id="">Save</button>
+
+
+			}
+
+		</div>
+	</div>
+
+
+
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+	<script src="/js/app/Services/CollectionEditLogService.js"></script>
+	<script src="/js/app/Controllers/CollectionEditLogController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			CollectionEditLogController.init();
+
+
+		});
+
+	</script>
+
+
+}

@@ -1,0 +1,119 @@
+﻿@model Shampan.Models.AuditIssue
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Excel Index", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Audit","Audit"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<style>
+    .visible-icon {
+        display: inline-block;
+    }
+
+    .hidden-icon {
+        display: none;
+    }
+
+    .blue-icon {
+        color: blue;
+    }
+
+    .pagination-left {
+        float: left;
+    }
+    .red-icon {
+        color: red;
+    }
+
+</style>
+
+
+<div class="container-fluid">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+            @Html.HiddenFor(model => model.Edit)
+
+
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" id="ExcelIndexList">
+
+                    <thead>
+                        <tr>
+
+
+
+                            @*<th class="private">Id</th>*@
+                            <th class="private">ID</th>
+                            <th class="private">SL</th>
+                            <th>Audit Code</th>
+                            <th>Audit Name</th>                           
+                            <th>Issue Heading</th>
+                            <th>Issue Details</th>
+                            <th>Risk</th>
+                            <th>Feedback Details</th>
+                            <th>BranchFeedBack Details</th>
+                            <th>Audit Status</th>
+                            <th>Issue Priority</th>
+                            <th>Issue Status</th>
+                            <th>Date Of Submission</th>
+                            <th class="bool">InvestigationOrForensis</th>
+                            <th class="bool">Stratigic Meeting</th>
+                            <th class="bool">Management ReviewMeeting</th>
+                            <th class="bool">Other Meeting</th>
+                            <th class="bool">Training</th>
+                            <th class="bool">Operational</th>
+                            <th class="bool">Financial</th>
+                            <th class="bool">Compliance</th>
+                            
+
+
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+
+
+
+
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Controllers/AuditIssue/AuditIssueController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            AuditIssueController.init({ auditId: 0 });
+            
+
+        });
+
+    </script>
+}

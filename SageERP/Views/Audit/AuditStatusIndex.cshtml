@@ -1,0 +1,98 @@
+﻿@model Shampan.Models.AuditModule.AuditMaster
+
+
+
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit Status", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Audit/ApproveStatusIndex","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<style>
+    .blue-icon {
+        color: blue;
+    }
+
+    .pagination-left{
+        float: left;
+    }
+    .red-icon {
+        color: red;
+    }
+</style>
+
+<div class="container-fluid">
+
+
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Engagement
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped"  id="AuditStatusList">
+                    <thead>
+                        <tr>
+                            <th class="action"><input type="checkbox" class="chkAll" />&nbsp;Action</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th class="status">Approval Status</th>
+                            <th>Branch Name</th>
+                            <th>Audit Status</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th class="plan">Audit Plan</th>
+                            <th class="auditapprove">Audit Approve</th>
+                            @*<th class="issuecomplete">Issue Complete</th>*@
+                            <th class="feedbackcomplete">Feedback</th>
+                            <th class="branchfeedbackcomplete">BranchFeedback</th>
+                            <th class="bool">Post</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+    @*<script src="/js/app/Services/ToursService.js"></script>*@
+
+
+    <script src="/js/app/Services/AuditApproveStatusService.js"></script>
+    <script src="/js/app/Controllers/AuditApproveStatusController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            AuditApproveStatusController.init();
+
+
+        });
+
+    </script>
+    }
+

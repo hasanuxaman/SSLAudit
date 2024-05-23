@@ -1,0 +1,78 @@
+﻿@using Shampan.Models
+@model Shampan.Models.AuditReportUsers
+
+
+<!-- Include Summernote CSS and JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.js"></script>
+
+
+
+
+
+<style>
+
+    .modal-content {
+        max-height: 95vh; /* Adjust the height as needed */
+        overflow-y: auto;
+    }
+
+    .cke_path {
+        display: none !important;
+    }
+
+
+    .highlight-label {
+        display: inline-block;
+        padding: 10px;
+        border-radius: 5px; /* Adjust border-radius to control the rectangle's corner roundness */
+        background-color: lightslategray; /* You can choose any color */
+    }
+
+</style>
+
+<div class="modal-dialog draggable modal-lg" role="document" style="max-width:65%;">
+    @*<div class="modal-content" style="width:100%;">*@
+    <div class="modal-content">
+
+
+        <div class="modal-body">
+
+            <div class="container-fluid">
+
+                <div style="width: 100%;background-color: whitesmoke;">
+
+                    <div class="row mt-2">
+                        <div class="col-3">                   
+                            <button type="button" title="Add Email Details" id="addAuditReportUser" class="button NewButton addNewButton mb-2">Add Report User Email</button>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered" id="auditReportUser" style="width: 100% !important;">
+
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="UserBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="button sslUnPost" data-dismiss="modal">Close</button>
+
+        </div>
+
+    </div>
+</div>
+

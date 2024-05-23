@@ -1,0 +1,496 @@
+﻿@using Shampan.Models
+@using Shampan.Models.AuditModule
+@model AuditBranchFeedback
+
+
+
+
+<!-- Include Summernote CSS and JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.js"></script>
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<style>
+    .cke_path {
+        display: none !important;
+    }
+</style>
+
+
+<div class="modal-dialog draggable modal-lg" role="document" style="max-width:70%;">
+    @*<div class="modal-content" style="width:100%;">*@
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h4 class="modal-title">Branch Feedback Details</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+
+        <div class="modal fade" id="modal-IssueSubmit" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.ReasonOfUnPost)
+                            <div class="input-group ">
+                                @Html.TextArea("ReasonOfUnPost",null, new { @class = "  form-control form-control-sm " ,@id="UnPostReasonOfBranchFeedback"})
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="modelClose">Close</button>
+                        <button type="button" class="btn btn-primary BranchFeedbackSubmit">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <div class="modal-body">
+
+            <div class="container-fluid">
+
+                @*@using (Html.BeginForm("CreateEdit", "AuditFeedback", FormMethod.Post, new { @Id = "frm_Audit_Branch_feedback" }))*@
+                @using (Html.BeginForm("CreateEdit", "AuditBranchFeedback", FormMethod.Post, new { @Id = "frm_Audit_Branch_feedback" }))
+                {
+                    <!-- Master Start-->
+                    @Html.HiddenFor(model => model.Id, new {@Id = "BranchfeedbackId"})
+                    @Html.HiddenFor(model => model.AuditId)
+                    @Html.HiddenFor(model => model.AuditIssueId)
+                    @Html.HiddenFor(model => model.IsPost)
+                    @Html.HiddenFor(model => model.UserName)
+
+
+                    @*@Html.HiddenFor(model => model.Operation, new {@Id = "feedbackOperation"})*@
+                    @Html.HiddenFor(model => model.Operation, new {@Id = "feedbackBranchOperation"})
+
+                    <div class="form-group row">
+
+                        <div class="col-sm-3">
+
+                            @Html.LabelFor(model => model.AuditIssueId)
+                            @Html.DropDownListFor(model => model.AuditBranchIssueId, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.AuditBranchIssueId})
+                            @*@Html.DropDownListFor(model => model.AuditBranchIssueId, Enumerable.Empty<SelectListItem>(), new {@class = "form-control",@data_selected = Model.AuditBranchIssueId, @id = "auditBranchDropdown"})*@
+                            @Html.ValidationMessageFor(model => model.AuditIssueId)
+
+                        </div>
+
+                        <div class="col-sm-3">
+                            @Html.LabelFor(model => model.Heading)
+                            @Html.TextBoxFor(model => model.Heading, new { @class = "  form-control input-sm" })
+                            @Html.ValidationMessageFor(model => model.Heading)
+                        </div>
+
+                        @*MainDropDownOld*@
+
+                        @*<div class="col-sm-3">
+                            @Html.LabelFor(model => model.Status)
+                            @Html.DropDownListFor(model => model.Status, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.Status})
+                            @Html.ValidationMessageFor(model => model.Status)
+                        </div>*@
+
+
+                        @if (Model.IsTeam.Equals(true))
+                        {
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.IssueStatus)
+                                @Html.DropDownListFor(model => model.IssueStatus, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.IssueStatus})
+                                @Html.ValidationMessageFor(model => model.IssueStatus)
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.IssueStatus)
+                                @Html.DropDownListFor(model => model.IssueStatus, Enumerable.Empty<SelectListItem>(), new {@class = "form-control",@readonly = "readonly",@disabled = "disabled", @data_selected = Model.IssueStatus})
+                                @Html.ValidationMessageFor(model => model.IssueStatus)
+                            </div>
+                                           
+                        }
+
+                        <div class="col-sm-2" style="margin-top:25px;">
+
+                            @*<button type="button" title="Audit Issue Preview" id="seeAuditIssuePreview" class="button NewButton addNewButton ">*@
+                            <button type="button" title="Audit Issue Preview" id="seeAuditIssuePreview" class="btn btn-lg btn-primary">
+                                <i class="fas fa-eye"></i> Preview
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group row">
+
+
+                        <div class="col-sm-3">
+                            @Html.LabelFor(model => model.ImplementationDate)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.ImplementationDate, new { @class = "  form-control input-sm ",@readonly = "readonly" })
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.ImplementationDate)
+                        </div>
+
+                        <div class="col-sm-3">
+                            @Html.LabelFor(model => model.SubmissionDate)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.SubmissionDate, new { @class = "  form-control input-sm " ,@readonly = "readonly"})
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.SubmissionDate)
+                        </div>
+
+
+                        @if (Model.IsTeam.Equals(true))
+                        {
+
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.DeadLineDate)
+                                <div class="input-group date">
+                                    @Html.TextBoxFor(model => model.DeadLineDate, new { @class = "form-control input-sm dateRange" })
+
+                                    <div class="input-group-append">
+                                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.DeadLineDate)
+                            </div>
+
+                        }
+                        else
+                        {
+
+                            <div class="col-sm-3">
+                                @Html.LabelFor(model => model.DeadLineDate)
+                                <div class="input-group date">
+                                    @Html.TextBoxFor(model => model.DeadLineDate, new { @class = "form-control input-sm",@readonly = "readonly" })
+
+                                    <div class="input-group-append">
+                                        <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.DeadLineDate)
+                            </div>
+
+                        }
+
+                        @*MainDeadlineCodeOld*@
+
+                        @*<div class="col-sm-3">
+                            @Html.LabelFor(model => model.DeadLineDate)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.DeadLineDate, new { @class = "form-control input-sm dateRange" })
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.DeadLineDate)
+                        </div>*@
+
+
+
+                        <div class="col-sm-3">                          
+                               @Html.LabelFor(model => model.ExtendDate)
+                            <div class="input-group date">
+                                @Html.TextBoxFor(model => model.ExtendDate, new { @class = "form-control input-sm dateRange" })                               
+                                <div class="input-group-append">
+                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ExtendDate)
+
+                        </div>
+                                          
+                    </div>
+
+
+                    <div class="form-group row">
+
+                        <div class="col-sm-1" style="margin-top:27px;">
+
+                            <div>
+                                <button type="button" class="btn btn-info" id="showTestField">WriteReason</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-sm-8">
+                            <div id="testFieldContainer" style="display: none;">
+
+                                @Html.LabelFor(model => model.DateExtendReason)
+                                @Html.TextAreaFor(model => model.DateExtendReason, new { @class = "  form-control input-sm",@id="testField" })
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group row">
+
+                        <div class="col-12">
+                            @Html.LabelFor(model => model.BranchFeedbackDetails)
+                            @*@Html.TextAreaFor(model => model.IssueDetails, new { @class = "  form-control input-sm issueBranchFeedbackSummerNote" , @Id="IssueBranchDetailsFeedback", @name ="IssueDetails" })*@
+                            @Html.TextAreaFor(model => model.BranchFeedbackDetails, new { @class = "  form-control input-sm issueBranchFeedbackSummerNote" , @Id="IssueBranchDetailsFeedback", @name ="IssueDetails" })
+                            @Html.ValidationMessageFor(model => model.BranchFeedbackDetails)
+                        </div>
+
+                    </div>
+
+                    <div class="row form-group">
+
+                        <div class="col-md-3">
+                            <div class="editor-label">
+                                <label>Attachments</label>
+                            </div>
+                            <input type="file" accept=".jpg,.jpeg, .png,.pdf, .xls, .xlsx,.docx" id="fileToUpload" name="Attachments" multiple="multiple" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <ul class="list-group fileGroup">
+
+                            @*change of Class name*@
+
+                            @foreach (AuditBranchFeedbackAttachments item in Model.AttachmentsList)
+                            {
+                                <li class="list-group-item" id="file-@item.Id">
+
+                                    <span>
+                                        @item.DisplayName
+                                    </span>
+                                    <a target="_blank" href="/AuditBranchFeedback/DownloadFile?filePath=@item.FileName" class=" ml-2 btn btn-primary btn-sm float-right ml-2">Download</a>
+
+                                    <button onclick="AuditController.deleteBranchFeedbackFile('@item.Id' ,'@item.FileName')" class=" ml-2 btn btn-danger btn-sm float-right" type="button">Delete</button>
+
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+
+
+                    <!-- Master End-->
+                }
+
+                @if (Model.Edit.Equals("Branchfeedback", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+                            {
+                                @*<button type="button" class="button sslUpdate frm_Audit_Branch_feedbackbtnMainSave pt-1 btnBranchSaveFeedback">Update</button>*@
+                               
+                                @if (Model.UserName.Equals("TeamFeedbackShow", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <button type="button" class="button sslUpdate frm_Audit_Branch_feedbackbtnMainSave pt-1 btnBranchSaveFeedback">Update</button>
+                                   
+                                    @if (Model.IsTeam.Equals(true))
+                                    {
+
+                                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Team Feedback</button>
+
+                                    }
+                                    else
+                                    {
+
+                                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Branch Feedback</button>
+
+                                    }
+
+                                }
+                                else
+                                {
+
+                                    @*<button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Team Feedback</button>*@
+                                    @if (Model.IsTeam.Equals(true))
+                                    {
+
+                                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Team Feedback</button>
+
+                                    }
+                                    else
+                                    {
+
+                                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Branch Feedback</button>
+
+                                    }
+
+                                }
+
+                                //EndOfNewEdition
+
+                                <button type="button" class="button sslReset  pt-1" onclick="resetForm('frm_Audit_Branch_feedback',['IssueBranchDetailsFeedback'])">
+                                    <i class="fas fa-sync-alt"></i> Reset
+                                </button>
+
+                                <div style="float:right;">
+
+                                    <button type="button" class="button btnPost sslPost AuditBranchFeedback">Post</button>
+                                    @if (Model.IsPost.Equals("Y", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" data-target="#modal-IssueSubmit">UnPost</button>
+
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-IssueSubmit">UnPost</button>
+
+                                    }
+                                </div>
+
+
+
+                                @*<button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedbackbtnMainSave pt-1 btnBranchFeedback">Branch Feedback</button>*@
+                                @*<button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Branch Feedback</button>*@
+
+                                @*@if (Model.UserName.Equals("TeamFeedbackShow", StringComparison.OrdinalIgnoreCase))
+                        {
+                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Team Feedback</button>
+
+                        }*@
+
+                            }
+                            else
+                            {
+                                @*<button type="button" class="btn btn-primary frm_Audit_Branch_feedbackbtnMainSave pt-1 btnSaveFeedback">
+                        Save &nbsp;
+                        </button>*@
+
+                                <button type="button" class="button sslSave frm_Audit_Branch_feedbackbtnMainSave pt-1 btnBranchSaveFeedback">
+                                    Save &nbsp;
+                                </button>
+
+
+
+
+                                @*<button type="button" style="display:none;" id="divFeedbackBranch" class="button sslSave frm_Audit_Branch_feedbackbtnMainSave pt-1 btnBranchFeedback">Branch Feedback</button>*@
+                                @*<button type="button" style="display:none;" id="divFeedbackBranch" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Branch Feedback</button>*@
+
+                                @if (Model.UserName.Equals("TeamFeedbackShow", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <button type="button" id="divFeedback" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Team Feedback</button>
+
+                                }
+                                <button type="button" class="button sslReset   pt-1" onclick="resetForm('frm_Audit_Branch_feedback',['IssueBranchDetailsFeedback'])">
+                                    <i class="fas fa-sync-alt"></i> Reset
+                                </button>
+
+                                <div style="float:right;">
+
+                                    <button class="button btnPost sslPost AuditBranchFeedback" type="button" id="SavePost" style="display:none;">Post</button>
+                                    <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-IssueSubmit">UnPost</button>
+
+                                </div>
+
+                                @*<button type="button" style="display:none;" id="divFeedbackBranch" class="button sslSave frm_Audit_Branch_feedback pt-1 btnBranchFeedback">Team Feedback</button>*@
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="col-2">
+                            @*<button type="button" class="button sslUnPost  pt-1" onclick="resetForm('frm_Audit_Branch_feedback',['IssueBranchDetailsFeedback'])">
+                        Reset
+                        </button>*@
+                        </div>
+                    </div>
+
+                }
+
+                @*
+                <div style=" width: 100%;" id="allSectionsBranchFeadbackUser">
+                <div class="row mt-2">
+                <div class="col-3">
+                <button type="button" title="Add Email Details" id="addBranchFeadbackUser" class="btn btn-primary mb-2"><i class="fa fa-plus"></i>Add User Email</button>
+                </div>
+                </div>
+                <table class="table table-bordered" id="BranchFeedbUserTable" style="width: 100% !important;">
+                <thead>
+                <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="UserBody">
+                </tbody>
+
+                </table>
+                </div>*@
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="button sslClose" data-dismiss="modal">
+
+                <i class="fas fa-times-circle"></i> Close
+
+            </button>
+
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+@section scripts{
+    <script src="/js/app/Services/CommonService.js"></script>
+
+    <script src="/js/app/Services/AuditFeedBack/AuditFeedbackService.js"></script>
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Services/Audit/AuditService.js"></script>
+    <script src="/js/app/Controllers/Audit/AuditController.js"></script>
+
+    <script src="/js/app/controllers/dashcontroller.js"></script>
+
+    <script src="/js/app/Services/AuditApproveStatusService.js"></script>
+    <script src="/js/app/Controllers/AuditApproveStatusController.js"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+
+
+        });
+
+    </script>
+
+
+    }

@@ -1,0 +1,83 @@
+﻿@model Shampan.Models.UserRole
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "User Role Create", BreadCrums = new Dictionary<string, string>()
+{
+    {"/UserRole","Index"},
+    {"","Index"},
+}})
+<link href="~/css/button.css" rel="stylesheet" />
+<div class="container-fluid">
+
+
+    <form id="frm_user">
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">User Role Create </h3>
+            </div>
+            <div class="card-body">
+
+                <div class="form-group row">
+
+
+                 
+             <div class="col-sm-2">
+                  
+              
+                       @Html.LabelFor(model => model.UserId)
+                    
+                       @Html.DropDownListFor(model => model.UserId, Enumerable.Empty<SelectListItem>(), new { @class = "form-control form-control-sm" })
+                       @Html.ValidationMessageFor(model => model.UserId)
+                 </div>
+
+
+                   <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Role)
+                           @Html.TextBoxFor(model => model.Role, new { @class = "  form-control form-control-sm " })
+                        @Html.ValidationMessageFor(model => model.Role)
+
+                    </div>
+                </div>
+
+             </div>
+
+          </div>  
+    </form>
+
+
+
+
+    
+    <div class="card">
+        <div class="card-header p-2">
+
+     
+                  <button class="button btnsave sslSave" type="button" id="">Save</button>
+         
+
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+
+ 
+    <script src="/js/app/Services/UserRoleService.js"></script>
+    <script src="/js/app/Controllers/UserRoleController.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+          UserRoleController.init();
+
+        });
+
+    </script>
+
+
+}

@@ -1,0 +1,157 @@
+﻿@using Shampan.Models
+@model Shampan.Models.AuditIssue
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit Issue Create", BreadCrums = new Dictionary<string, string>()
+{
+    {$"/AuditIssue/index/{@Model.AuditId}","Audit Issue"},
+    {"","Create"},
+}})
+
+
+
+
+
+<div class="container-fluid">
+
+    @using (Html.BeginForm("CreateEdit", "AuditIssue", FormMethod.Post, new { @Id = "frm_Audit" }))
+    {
+        <!-- Master Start-->
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Audit Issue </h3>
+            </div>
+            <div class="card-body">
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.AuditId)
+
+                @Html.HiddenFor(model => model.Operation)
+
+                <div class="form-group row">
+ @*                   <div class="col-sm-2">
+                        <div>
+                            @Html.LabelFor(model => model.AuditId)
+                            @Html.DropDownListFor(model => model.AuditId, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.AuditId})
+                            @Html.ValidationMessageFor(model => model.AuditId)
+
+                        </div>
+                    </div>*@
+
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.IssueName)
+                        @Html.TextBoxFor(model => model.IssueName, new { @class = "  form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.IssueName)
+                    </div>
+
+
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.IssueDetails)
+                        @Html.TextAreaFor(model => model.IssueDetails, new { @class = "  form-control input-sm" })
+                        @Html.ValidationMessageFor(model => model.IssueDetails)
+                    </div>
+
+
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.DateOfSubmission)
+                        <div class="input-group date">
+                            @Html.TextBoxFor(model => model.DateOfSubmission, new { @class = "  form-control input-sm dateRange" })
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.IssuePriority)
+                        @Html.DropDownListFor(model => model.IssuePriority, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.IssuePriority})
+                        @Html.ValidationMessageFor(model => model.IssuePriority)
+                    </div>
+                </div>
+
+
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        <div class="editor-label">
+                            <label>Attachments</label>
+                        </div>
+                        <input type="file" accept=".jpg,.jpeg, .png,.pdf, .xls, .xlsx,.docx" id="fileToUpload" name="Attachments" multiple="multiple" />
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <ul class="list-group fileGroup">
+
+                        @foreach (AuditIssueAttachments item in Model.AttachmentsList)
+                        {
+                            <li class="list-group-item" id="file-@item.Id">
+                                <span>
+                                    @item.DisplayName
+                                </span>
+                                <a target="_blank" href="/AuditIssue/DownloadFile?filePath=@item.FileName" class=" ml-2 btn btn-primary btn-sm float-right ml-2">Download</a>
+
+                                <button onclick="AuditIssueController.deleteFile('@item.Id' ,'@item.FileName')" class=" ml-2 btn btn-danger btn-sm float-right" type="button">Delete</button>
+
+
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Master End-->
+    }
+
+
+</div>
+
+
+
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+            {
+                <button type="button" class="btn btn-primary  pt-1 btnSave">Update</button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-primary  pt-1 btnSave">
+                    <i class="fa fa-save"></i>
+                    Save
+                </button>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Controllers/AuditIssue/AuditIssueController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            AuditIssueController.init();
+        });
+
+    </script>
+
+
+}

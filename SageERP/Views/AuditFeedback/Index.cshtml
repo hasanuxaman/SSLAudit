@@ -1,0 +1,71 @@
+﻿@model Shampan.Models.AuditModule.AuditFeedback
+
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit Feedback", BreadCrums = new Dictionary<string, string>()
+{
+    {"/AuditFeedback/index/"+@Model.AuditId,"Audit Feedback"},
+    {"","Index"},
+}})
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New Audit"
+                    data-url="/AuditFeedback/Create/@Model.AuditId" onclick="GoTo(this)"
+                    id="" class="NewButton">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                &nbsp;
+                New
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped" id="AuditFeedList">
+                <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Audit Name</th>
+                    <th>Issue Name</th>
+                    <th>Issue Heading</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+
+    <script src="/js/app/Services/AuditFeedback/AuditFeedbackService.js"></script>
+    <script src="/js/app/Controllers/AuditFeedback/AuditFeedbackController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            AuditFeedbackController.init({ auditId: @Model.AuditId});
+
+        });
+
+    </script>
+}

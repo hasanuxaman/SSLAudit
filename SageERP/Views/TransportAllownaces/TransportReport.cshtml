@@ -1,0 +1,683 @@
+﻿@model Shampan.Models.TransportAllownaces
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/button.css" rel="stylesheet" />
+@*<link href="~/css/tourreport.css" rel="stylesheet" />*@
+
+<style>
+    .main-footer {
+        display: none;
+    }
+
+    #LoacalTADA {
+        width: 30%;
+        text-align: center;
+        margin-left: 35%;
+    }
+
+    #Heading {
+        -webkit-print-color-adjust: exact;
+        text-align: center;
+        background-color: cadetblue !important;
+        color: white;
+        font-size: 24px;
+    }
+
+    table.table-bordered th, table.table-bordered #DatePart {
+        border: 2px solid #000 !important;
+    }
+
+    #IACD {
+        border: 2px solid #000 !important;
+        text-align: center;
+    }
+
+    #Travelling {
+        -webkit-print-color-adjust: exact;
+        border: 2px solid #000 !important;
+        background-color: darkseagreen !important;
+        width: 12%;
+        text-align: center;
+    }
+
+    #TravellingDetails {
+        -webkit-print-color-adjust: exact;
+        border: 2px solid #000 !important;
+        background-color: darkseagreen !important;
+    }
+
+    #TravellingSubTotal {
+        border: 2px solid #000 !important;
+    }
+
+    #LumpsumFoodOthers {
+        -webkit-print-color-adjust: exact;
+        border: 2px solid #000 !important;
+        background-color: darkseagreen !important;
+        width: 12%;
+        text-align: center;
+    }
+
+    #LumpsumSubSubTotal {
+        border: 2px solid #000 !important;
+    }
+
+    #LumpsumSubGrossTotal {
+        border: 2px solid #000 !important;
+    }
+
+    #Advances {
+        -webkit-print-color-adjust: exact;
+        border: 2px solid #000 !important;
+        background-color: darkseagreen !important;
+        width: 12%;
+        text-align: center;
+    }
+
+    #AdvanceDetails {
+        border: 2px solid #000 !important;
+    }
+
+    #AdvanceSubTotal {
+        border: 2px solid #000 !important;
+    }
+
+    /*Uderline*/
+    .applicants-text {
+        -webkit-print-color-adjust: exact;
+        position: relative;
+    }
+
+        .applicants-text:after {
+            content: "";
+            position: absolute;
+            left: 0px;
+            top: -5px; /* Adjust the value to set the desired space above the text */
+            width: 20%;
+            height: 2px; /* Adjust the height of the underline */
+            background-color: #000; /* Adjust the color of the underline */
+            display: block;
+          
+        }
+
+    #VisitorReceived {
+        border: 2px solid #000 !important;
+    }
+</style>
+
+<div class="container-fluid">
+
+
+    <div class="row no-print">
+        <div class="col-lg-6 col-md-6 col-sm-2 col-xs-2 pull-right">
+            <a id="printButton" class="btn btn-success pull-right">Print</a>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+
+        @*Image*@
+
+        <div id="gdLabelContainer"></div>
+
+
+        @*Heading*@
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-sm table-bordered" id="LoacalTADA">
+                                <tbody>
+
+                                    <tr>
+
+                                        <td id="Heading"><strong>Local TA/DA Bill</strong></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Name IACD Date*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-lg-9 col-md-8 col-sm-9 col-xs-9">
+
+                            <div id="">
+                                <p>Name : <strong style="margin-left:110px;">@Model.Name</strong></p>
+                            </div>
+                            <div>
+                                <p>Department : <strong style="margin-left:75px;">Internal Audit And Complience</strong></p>
+                            </div>
+                            <div>
+                                <p>Visiting Place : <span style="margin-left:70px;">@Model.VisitingPalce</span></p>
+                            </div>
+                            <div>
+                                <p>Duration Form:<span style="margin-left:66px;">@Model.DepartureDate to @Model.ArrivalDate,toral @Model.DayCount days (Include Travel days)  </span></p>
+                            </div>
+                            <div>
+                                <p>Departure Date & Time:<span style="margin-left:22px;">@Model.DepartureDate</span></p>
+                            </div>
+                            <div>
+                                <p>Arrival Date and Time: <span style="margin-left:24px;">@Model.ArrivalDate</span></p>
+                            </div>
+                            <div>
+                                <p>Designation:<span style="margin-left:77px;">@Model.Designation</span></p>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                            <table class="table table-sm table-bordered">
+
+                                <tbody>
+                                    <tr>
+                                        <td id="IACD"><strong>IACD</strong></td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+                            <table class="table table-sm table-bordered">
+
+                                <tbody>
+                                    <tr>
+
+                                        <td id="DatePart" style="width: 20%; text-align: left;"><strong>Date : @DateTime.Now.ToString("d/MM/yyyy")  </strong></td>
+
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*Travelling/lumpsum/food and other expenses*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-sm table-bordered" style="width: 100%;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="Travelling"><strong>Travelling,Lumpsum & Food And Other Expenses</strong></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*TravellingDetails*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+                                    <tr>
+
+                                        <td id="TravellingDetails" style="width: 20%; text-align: center;"><strong>Date</strong></td>
+                                        <td id="TravellingDetails" style="width: 60%; text-align: center;"><strong>Particulars</strong> </td>
+                                        <td id="TravellingDetails" style="width: 20%; text-align: center;"><strong>Amount(BDT)</strong> </td>
+
+                                    </tr>
+                                    @foreach (var item in Model.TransportAllownaceDetails)
+                                    {
+                                        <tr>
+
+                                            <td id="" style="width: 20%; text-align: center;">@item.Date</td>
+                                            <td id="" style="width: 60%; text-align: left;">@item.Particulars</td>
+                                            <td id="" style="width: 20%; text-align: right;">@item.Amount</td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*TravellingSubTotal*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+                                    <tr>
+                                        @{
+                                            decimal TotalVlaue = 0;
+                                        }
+                                        @foreach (var item in Model.TransportAllownaceDetails)
+                                        {
+                                            TotalVlaue = TotalVlaue + item.Amount;
+                                        }
+                                        <td id="TravellingSubTotal" style="width: 80%; text-align: right;"><strong>SubTotal</strong> </td>
+                                        <td id="TravellingSubTotal" style="width: 20%; text-align: right;"><strong>@TotalVlaue</strong> </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*lumpsum/food and others*@
+
+        <div class="col-md-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="LumpsumFoodOthers"><strong>Lumpsum & Food And Others</strong></td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        @*LumpsumDetails*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="TravellingDetails" style="width: 80%; text-align: center;"><strong>Details</strong> </td>
+                                        <td id="TravellingDetails" style="width: 20%; text-align: center;"><strong>Amount(BDT)</strong> </td>
+
+                                    </tr>
+
+                                    @foreach (var item in Model.TransportFoodAndOthersDetails)
+                                    {
+                                        <tr>
+
+                                            <td id="" style="width: 80%; text-align: left;">@item.Details</td>
+                                            <td id="" style="width: 20%; text-align: right;">@item.Amount</td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @*LumpsumSubTotalAndGrossTotal*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+                                    <tr>
+                                        @{
+
+                                            decimal LumpsumTotalVlaue = 0;
+                                            foreach (var item in Model.TransportFoodAndOthersDetails)
+                                            {
+                                                LumpsumTotalVlaue = LumpsumTotalVlaue + item.Amount;
+                                            }
+                                            decimal grossTotal = TotalVlaue + LumpsumTotalVlaue;
+
+                                        }
+
+                                        <td id="LumpsumSubSubTotal" style="width: 80%; text-align: right;"><strong>SubTotal</strong> </td>
+                                        <td id="LumpsumSubSubTotal" style="width: 20%; text-align: right;"><strong>@LumpsumTotalVlaue</strong> </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td id="LumpsumSubGrossTotal" style="width: 80%; text-align: center;"><strong>GrossTotal</strong> </td>
+                                        <td id="LumpsumSubGrossTotal" style="width: 20%; text-align: right;"><strong>@grossTotal</strong> </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        @*Advances*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="Advances"><strong>Less Advances & Others</strong></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        @*LumpsumDetails*@
+
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+                                    <tr>
+
+                                        <td id="AdvanceDetails" style="width: 80%; text-align: center;"><strong>Details</strong> </td>
+                                        <td id="AdvanceDetails" style="width: 20%; text-align: center;"><strong>Amount(BDT)</strong> </td>
+
+                                    </tr>
+
+                                    @foreach (var item in Model.LessAdvanceDetails)
+                                    {
+                                        <tr>
+
+                                            <td id="" style="width: 80%; text-align: left;">@item.Details</td>
+                                            <td id="" style="width: 20%; text-align: right;">@item.Amount</td>
+
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        @*LumpsumSubTotalAndGrossTotal*@
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+                                    @{
+                                        decimal LessAdvanceTotalVlaue = 0;
+                                        @foreach (var item in Model.LessAdvanceDetails)
+                                        {
+                                            LessAdvanceTotalVlaue = LessAdvanceTotalVlaue + item.Amount;
+                                        }
+                                        decimal receiptVisitor = grossTotal - LessAdvanceTotalVlaue;
+                                    }
+
+                                    <tr>
+
+                                        <td id="AdvanceSubTotal" style="width: 80%; text-align: right;"><strong>SubTotal</strong> </td>
+                                        <td id="AdvanceSubTotal" style="width: 20%; text-align: right;"><strong>@LessAdvanceTotalVlaue</strong> </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td id="VisitorReceived" style="width: 80%; text-align: right;"><strong>Received By Visitor</strong> </td>
+                                        <td id="VisitorReceived" style="width: 20%; text-align: right;"><strong>@receiptVisitor</strong> </td>
+
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        @*InWord*@
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                <tbody>
+
+                                    <tr>
+                                        <td id="NamePart" style="width: 12%; text-align: left;"><strong>In Word:  </strong></td>
+                                        <td id="NamePart" style="width: 80%; text-align: left;"><strong>@Model.Word Taka Only</strong> </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        @*Signature*@
+
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            
+                            <p class="applicants-text">  <strong>Visiting Officer</strong> </p>
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            
+                            <p class="applicants-text"> <strong>Verified by</strong>  </p>
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+
+                            <p class="applicants-text"> <strong>Approval by</strong>  </p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @*<div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <p>Rakib Hasan</p>
+
+                            <p class="applicants-text"> <strong>Verified by</strong>  </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                            <p>Delour Hossain</p>
+
+                            <p class="applicants-text"> <strong>Approval by</strong>  </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+    </div>
+
+
+</div>
+
+
+@section scripts{
+
+
+    <script>
+        $(document).ready(function () {
+
+            $('#printButton').on('click', function () {
+                //window.print();
+
+                var gdImage = new Image();
+                gdImage.src = "/images/d.png";
+                gdImage.alt = "GD Image";
+                gdImage.className = "gd-image";
+                gdImage.width = 200;
+                gdImage.height = 100;
+
+
+                gdImage.onload = function () {
+
+                    $('#gdLabelContainer').prepend(gdImage);
+                    window.print();
+                    gdImage.remove();
+
+                };
+
+            });
+
+        });
+
+    </script>
+
+
+}

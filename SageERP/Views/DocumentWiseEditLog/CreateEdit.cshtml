@@ -1,0 +1,142 @@
+﻿@model Shampan.Models.DocumentWiseEditLog
+
+@{
+	ViewData["Title"] = "Index";
+	////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "DocumentWiseEditLog Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/DocumentWiseEditLog","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+	<div class="card card-secondary">
+		<div class="card-header">
+			<h3 class="card-title">DocumentWiseEditLog Details</h3>
+		</div>
+
+
+		@Html.HiddenFor(model => model.Id)
+		@Html.HiddenFor(model => model.Operation)
+		@Html.HiddenFor(model => model.Edit)
+
+
+
+		<div class="card-body">
+
+			<button type="button" title="Add Order Details" id="DocumentWiseEditLogAddRow" class="btn btn-lg btn-success mb-2"> <i class="fa fa-plus"></i> </button>
+
+			<table class="table table-bordered table-striped table-sm" id="DocumentWiseEditLogDetails">
+				<thead>
+					<tr>
+
+
+						<th data-type="text" style="width: 10%;" data-name="DocNo">DocNo</th>
+						<th data-type="text" style="width: 10%;" data-required="true" data-name="PCName">PC Name</th>
+						<th data-type="text" style="width: 10%;" data-name="UserId">User Id</th>
+						<th data-type="date" style="width: 10%; text-align: right;" data-name="EntryDate">EntryDate</th>				
+						<th data-type="text" style="width: 10%; text-align: right;" data-name="ClassCode">ClassCode</th>
+						<th data-type="text" style="width: 10%; text-align: right;" data-name="Status">Status</th>
+						<th data-type="date" style="width: 10%; text-align: right;" data-name="DocDate">DocDate</th>
+						<th data-type="text" style="width: 10%; text-align: right;" data-name="CustomerId">Customer Id</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="NetPremium">Net Premium</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="SumInsured">Sum Insured</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="VatAmount">Vat Amount</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="StampAmount">Stamp Amount</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="ProducerCode">Producer Code</th>
+						<th data-type="text" style="width: 10%; text-align: right;" data-name="BusinessStatus">Business Status</th>
+						
+
+
+					</tr>
+
+
+				</thead>
+				<tbody id="DocumentWiseEditLogBody">
+
+					<tr>
+
+
+						<td> @Model.DocNo</td>
+						<td> @Model.PCName</td>
+						<td> @Model.UserId</td>
+						<td> @Model.EntryDate </td>					
+						<td> @Model.ClassCode</td>
+						<td> @Model.Status</td>
+						<td> @Model.DocDate</td>
+						<td> @Model.CustomerId</td>
+						<td> @Model.NetPremium</td>
+						<td> @Model.SumInsured</td>
+						<td> @Model.VatAmount</td>
+						<td> @Model.StampAmount</td>
+						<td> @Model.ProducerCode</td>
+						<td> @Model.BusinessStatus</td>
+
+
+						<td> <button class="btn btn-danger btn-sm remove-row-btn"><i class='fa fa-trash'></i></button> </td>
+
+					</tr>
+
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+	</div>
+
+
+
+	<div class="card">
+		<div class="card-header p-2">
+
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+				<button type="button" class="button btnSaveDocumentWiseEditLog sslUpdate">Update</button>
+
+
+
+			}
+			else
+			{
+				<button class="button btnSaveDocumentWiseEditLog sslSave" type="button" id="">Save</button>
+
+
+			}
+
+		</div>
+	</div>
+
+
+
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+	<script src="/js/app/Services/DocumentWiseEditLogService.js"></script>
+	<script src="/js/app/Controllers/DocumentWiseEditLogController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			DocumentWiseEditLogController.init();
+
+
+		});
+
+	</script>
+
+
+}

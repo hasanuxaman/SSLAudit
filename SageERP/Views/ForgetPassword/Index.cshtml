@@ -1,0 +1,278 @@
+﻿@model ShampanERP.Models.LoginResource
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - GDIC</title>
+    <link href="~/css/v361bootstrap4-toggle.min.css" rel="stylesheet">
+    <!-- Google Font: Source Sans Pro -->
+    @*<link rel="stylesheet" href="~/css/bootstrap4-toggle.min.css">*@
+    <link rel="stylesheet" href="~/css/fonts.googleapis.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/css/code.ionicframework.com_ionicons_2.0.1_css_ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/AdminLte/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/AdminLte/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link href="~/AdminLte/plugins/select2-bootstrap4-theme/select2-bootstrap4.css" rel="stylesheet" />
+    <link href="~/AdminLte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    @*<link rel="stylesheet" href="~/css/icon.css">*@
+    <link rel="stylesheet" href="~/css/typeahead.css">
+    <link href="~/js/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/AdminLte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+
+    @*<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">*@
+    @*<link href="~/css/Customs.css" rel="stylesheet" />*@
+
+    <link href="~/AdminLte/CSS/Custom.css" rel="stylesheet" />
+    <link href="~/css/MaterialIcons.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />  
+
+
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-rO1L7r+NKq7IqDOoVxF8s1tdQomTHdsMlC+5eJTMOh1IbbVdLvJ9Z6jpPd2xl5+K" crossorigin="anonymous">*@
+
+
+
+   @* <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - SageERP</title>
+    <link rel="stylesheet" href="~/css/fonts.googleapis.com_css_family=Source+Sans.css">
+    <link rel="stylesheet" href="/AdminLte/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/AdminLte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/AdminLte/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/css/site.css">*@
+
+</head>
+
+<style type="text/css">
+    body {
+        font-family: Arial;
+        font-size: 10pt;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .card-header {
+        background-color: ghostwhite;
+        padding: 22px;
+    }
+
+    .login-card-body {
+        background-color: whitesmoke;
+    }
+
+    .login-page {
+        background-color: green;
+    }
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: none;
+        background-color: #fff;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        cursor: not-allowed;
+    }
+
+        select:disabled {
+            opacity: 0.7;
+        }
+</style>
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        @Html.HiddenFor(model => model.returnUrl)
+
+        <div class="card">
+            <div class="card-header text-center">
+
+                <img src="~/images/gdic.png" />
+
+            </div>
+
+            <div class="card-body login-card-body">
+                <div style="margin-left:65px;padding-bottom:6px;">
+                    <a href="https://www.symphonysofttech.com/" target="_blank" class="h1"><b>GDIC </b>Audit</a>
+                </div>
+
+                @using (Html.BeginForm("Index", "ForgetPassword", FormMethod.Post, new { @Id = "frm_ForgetPassword" }))
+                {
+
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.returnUrl)
+
+                    <div class="input-group mb-3">
+
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Email ID" })
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-user"></i> </span>
+                        </div>
+
+                    </div>
+                    <div class="input-group mb-3">
+                        @Html.ValidationMessageFor(model => model.UserName)
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control",  @placeholder = "Email Address" })
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="input-group mb-3">
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-primary btn-block button btnsave sslSave" type="button" id="">Send Email</button>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <script src="~/AdminLte/plugins/jquery/jquery.min.js"></script>
+    <script src="~/js/cdnjs.cloudflare.com_ajax_libs_jquery-validate_1.19.1_jquery.validate.min.js"></script>
+    <script src="~/js/cdnjs.cloudflare.com_ajax_libs_jquery-validation-unobtrusive_3.2.11_jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/cdnjs.cloudflare.com_ajax_libs_jquery.mask_1.14.16_jquery.mask.min.js"></script>
+    <script src="~/js/cdnjs.cloudflare.com_ajax_libs_jquery-maskmoney_3.0.2_jquery.maskMoney.min.js"></script>
+    <script>
+        
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/AdminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/AdminLte/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/AdminLte/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/AdminLte/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/AdminLte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/AdminLte/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/AdminLte/plugins/moment/moment.min.js"></script>
+    <script src="~/AdminLte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/AdminLte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/AdminLte/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/AdminLte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/AdminLte/dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    @*<script src="AdminLte/dist/js/demo.js"></script>*@
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    @*<script src="AdminLte/dist/js/pages/dashboard.js"></script>*@
+    <script src="~/AdminLte/plugins/select2/js/select2.full.min.js"></script>
+    @*<script src="~/AdminLte/plugins/select2/js/select2.full.js"></script>*@
+    <script src="~/js/app/custom.js"></script>
+    <script src="~/js/app/Site.Common.js"></script>
+    <script src="~/AdminLte/plugins/toastr/toastr.min.js"></script>
+    <script src="~/js/typeahead.bundle.js"></script>
+    <script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/AdminLte/plugins/jszip/jszip.min.js"></script>
+    <script src="~/AdminLte/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/AdminLte/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/AdminLte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/AdminLte/plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="~/js/cdn.jsdelivr.net_gh_gitbrent_bootstrap4-toggle@3.6.1_js_bootstrap4-toggle.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="~/js/4.3.0_bootbox.js"></script>
+    <script src="~/js/4.3.0_bootbox.min.js"></script>
+    <script src="~/js/CommonComboLoader.js"></script>
+    <script src="~/gasparesganga-jquery-loading-overlay/src/loadingoverlay.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/jquery.tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    @*<script src="/AdminLte/plugins/jquery/jquery.min.js"></script>
+    <script src="/AdminLte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/AdminLte/dist/js/adminlte.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/js/app/custom.js"></script>*@
+
+
+
+    <script src="/js/app/Services/CommonService.js"></script>
+    <script src="/js/app/Services/ForgetPasswordService.js"></script>
+    <script src="/js/app/Controllers/ForgetPasswordController.js"></script>
+
+    <script>
+
+        $(document).ajaxStart(function () {
+            $.LoadingOverlay("show");
+        });
+
+        $(document).ajaxComplete(function () {
+            $.LoadingOverlay("hide");
+        });
+
+
+        $(document).ready(function () {
+            ForgetPasswordController.init();
+        });
+
+    </script>
+
+
+</body>
+</html>
+
+
+
+
+
+

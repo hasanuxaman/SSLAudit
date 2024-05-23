@@ -1,0 +1,14 @@
+﻿@model List<Shampan.Models.TreeNode>
+
+@foreach (var node in Model)
+{
+    <li>
+        @Html.DisplayFor(modelItem => node.Name)
+        @if (node.Children.Any())
+        {
+            <ul>
+                @Html.Partial("_TreeNode", node.Children)
+            </ul>
+        }
+    </li>
+}

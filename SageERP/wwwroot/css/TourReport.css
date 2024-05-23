@@ -1,0 +1,59 @@
+﻿#Heading {
+    -webkit-print-color-adjust: exact;
+    text-align: center;
+    background-color: gray !important;
+    color: white;
+    font-size: 24px;
+}
+
+table.table-bordered th, table.table-bordered #Heading {
+    border: 2px solid #000 !important;
+}
+
+/*DatePart*/
+table.table-bordered th, table.table-bordered #DatePart {
+    border: 2px solid #000 !important;
+}
+
+/*NamePart*/
+table.table-bordered th, table.table-bordered #NamePart {
+    border: 2px solid #000 !important;
+}
+
+
+.applicants-text {
+    -webkit-print-color-adjust: exact;
+    position: relative;
+}
+
+    .applicants-text:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -5px; /* Adjust the value to set the desired space above the text */
+        width: 13%;
+        height: 2px; /* Adjust the height of the underline */
+        background-color: #000; /* Adjust the color of the underline */
+        display: block;
+    }
+
+
+.underline-text {
+    -webkit-print-color-adjust: exact;
+    position: relative;
+}
+
+    .underline-text:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -5px; /* Adjust the value to set the desired space above the text */
+        width: 16%;
+        height: 2px; /* Adjust the height of the underline */
+        background-color: #000; /* Adjust the color of the underline */
+        display: block;
+    }
+
+.main-footer {
+    display: none;
+}

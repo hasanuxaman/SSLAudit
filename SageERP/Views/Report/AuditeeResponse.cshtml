@@ -1,0 +1,648 @@
+﻿@using Shampan.Models
+@using Shampan.Models.AuditModule
+@using HtmlAgilityPack;
+
+@model AuditMaster
+
+@*@model Sage.Models.CashDenominationModel
+@using UIHelpers.MVC*@
+@*@using HtmlAgilityPack;*@@*
+@{
+    ViewBag.Title = "Audit Report";
+}*@
+
+@{
+    int i = 1;
+    string colortext = "";
+}
+
+<html>
+<head>
+
+    <link href="~/css/style.css" rel="stylesheet" />
+
+    <style>
+        input, textarea {
+            border: none;
+            resize: none;
+        }
+
+        .card-body {
+            padding: 0px !important;
+        }
+
+        .main-footer {
+            display: none;
+        }
+
+        *:focus {
+            outline: none;
+        }
+
+        strong::after {
+            content: " ";
+            margin-right: 10px;
+        }
+
+        .no-underline {
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+
+
+<body id="HomepageBody">
+
+    <div class="clearfix">&nbsp;</div>
+
+    <div class="row no-print">
+        <div class="col-lg-6 col-md-6 col-sm-2 col-xs-2 pull-right">
+            <a id="printButton" class="btn btn-success pull-right">Print</a>
+        </div>
+    </div>
+
+    <div class="container-fluid report-page" id="ImageSection" data-container="editorItemRows4">
+
+        @*<div class="clearfix">&nbsp;</div>*@
+
+        <div class="header image1" id="gdLabelContainer"></div>
+
+        @*FirstHeading*@
+
+        <div class="row" style="height:1350px;">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div id="">
+
+                                    @*<div style="height:1350px;">*@
+                                    <div>
+                                        <div id="ReportHeading">
+                                            @{
+                                               //<div style="display:inline-block">
+                                                @Html.Raw(Model.AuditReportDetails)
+                                               //</div>
+
+                                                //string reportdetails = Model.AuditReportDetails;
+                                                //var htmlDocumentReport = new HtmlDocument();
+                                                //htmlDocumentReport.LoadHtml(reportdetails);
+
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*SecondHeadig*@
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div id="">
+
+                                    @*<div style="height:3050px;"><div>*@
+                                    @*<div class="header image2" id="gdLabelContainer2"></div>*@
+
+                                    <div id="SecondReportHeading">
+                                        @{
+
+                                            <div style="display:inline-block;-webkit-print-color-adjust: exact;" class="no-underline">
+                                                @Html.Raw(Model.AuditSecondReportDetails)
+                                            </div>
+
+                                            string secondReportdetails = Model.AuditSecondReportDetails;
+                                            var htmlDocumentSecondReport = new HtmlDocument();
+                                            htmlDocumentSecondReport.LoadHtml(secondReportdetails);
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table style="width: 100%; float: left;">
+
+                                    <thead>
+                                        <tr>
+                                            @*<td style="text-align: center"><strong>GDIC Audit Report</strong></td>*@
+
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*AuditName*@
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table style="width: 100%; float: left;">
+
+                                    <thead>
+                                        <tr>
+                                            <td id="auditname"><strong>Audit Name : @Model.Name</strong></td>
+                                        </tr>
+                                    </thead>
+
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table style="width: 100%; float: left;">
+
+                                    <thead>
+                                        <tr>
+                                            <td><strong>Detail of audit issues:</strong></td>
+                                        </tr>
+                                    </thead>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        @*Issue Loop*@
+
+        @foreach (var issue in Model.auditIssue)
+        {
+            colortext = issue.IssuePriority;
+            int data = 0;
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                    <table class="table table-sm table-bordered" style="width: 100%; float: left;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 10%; text-align: left;"><strong>Issue :  @i</strong></td>
+                                                <td style="width: 75%; text-align: left;"><strong>Process :</strong> @issue.OperationalText @issue.FinancialText @issue.ComplianceText</td>
+
+                                                <td style="width: 15%; text-align: left; background-color: @(colortext == "High" ? "red !important" : colortext == "Medium" ? "yellow !important" : colortext == "Low" ? "green !important" : "initial"); color: @(colortext == "High" ? "white !important" : colortext == "Medium" ? "black !important" : colortext == "Low" ? "white !important" : "initial");-webkit-print-color-adjust: exact;">
+                                                    <strong>Issue Rating :</strong> @colortext
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*IssueDetailsPart*@
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div id="RiskBody">
+
+                                        <div>
+                                            <p style="padding: 2px;">
+                                                @issue.IssueName
+                                            </p>
+                                        </div>
+
+
+                                        <div id="issueDetails">
+                                            @{
+
+                                                <div style="-webkit-print-color-adjust: exact;">
+                                                    @Html.Raw(issue.IssueDetails)
+                                                </div>
+
+                                                int end = 0;                                        
+                                            }
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*RiskPart*@
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div id="">
+
+                                        <div>
+
+                                            <div id="riskheading">
+
+                                                <p style="font-weight: bold; background-color: red;height:40px;color:white;">Risk</p>
+                                                @*<p>Risk</p>*@
+
+                                            </div>
+
+                                            <p>
+                                                @{
+                                                    string issueRisk = issue.Risk;
+                                                    if (issueRisk != null)
+                                                    {
+                                                        string[] riskPoints = issueRisk.Split('\n');
+                                                        foreach (string riskPoint in riskPoints)
+                                                        {
+                                                            <div>
+                                                                @riskPoint
+                                                            </div>
+                                                        }
+                                                    }
+                                                }
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*DepartmentalResponse*@
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div id="">
+                                        <div>
+                                            @if (issue.AuditBranchFeedbackList.Count() != 0)
+                                            {
+
+                                                <div id="DepartmentalResponse">
+
+                                                    <p><strong>Departmental Response:  </strong></p>
+                                                    <hr />
+
+                                                </div>
+                                            }
+                                            @{
+                                                @foreach (var auditBranchFeedbackDetails in issue.AuditBranchFeedbackList)
+                                                {
+                                                    <div>
+                                                        @Html.Raw(auditBranchFeedbackDetails.IssueDetails)
+                                                    </div>
+
+                                                    <div>
+                                                    </div>
+                                                }
+
+                                                //<div style="display:inline-block;" >
+                                                //    @Html.Raw(issue.AuditBranchFeedback.IssueDetails)
+                                                //</div>
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*ImplementationDate*@
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div id="">
+
+                                        <div>
+                                            <p>
+                                                @*<strong>Expected Implemention date: @issue.AuditBranchFeedback.ImplementationDate</strong>*@
+                                                <strong>Expected Implemention date: @issue.ImplementationDate</strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*AuditResponse*@
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div id="">
+
+                                        <div>
+                                            @if (issue.AuditFeedbackList.Count() != 0)
+                                            {
+                                                <div id="AuditResponse">
+                                                    <p style="font-weight: bold; background-color: yellowgreen;height:40px;"><strong>Audit Response: </strong></p>
+                                                    <hr />
+                                                </div>
+                                            }
+                                            @{
+                                                @foreach (var auditFeedbackDetails in issue.AuditFeedbackList)
+                                                {
+                                                    <div>
+                                                        @Html.Raw(auditFeedbackDetails.IssueDetails)
+
+                                                    </div>
+
+                                                    <div>
+                                                    </div>
+                                                }
+
+
+                                                //<div style="display:inline-block;">
+                                                //    @Html.Raw(issue.AuditFeedback.IssueDetails)
+                                                //</div>
+
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*Follow - up Response | Department*@
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div id="">
+
+                                        <div id="DepartmentFollowUp" style="margin-top:20px;">
+                                            @{
+                                                //string dataCheck = issue.AuditBranchFeedbackDepartmentFollowUp.IssueDetails;
+                                                int count = issue.AuditBranchFeedbackDepartmentFollowUpList.Count();
+                                            }
+
+                                            @if (count != 0)
+                                            {
+                                                <div id="FollowUpResponseDepartment">
+
+                                                    <p style="font-weight: bold;"><strong>Follow-Up Response | Department Response:</strong></p>
+                                                    <hr>
+
+                                                </div>
+                                            }
+
+                                            <div id="DepartmentFollowUp">
+                                                @{
+                                                    @foreach (var auditBranchDetails in issue.AuditBranchFeedbackDepartmentFollowUpList)
+                                                    {
+                                                        <div>
+                                                            @Html.Raw(auditBranchDetails.IssueDetails)
+                                                        </div>
+                                                        <div>
+                                                        </div>
+                                                    }
+
+                                                    //<div style="display:inline-block;">
+                                                    //    @Html.Raw(issue.AuditBranchFeedbackDepartmentFollowUp.IssueDetails)
+                                                    //</div>
+
+
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*AuditResponseFollowUp*@
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div id="">
+
+                                        <div id="AuditResponseFollowUp">
+                                            @{
+                                                //string check = issue.AuditBranchFeedbackAuditResponserFollwoUp.IssueDetails;
+                                                int AuditResponseCount = issue.AuditBranchFeedbackAuditResponserFollwoUpList.Count();
+                                            }
+                                            @if (AuditResponseCount != 0)
+                                            {
+                                                <div id="AuditResponseAfterFollowUp">
+
+                                                    <p style="font-weight: bold;background-color: yellowgreen;height:40px;"><strong>Audit Response After Follow-Up: </strong></p>
+
+                                                </div>
+                                            }
+                                            <div id="AuditResponseFollowUp">
+                                                @{
+                                                    @foreach (var auditBranchDetails in issue.AuditBranchFeedbackAuditResponserFollwoUpList)
+                                                    {
+                                                        <div>
+                                                            @Html.Raw(auditBranchDetails.IssueDetails)
+                                                        </div>
+                                                        <div>
+                                                        </div>
+                                                    }
+
+                                                    //<div style="display:inline-block;">
+                                                    //    @Html.Raw(issue.AuditBranchFeedbackAuditResponserFollwoUp.IssueDetails)
+                                                    //</div>
+
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            i++;
+
+
+        }
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div id="">
+
+                                    <div style="text-align:center;">
+                                        <p>End Of Report</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div id="">
+
+                                    <div id="Annexure" style="margin-top:20px;">
+                                        @*<p style="font-weight: bold;"><strong>Follow-up Response | Department:</strong></p>
+                                        <hr>*@
+                                        <div id="Annexure">
+                                            @{
+                                                @Html.Raw(Model.AuditAnnexureDetails)
+                                                //string annexuredetails = Model.AuditAnnexureDetails;
+                                                //var htmlDocumentAnnexureReport = new HtmlDocument();
+                                                //htmlDocumentAnnexureReport.LoadHtml(annexuredetails);
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script src="~/AdminLte/plugins/jquery/jquery.min.js"></script>
+@section scripts{
+
+    <script src="/js/app/Controllers/ReportController.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            ReportController.init();
+
+        });
+
+    </script>
+
+}
+
+
+
+
+

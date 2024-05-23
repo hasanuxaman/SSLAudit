@@ -1,0 +1,78 @@
+﻿/*
+@page {
+    margin-top: 150px;
+}*/
+
+/*.print-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+}
+*/
+
+@media print {
+
+    .report-container {
+        page-break-inside: avoid;
+    }
+    .table-section {
+        page-break-before: always;
+    }
+    #riskheading {      
+        -webkit-print-color-adjust: exact;
+        font-weight: bold;
+        background-color: red;
+        height: 40px;
+        color: white;
+    }
+    #issueDetails {
+        -webkit-print-color-adjust: exact;
+    }
+    #DepartmentalResponse {
+        -webkit-print-color-adjust: exact;
+    }
+    #AuditResponse {
+        -webkit-print-color-adjust: exact;
+        font-weight: bold;
+        background-color: yellowgreen;
+        height: 40px;
+    }
+    #FollowUpResponseDepartment {
+        -webkit-print-color-adjust: exact;
+        font-weight: bold;
+    }
+    #AuditResponseAfterFollowUp {
+        -webkit-print-color-adjust: exact;
+        font-weight: bold;
+        background-color: yellowgreen;
+        height: 40px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

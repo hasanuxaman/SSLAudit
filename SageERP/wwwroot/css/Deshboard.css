@@ -1,0 +1,153 @@
+﻿
+#DeshboardFont {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.DeshboardFont {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+
+#custom, .table td,
+.table th {
+    padding: 0.25rem;
+}
+
+
+#custom, .table th,
+.table td {
+    font-size: 12px;
+}
+
+#custom, .table th,
+#custom, .table td {
+    font-size: 13px;
+}
+
+.table-green-bg {
+    background-color: #8bc34a;
+}
+
+
+/*LeftSideCircleStyle*/
+
+.percentage-circle {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.percentage-text {
+    font-size: 23px;
+    color: #846235;
+}
+
+.chart-text {
+    /*position: absolute;*/
+    /*top: 25%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+.table-info, .table-info > td, .table-info > th {
+    background-color: #ccffee;
+}
+
+
+/*EndCycleStyle*/
+
+/*AddNew*/
+
+/*FoLleftSideErrowAndFinancialImpact*/
+
+
+.cardforright {
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);*/
+    padding: 40px;
+    text-align: center;
+    background-color: #ccffee;
+
+
+    /*width: 400px;
+    height: 292px;
+    padding-top: 70px;*/
+    /*margin-left:15%;*/
+    display: flex;
+
+    width: 100%;
+    margin-top: 10%;
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.arrow {
+    margin-right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.text {
+    text-align: left;
+}
+
+#combined-chart {
+    /* height:200px;
+        width:400px;*/
+}
+
+.chart {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.chart-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+}
+
+
+
+
+/*EndFoLleftSideErrowAndFinancialImpact*/
+
+
+
+
+.branch-coverage {
+    background-color: #8bc34a;
+    
+    color: white; /* Set the text color to white to make it visible on the background */
+    padding: 5px; /* Add padding to create space around the text */
+    border-radius: 5px; /* Add rounded corners to the background */
+    /*display: inline-block; */
+}
+
+.Engagments1 {
+    background-color: #ccffee;
+    /*background-color: #8bc34a;*/
+    color: black; /* Set the text color to white to make it visible on the background */
+    padding: 5px; /* Add padding to create space around the text */
+    border-radius: 5px; /* Add rounded corners to the background */
+    font-weight:bold;
+}
+
+.Engagments2 {
+    background-color: #8bc34a; /* Set the desired background color */
+    color: white; /* Set the text color to white to make it visible on the background */
+    padding: 5px; /* Add padding to create space around the text */
+    border-radius: 5px; /* Add rounded corners to the background */
+}
+

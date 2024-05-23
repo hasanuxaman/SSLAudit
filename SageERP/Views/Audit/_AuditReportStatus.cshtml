@@ -1,0 +1,132 @@
+﻿@using Shampan.Models
+@model Shampan.Models.AuditIssue
+
+
+
+<div class="modal-dialog draggable modal-lg" role="document" style="max-width:60%;">
+	<div class="modal-content" style="width:100%;">
+		<div class="modal-header">
+			<h4 class="modal-title">Audit Report Status</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		</div>
+
+		<div class="modal-body">
+
+			@using (Html.BeginForm("CreateEdit", "Audit", FormMethod.Post, new { @Id = "frm_Audit_Report" }))
+			{
+				@Html.HiddenFor(model => model.Id, new {@Id = "AuditId"})
+
+				@Html.HiddenFor(model => model.Operation, new {@Id = "AreaOperation"})
+				@Html.HiddenFor(model => model.IsPost)
+				@Html.HiddenFor(model => model.Edit)
+
+
+				<div class="form-group row">
+
+
+					<div class="col-sm-3">
+						@Html.LabelFor(model => model.IssueName)
+						@Html.TextBoxFor(model => model.IssueName, new { @class = "  form-control input-sm" , @readonly="readonly"})
+						@Html.ValidationMessageFor(model => model.IssueName)
+					</div>
+
+					<div class="col-sm-3">
+						@Html.LabelFor(model => model.DateOfSubmission)
+						<div class="input-group date">
+							@Html.TextBoxFor(model => model.DateOfSubmission, new { @class = "  form-control input-sm dateRange" ,@readonly="readonly", @disabled = "disabled"})
+							<div class="input-group-append">
+								<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							</div>
+						</div>
+
+						@Html.ValidationMessageFor(model => model.DateOfSubmission)
+					</div>
+					<div class="col-sm-3">
+						@Html.LabelFor(model => model.IssuePriorityUpdate)
+						@Html.DropDownListFor(model => model.IssuePriorityUpdate, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.IssuePriorityUpdate,@data_readonly=Model.IssuePriorityUpdate})
+						@Html.ValidationMessageFor(model => model.IssuePriorityUpdate)
+					</div>
+
+					<div class="col-sm-3">
+						@Html.LabelFor(model => model.ReportStatusModal)
+						@Html.DropDownListFor(model => model.ReportStatusModal, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.ReportStatusModal})
+						@Html.ValidationMessageFor(model => model.ReportStatusModal)
+					</div>
+
+					@*<div class="col-sm-3">
+						@Html.LabelFor(model => model.AuditType)
+						@Html.DropDownListFor(model => model.AuditType, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.AuditType})
+						@Html.ValidationMessageFor(model => model.AuditType)
+					</div>*@
+
+				</div>
+
+				<div class="row form-group">
+
+					@*<div class="col-sm-3">
+				@Html.LabelFor(model => model.IssueStatus)
+				@Html.DropDownListFor(model => model.IssueStatus, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.IssueStatus})
+				@Html.ValidationMessageFor(model => model.IssueStatus)
+				</div>*@
+
+					
+
+				</div>
+
+				@*<div class="row form-group">
+
+
+			<div class="col-9">
+			@Html.LabelFor(model => model.IssueDetailsUpdate)
+			@Html.TextAreaFor(model => model.IssueDetailsUpdate, new { @class = "  form-control input-sm" })
+			@Html.ValidationMessageFor(model => model.IssueDetailsUpdate)
+			</div>
+			</div>*@
+
+
+
+
+
+
+
+
+
+
+
+
+			}
+
+
+			@if (Model.Edit.Equals("issue", StringComparison.CurrentCultureIgnoreCase))
+			{
+				<div class="row mt-2">
+					<div class="col-2">
+
+						<button type="button" class="button sslUpdate AuditAreasbtnMainSave pt-1 btnSaveReport"> Update</button>
+
+
+					</div>
+
+
+				</div>
+
+			}
+
+
+		</div>
+
+
+		<div class="modal-footer">
+
+			<button type="button" class="button sslClose" data-dismiss="modal">
+				<i class="fas fa-times-circle"></i> Close
+			</button>
+
+		</div>
+
+
+	</div>
+</div>
+
+
+

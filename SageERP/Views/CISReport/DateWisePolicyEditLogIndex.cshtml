@@ -1,0 +1,95 @@
+﻿@model Shampan.Models.DateWisePolicyEditLog
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+
+<style>
+    .pagination-left {
+        float: left;
+    }
+</style>
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "DateWisePolicyEditLog Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/DateWisePolicyEditLog","DateWisePolicyEditLogIndex"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New BankEntry"
+                    data-url="/DateWisePolicyEditLog/Create" onclick="GoTo(this)"
+                    id="" class="button NewButton addNewButton">
+                New
+            </button>
+
+
+        </div>
+    </div>
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" style="width:100%" id="DateWisePolicyEditLogList">
+                    <thead>
+                        <tr>
+
+                            <th class="action">&nbsp;Action</th>
+
+                            <th>MR No</th>
+                            <th>PC No</th>
+                            <th>User Id</th>
+                            <th>Edit Date</th>
+                            <th>Status</th>
+                            <th>MR Net</th>
+                            <th>MR Vat</th>
+                            <th>MR Stamp</th>
+                            <th>MR CoinsPayable</th>
+                            <th>MR DateTime</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    <script src="/js/app/Services/CISReportService.js"></script>
+    <script src="/js/app/Controllers/CISReportController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            CISReportController.init();
+
+
+        });
+
+    </script>
+    }
+

@@ -1,0 +1,379 @@
+﻿@using Shampan.Models
+@model Shampan.Models.Circulars
+
+
+@{
+	ViewData["Title"] = "Create";
+}
+
+
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit Library Create", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Circulars","Circulars"},
+    {"","CreateEdit"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+	@using (Html.BeginForm("CreateEdit", "Circulars", FormMethod.Post, new { @Id = "frm_Circulars" }))
+	{
+		<!-- Master Start-->
+		<div class="card card-secondary">
+			<div class="card-header">
+				<h3 class="card-title">Create Circular</h3>
+			</div>
+			<div class="card-body">
+				@Html.HiddenFor(model => model.Id)
+
+				@Html.HiddenFor(model => model.Operation)
+				@Html.HiddenFor(model => model.Edit)
+
+
+
+
+
+				<div class="form-group row">
+
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.Code)
+						@Html.TextBoxFor(Model =>Model.Code , new { @class = "  form-control form-control-sm",@readonly="readonly" })
+						@Html.ValidationMessageFor(model => model.Code)
+
+					</div>
+
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.CircularType)
+						@Html.DropDownListFor(model => model.CircularType, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.CircularType})
+						@Html.ValidationMessageFor(model => model.CircularType)
+
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.CircularDate)
+						<div class="input-group date">
+							@Html.TextBoxFor(model => model.CircularDate, new { @class = "  form-control form-control-sm dateRange" })
+							<div class="input-group-append">
+								<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						@Html.LabelFor(model => model.CircularSummary)
+						@Html.TextAreaFor(Model =>Model.CircularSummary , new { @class = "  form-control form-control-sm" })
+						@Html.ValidationMessageFor(model => model.CircularSummary)
+
+					</div>
+
+
+					<div class="col-sm-1">
+						<label>
+
+							Published
+							@Html.CheckBoxFor(model => model.IsPublished, new { @class = "form-control form-control-sm", style = "margin-right: 5px;    margin-top: 7px;", id = "IsPublished" })
+						</label>
+					</div>
+
+
+
+
+
+				</div>
+				<div class="form-group row">
+
+					<div class="col-sm-4">
+						@Html.LabelFor(model => model.CircularDetails)
+						@Html.TextAreaFor(Model =>Model.CircularDetails , new { @class = "  form-control form-control-sm" })
+						@Html.ValidationMessageFor(model => model.CircularDetails)
+
+					</div>
+
+
+
+
+				</div>
+
+
+				@*<div class="form-group">
+					<label asp-for="Attachments" class="control-label">Files</label>
+					<input asp-for="Attachments" type="file" class="form-control-file" multiple />
+					<span asp-validation-for="Attachments" class="text-danger"></span>
+				</div>*@
+
+
+
+
+				<div class="row form-group">
+					<div class="col-md-3">
+						<div class="editor-label">
+							<label>Attachments</label>
+						</div>
+						<input type="file" accept=".jpg,.jpeg, .png,.pdf, .xls, .xlsx,.docx" id="fileToUpload" name="Attachments" multiple="multiple" />
+
+					</div>
+
+				</div>
+
+
+
+				<div class="row">
+					<ul class="list-group fileGroup">
+
+						@foreach (CircularAttachments item in Model.AttachmentsList)
+						{
+							<li class="list-group-item" id="file-@item.Id">
+								<span>
+									@item.DisplayName
+								</span>
+
+								<a target="_blank" href="/Circulars/DownloadFile?filePath=@item.FileName" class=" ml-2 btn btn-primary btn-sm float-right ml-2">Download</a>
+
+								<button onclick="CircularsController.deleteFile('@item.Id' ,'@item.FileName')" class=" ml-2 btn btn-danger btn-sm float-right" type="button">Delete</button>
+
+
+							</li>
+						}
+
+					</ul>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Master End-->
+	}
+
+
+</div>
+
+
+@*@if (Model.Edit.Equals("'deshboard'"))
+{
+
+}
+else
+{*@
+<div class="container-fluid">
+	<div class="card">
+		<div class="card-header p-2">
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+				<button type="button" class="button  sslUpdate pt-1 btnsave" id="">Update</button>
+			}
+			else
+			{
+				<button type="button" class="button  sslSave pt-1 btnsave" id="">
+
+					Save
+				</button>
+			}
+		</div>
+	</div>
+</div>
+
+@*}*@
+
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+	<script src="/js/app/Services/CircularsService.js"></script>
+	<script src="/js/app/Controllers/CircularsController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			CircularsController.init();
+
+		});
+
+	</script>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+@*@using Shampan.Models
+@model Shampan.Models.Circulars
+
+
+@{
+	ViewData["Title"] = "Index";
+	//var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Circulars Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Circulars","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+
+<div class="container-fluid">
+
+
+	<form id="frm_Circulars" enctype="multipart/form-data" method="post" asp-action="CreateEdit" asp-controller="Circulars">
+
+		<div class="card card-secondary">
+
+
+			<div class="card-header">
+				<h3 class="card-title">Create Advances</h3>
+			</div>
+
+
+			<div class="card-body">
+
+				@Html.HiddenFor(model => model.Id)
+				@Html.HiddenFor(model => model.Operation)
+
+
+				<div class="form-group row">
+
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.Code)
+						@Html.TextBoxFor(Model =>Model.Code , new { @class = "  form-control form-control-sm",@readonly="readonly" })
+						@Html.ValidationMessageFor(model => model.Code)
+
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.CircularType)
+						@Html.TextBoxFor(Model =>Model.CircularType , new { @class = "  form-control form-control-sm" })
+						@Html.ValidationMessageFor(model => model.CircularType)
+
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.CircularDate)
+						<div class="input-group date">
+							@Html.TextBoxFor(model => model.CircularDate, new { @class = "  form-control form-control-sm dateRange" })
+							<div class="input-group-append">
+								<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.CircularSummary)
+						@Html.TextAreaFor(Model =>Model.CircularSummary , new { @class = "  form-control form-control-sm" })
+						@Html.ValidationMessageFor(model => model.CircularSummary)
+
+					</div>
+
+
+					<div class="col-sm-2">
+						<label>
+
+							IsPublished
+							@Html.CheckBoxFor(model => model.IsPublished, new { @class = "form-control form-control-sm", style = "margin-right: 5px;    margin-top: 7px;", id = "IsPublished" })
+						</label>
+					</div>
+
+
+
+
+
+				</div>
+
+
+				<div class="row form-group">
+					<div class="col-md-3">
+						<div class="editor-label">
+							<label>Attachments</label>
+						</div>
+						<input type="file" accept=".jpg,.jpeg, .png,.pdf, .xls, .xlsx,.docx" id="fileToUpload" name="Attachments" multiple="multiple" />
+
+					</div>
+
+				</div>
+
+
+				<div class="row">
+					<ul class="list-group fileGroup">
+
+						@foreach (CircularAttachments item in Model.AttachmentsList)
+						{
+							<li class="list-group-item" id="file-@item.Id">
+								<span>
+									@item.DisplayName
+								</span>
+								<a target="_blank" href="/AuditIssue/DownloadFile?filePath=@item.FileName" class=" ml-2 btn btn-primary btn-sm float-right ml-2">Download</a>
+
+								<button onclick="AuditIssueController.deleteFile('@item.Id' ,'@item.FileName')" class=" ml-2 btn btn-danger btn-sm float-right" type="button">Delete</button>
+
+
+							</li>
+						}
+
+					</ul>
+				</div>
+
+
+
+			</div>
+		</div>
+	</form>
+
+
+
+	<div class="card">
+		<div class="card-header p-2">
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+
+				<button type="button" class="button sslUpdate" onclick="SaveData()">Update</button>
+			}
+			else
+			{
+
+
+				<button class="button  sslSave" type="button" onclick="SaveData()" id="">Save</button>
+			}
+		</div>
+	</div>
+
+
+
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+	<script src="/js/app/Services/CircularsService.js"></script>
+	<script src="/js/app/Controllers/CircularsController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			CircularsController.init();
+
+		});
+
+	</script>
+
+
+}
+*@

@@ -1,0 +1,33 @@
+﻿@model string
+<div class="modal-dialog draggable modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Source Code List</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times</span></button>
+        </div>
+        <div class="modal-body">
+            @Html.Hidden("md-SourceLedger",Model)
+            <table class="table table-bordered  table-sm table-hover full-width" id="SourceCodeModal">
+                <thead>
+                    <tr>
+                        <th>Source Ledger</th>
+                        <th>Source Type</th>
+                        <th>Description</th>
+                        
+                        
+
+                    </tr>
+                </thead>
+                <tbody id="SCode" class="cursorHand">
+
+
+                </tbody>
+
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+</div>

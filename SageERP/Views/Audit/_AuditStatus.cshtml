@@ -1,0 +1,144 @@
+﻿@using Shampan.Models
+@model Shampan.Models.AuditModule.AuditMaster
+
+
+
+<div class="modal-dialog draggable modal-lg" role="document" style="max-width:75%;">
+	<div class="modal-content" style="width:100%;">
+		<div class="modal-header">
+			<h4 class="modal-title">Audit Status</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		</div>
+
+		<div class="modal-body">
+
+			@using (Html.BeginForm("CreateEdit", "Audit", FormMethod.Post, new { @Id = "frm_Audit_Status" }))
+			{
+				@Html.HiddenFor(model => model.Id, new {@Id = "AuditId"})
+				@Html.HiddenFor(model => model.Code)
+				@Html.HiddenFor(model => model.Operation, new {@Id = "AreaOperation"})
+				@Html.HiddenFor(model => model.Name)
+				@Html.HiddenFor(model => model.Code)
+				@Html.HiddenFor(model => model.AuditTypeId)
+				@Html.HiddenFor(model => model.IsPlaned)
+				@Html.HiddenFor(model => model.Location)
+				@Html.HiddenFor(model => model.TeamId)
+				@Html.HiddenFor(model => model.BranchID)
+				@Html.HiddenFor(model => model.StartDate)
+				@Html.HiddenFor(model => model.EndDate)
+				@Html.HiddenFor(model => model.BusinessTarget)
+				@Html.HiddenFor(model => model.ReportStatus)
+		
+
+				@Html.HiddenFor(model => model.Remarks,new { @class = "  form-control input-sm" , @Id="remarksAuditDetails", @name ="IssueDetails" })
+
+				@*@Html.TextAreaFor(model => model.IssueDetails, new { @class = "  form-control input-sm" , @Id="IssueBranchDetailsFeedback", @name ="IssueDetails" })*@
+
+
+
+				<div class="form-group row">
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.Code)
+						@Html.TextBoxFor( model => model.Code, new { @class = " input-sm form-control",@readonly="readonly" })
+						@Html.ValidationMessageFor(model => model.Code)
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.Name)
+						@Html.TextBoxFor( model => model.Name, new { @class = " input-sm form-control",@readonly="readonly" })
+						@Html.ValidationMessageFor(model => model.Name)
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.StartDate)
+						<div class="input-group date">
+							@Html.TextBoxFor(model => model.StartDate, new { @class = "  form-control input-sm dateRange", @disabled = "disabled",@readonly="readonly" })
+							<div class="input-group-append">
+								<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.EndDate)
+						<div class="input-group date">
+							@Html.TextBoxFor(model => model.EndDate, new { @class = "  form-control input-sm dateRange", @disabled = "disabled",@readonly="readonly" })
+							<div class="input-group-append">
+								<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						@Html.LabelFor(model => model.AuditStatus)
+						@Html.DropDownListFor(model => model.AuditStatus, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.AuditStatus})
+						@Html.ValidationMessageFor(model => model.AuditStatus)
+					</div>
+				</div>
+				<div class="row form-group">
+
+					<div class="col-sm-1 d-flex flex-column align-items-start">
+						@Html.LabelFor(model => model.IsPlaned, new { @class = "form-check-label" })
+						<div class="form-check">
+							@Html.CheckBoxFor(model => model.IsPlaned, new { @class = "form-check-input" ,@disabled = "disabled"})
+						</div>
+
+
+					</div>
+
+
+					@*<div class="col-sm-2">
+						@Html.LabelFor(model => model.AuditTypeId)
+						@Html.DropDownListFor(model => model.AuditTypeId, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.AuditTypeId})
+						@Html.ValidationMessageFor(model => model.AuditTypeId)
+					</div>*@
+
+
+
+					<div class="col-sm-2">
+						@Html.LabelFor(model => model.BranchIDStatus)
+						@Html.DropDownListFor(model => model.BranchIDStatus, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.BranchID,@data_readonly=Model.BranchID})
+						@Html.ValidationMessageFor(model => model.BranchIDStatus)
+					</div>
+
+
+				</div>
+
+
+				
+
+
+
+			}
+
+
+
+			<div class="row mt-2">
+				<div class="col-2">
+
+					<button type="button" class="button sslUpdate AuditAreasbtnMainSave pt-1 btnSaveStatus"> Update</button>
+
+
+				</div>
+
+
+			</div>
+
+
+
+
+		</div>
+
+
+		<div class="modal-footer">
+
+			<button type="button" class="button sslClose" data-dismiss="modal">Close</button>
+
+		</div>
+
+
+	</div>
+</div>
+
+
+

@@ -1,0 +1,604 @@
+﻿@using Shampan.Models
+@model List<Shampan.Models.BranchProfile>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Dashboard", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Home","Home"},
+    {"","Dashboard"}
+}})
+*@
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@{
+    string userName = User.Identity.Name;
+    //Plan And UnPlan
+    var components = Context.Items["AuditComponentList"] as List<Shampan.Models.AuditComponent>;
+    var GetUnPlanAuditComponents = Context.Items["GetUnPlanAuditComponents"] as List<Shampan.Models.AuditComponent>;
+    var branchCoverages = Context.Items["branchCoverages"] as List<Shampan.Models.BranchCoverage>;
+    var basicData = Context.Items["basicData"] as List<Shampan.Models.BasicData>;
+    var specialEngagements = Context.Items["SpecialEngagements"] as List<Shampan.Models.SpecialEngagements>;
+    var addHocEngagements = Context.Items["AddHocEngagements"] as List<Shampan.Models.AddHocEngagements>;
+    var TotalCompletedOngoingRemaing = Context.Items["TotalCompletedOngoingRemaing"] as List<AuditReports>;
+    var UnPlan = Context.Items["UnPlan"] as List<AuditReports>;
+    AuditReports auditPlan = TotalCompletedOngoingRemaing.FirstOrDefault();
+    AuditReports auditUnPlan = UnPlan.FirstOrDefault();
+    var TotalIssue = Context.Items["Issues"];
+    var TotalAudit = Context.Items["TotalAudit"];
+    var TotalAuditApproved = Context.Items["TotalAuditApproved"];
+    var TotalAuditRejected = Context.Items["TotalAuditRejected"];
+    var TotalIssueRejected = Context.Items["TotalIssueRejected"];
+    var DeadLineForResponse = Context.Items["DeadLineForResponse"];
+    var TotalRisk = Context.Items["TotalRisk"];
+    var BeforeDeadLineIssue = Context.Items["BeforeDeadLineIssue"];
+    var MissDeadLineIssues = Context.Items["MissDeadLineIssues"];
+    var TotalFollowUpAudit = Context.Items["TotalFollowUpAudit"];
+    var TotalPendingIssueReview = Context.Items["TotalPendingIssueReview"];
+    var PendingForAuditFeedback = Context.Items["PendingForAuditFeedback"];
+    var FollowUpAuditIssues = Context.Items["FollowUpAuditIssues"];
+    var PendingForApproval = Context.Items["PendingForApproval"];
+    var PendingAuditResponse = Context.Items["PendingAuditResponse"];
+    var PendingAuditApproval = Context.Items["PendingAuditApproval"];
+    var FinalAuidtApproved = Context.Items["FinalAuidtApproved"];
+    var PendingForReviewerFeedback = Context.Items["PendingForReviewerFeedback"];
+    var GetPrePayment = Context.Items["GetPrePayment"] as PrePaymentMaster;
+    var IsBranchUser = (bool)Context.Items["AuditBranchUserGetAll"];
+    var PrepaymentReviewValue = Context.Items["PrepaymentReview"] as PrepaymentReview;
+    var PendingForIssueApproval = Context.Items["PendingForIssueApproval"];
+
+
+
+    if (PrepaymentReviewValue == null)
+    {
+        PrepaymentReviewValue = new PrepaymentReview();
+
+    }
+
+    int end = 0;
+
+}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap">
+<link href="~/css/Deshboard.css" rel="stylesheet" />
+
+<input value="@auditPlan.Completed" hidden id="Completed" />
+<input value="@auditPlan.Ongoing" hidden id="Ongoing" />
+<input value="@auditPlan.Remaining" hidden id="Remaining" />
+<input value="@auditUnPlan.UnPlanRemaining" hidden id="UnPlanRemaining" />
+<input value="@auditUnPlan.UnPlanOngoing" hidden id="UnPlanOngoing" />
+<input value="@auditUnPlan.UnPlanCompleted" hidden id="UnPlanCompleted" />
+@{
+    decimal total = auditPlan.Completed + auditPlan.Ongoing + auditPlan.Remaining + auditUnPlan.UnPlanRemaining + auditUnPlan.UnPlanOngoing + auditUnPlan.UnPlanCompleted;
+    decimal percent = (total / 200) * 100;
+    string formattedPercent = percent.ToString("0");
+    int percentValue = int.Parse(formattedPercent);
+}
+
+@*CirclePerecentValue*@
+
+@{
+    decimal sum = 0;
+    decimal totalaudit = Convert.ToDecimal(TotalAudit);
+    decimal finalPercent = 0;
+    foreach (var item in components.ToList())
+    {
+        sum = sum + item.BranchCompleted + item.BranchOngoin;
+    }
+    foreach (var item in GetUnPlanAuditComponents.ToList())
+    {
+        sum = sum + item.BranchCompleted + item.BranchOngoin;
+    }
+
+    if (totalaudit != 0)
+    {
+        finalPercent = Math.Round((sum / totalaudit) * 100, 0);
+    }
+}
+
+@*EndOfPercentValue*@
+
+
+<div class="container-fluid">
+
+
+    @if (!IsBranchUser)
+    {
+
+
+        <div class="row" id="DashboardFont">
+
+
+            <div class="col-md-3">
+
+
+                <div class="row">
+
+                    @*<div style="width:220%;" class="row chart-container">*@
+
+                    <div class="row chart-container">
+                        <canvas style="height:150px;width:150px;" id="combined-chart" class="chart"></canvas>
+                    </div>
+
+                </div>
+
+                <div>
+                    <div class="row small-box" style="font-size:25px; display:flex;justify-content:center;font-weight:bold;background-color:#9AD0C2;margin-top:0px;">
+                        <div class="chart-text-part" font-size:1em;">@finalPercent% &nbsp; Completed </div>
+                    </div>
+                </div>
+
+                <div class="row small-box" style="font-weight:bold;background-color:#FFF67E;margin-top:25px;padding:5px;">
+                    <div class="column">
+                        @*<div class="cardforright">*@
+                        <div class="">
+                            <div class="card-content">
+                                <div class="text ">
+                                    <h6><span class="arrow">&rarr;</span>Prepayment Reviewed  : <b>@PrepaymentReviewValue.Value</b></h6>
+                                    <h6><span class="arrow">&rarr;</span>Uncertainty Communicated : <b>@GetPrePayment.CorrectedAmount</b></h6>
+                                    <h6><span class="arrow">&rarr;</span>Financial Impact  : <b>@GetPrePayment.AdditionalPayment</b></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class=" col-sm-5">
+                <div class="table-responsive">
+                    <table class="table table-info" id="custom" style="text-align:center;">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 16.67%;">Audit Component</th>
+                                <th scope="col" style="width: 16.67%;">Plan</th>
+                                <th scope="col" style="width: 16.67%;">Ongoing</th>
+                                <th scope="col" style="width: 16.67%;">Completed</th>
+                                <th scope="col" style="width: 16.67%;">Remaining</th>
+                                <th scope="col" style="width: 16.67%;">% (Completed + Ongoing)</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in components.ToList())
+                        {
+                            <tbody>
+                                <tr>
+                                    <th style="width: 16.67%;">@item.Name</th>
+                                    <td style="width: 16.67%;">@item.BranchPlan</td>
+                                    <td style="width: 16.67%;">@item.BranchOngoin</td>
+                                    <td style="width: 16.67%;">@item.BranchCompleted</td>
+                                    <td style="width: 16.67%;">@item.BranchRemaining</td>
+                                    <td style="width: 16.67%;">@item.BranchCompletedOngoing %</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+
+            </div>
+
+            <div class=" col-sm-4">
+
+
+                <div class="Engagments1" style="font-weight:bold;height:45px;background-color:#ACE2E1;">Unplanned Engagement</div>
+
+                @foreach (var item in specialEngagements)
+                {
+                    <p>
+                        <a href="@Url.Action("Edit", "Audit", new { id = @item.Id, edit = "audit" })">
+                            <span class="icon">&#x1F4DC;</span>
+                            <b>@item.Name</b>
+                        </a>
+                    </p>
+                }
+
+                <div class="table-responsive" id="uba">
+                    <table class="table table-info" id="custom" style="text-align:center;background-color:#ACE2E1;">
+                        <thead>
+                            <tr>
+                                <th class ="uback" scope="col" style="width: 16.67%;">Audit Component</th>
+                                <th class ="uback" scope="col" style="width: 16.67%;">UnPlan</th>
+                                <th class ="uback" scope="col" style="width: 16.67%;">Ongoing</th>
+                                <th class ="uback" scope="col" style="width: 16.67%;">Completed</th>
+                                <th class ="uback" scope="col" style="width: 16.67%;">Remaining</th>
+                                <th class ="uback" scope="col" style="width: 16.67%;">% (Completed + Ongoing)</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in GetUnPlanAuditComponents.ToList())
+                        {
+                            @*if (item.Name == "Special Audit")
+                            {*@
+                                <tbody>
+                                    <tr>
+                                        <th style="width: 16.67%;">@item.Name</th>
+                                        <td style="width: 16.67%;">@item.BranchPlan</td>
+                                        <td style="width: 16.67%;">@item.BranchOngoin</td>
+                                        <td style="width: 16.67%;">@item.BranchCompleted</td>
+                                        <td style="width: 16.67%;">@item.BranchRemaining</td>
+                                        <td style="width: 16.67%;">@item.BranchCompletedOngoing %</td>
+                                    </tr>
+                                </tbody>
+                           @*}*@
+                        }
+                    </table>
+                </div>
+
+
+                @*TimeButton*@
+
+                @*<div style="background-color:aquamarine" class="p-4">
+
+            <div>
+            <h4>Year Data</h4>
+            </div>
+
+            <div class="row p-1">
+            <div class="col-md-8">
+            <input type="text" class="form-control" name="datepicker" id="datepicker" />
+            </div>
+            <div class="col-md-4">
+            <button type="button" class="btn btn-success">Submit</button>
+            </div>
+            </div>
+
+            </div>*@
+
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Small boxes (Stat box) -->
+
+        <div class="row mt-3" id="DeshboardFont">
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#9BCF53;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@TotalAudit<sup></sup></h3>
+                        <h5>Total Audit</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="Audit?edit=Audit" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#96B6C5;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@TotalAuditApproved<sup></sup></h3>
+                        <h5>Approved Audit</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="Audit?edit=AuditApproved" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#2E8A99;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@TotalAuditRejected<sup></sup></h3>
+                        <h5>Total Audit Rejected</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="Audit?edit=AuditRejected" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#607274;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@TotalIssueRejected<sup></sup></h3>
+                        <h5>Total Issue Rejected</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="Audit?edit=IssueRejected" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" id="DeshboardFont">
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#6DA4AA;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@TotalIssue<sup></sup></h3>
+                        <h5>Total Issues (High,Medium,Low)</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="AuditIssue/AuditIssueIndex?edit=TotalIssues" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#40A2E3;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@BeforeDeadLineIssue<sup></sup></h3>
+                        <h5>Before Dead Line Issue</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="AuditIssue/AuditIssueIndex?edit=BeforeDeadLineIssue" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    @*<a href="Audit?edit=BeforeDeadLineIssue" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>*@
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#43766C;color:black">
+
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@MissDeadLineIssues<sup></sup></h3>
+                        <h5>Issue deadline lapsed</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+
+                    <a href="AuditIssue/AuditIssueIndex?edit=Issuedeadlinelapsed" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    @*<a href="AuditIssue/AuditIssueIndex?edit=MissDeadLineIssues" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>*@
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#176B87;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@TotalFollowUpAudit<sup></sup></h3>
+                        <h5>Total Follow-Up Audit</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="Audit?edit=TotalFollowUpAudit" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row" id="DeshboardFont">
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#8ECDDD;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@TotalPendingIssueReview<sup></sup></h3>
+                        <h5>Total Pending Issues Review</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="AuditIssue/AuditIssueIndex?edit=TotalPendingIssueReview" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#A9A9A9;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@PendingForReviewerFeedback<sup></sup></h3>
+                        <h5>Pending For Reviewer Feedback</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="AuditIssue/AuditIssueIndex?edit=PendingForReviewerFeedback" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-12">
+
+                <div class="small-box" style="background-color:#219C90;color:black">
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@FollowUpAuditIssues<sup></sup></h3>
+                        <h5>Follow-Up Audit Issues</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="AuditIssue/AuditIssueIndex?edit=FollowUpAuditIssues" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#618264;color:black">
+
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@TotalRisk<sup></sup></h3>
+                        <h5>Total Risk</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="Audit?edit=IssueRisk" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row" id="DeshboardFont">
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#40B5AD">
+
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@PendingForApproval<sup></sup></h3>
+                        <h5>Individual Pending Approval</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+
+                    @*<a href="Audit?edit=Audit" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>*@
+                    <a href="Audit?edit=IndividualAudit" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-12">
+
+                <div class="small-box" style="background-color:#40826D">
+                    <div class="inner text-center">
+
+                        <h3 style="font-size:50px">@PendingAuditResponse<sup></sup></h3>
+                        <h5>Pending Audit Response</h5>
+
+                    </div>
+                    <div class="icon">
+                    </div>
+
+                    <a href="/Audit/AuditResponseIndex" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-12">
+
+                <div class="small-box" style="background-color:#B3A492">
+
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@PendingAuditApproval<sup></sup></h3>
+                        <h5>Pending Audit Approval</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+
+                    <a href="Audit/ApproveStatusIndex" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="small-box" style="background-color:#496989">
+
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@PendingForIssueApproval<sup></sup></h3>
+                        <h5>Pending For Issue Approval</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+
+                    @*https://localhost:7031/Audit/IssueApproveStatusIndex*@
+                    <a href="Audit/IssueApproveStatusIndex" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
+                </div>
+            </div>
+            
+
+        </div>
+
+
+        <div class="row" id="DeshboardFont">
+
+
+            <div class="col-lg-3 col-md-6 col-12">
+
+                <div class="small-box" style="background-color:#AFE1AF">
+
+                    <div class="inner text-center">
+                        <h3 style="font-size:50px">@FinalAuidtApproved<sup></sup></h3>
+                        <h5>Final Audit Approved</h5>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="Audit?edit=FinalAuidtApproved" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
+                </div>
+            </div>
+
+            
+        </div>
+
+        <!-- Small boxes (Stat box) -->
+
+
+    }
+
+
+
+    <div id="calender" class="DeshboardFont">
+    </div>
+
+
+    <div class="modal fade" id="branchProfiles" tabindex="-1" role="dialog" aria-labelledby="Branch Profiles" data-backdrop="static">
+        <div class="modal-dialog draggable modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Select Branch</h4>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table table-bordered  table-sm table-hover" id="tBranchProfiles">
+                        <thead>
+                            <tr>
+                                <th hidden>Branch ID</th>
+                                <th>Branch Code</th>
+                                <th>Branch Name</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tbdBranchProfiles" class="cursorHand">
+
+                            @foreach (BranchProfile item in Model)
+                            {
+                                <tr>
+                                    <td hidden>@item.BranchID</td>
+                                    <td>@item.BranchCode</td>
+                                    <td>@item.BranchName</td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@section scripts{
+    <script src="/js/app/Controllers/DashController.js"></script>
+
+    <script src="/js/app/Services/CommonService.js"></script>
+    <script src="/js/app/Services/CircularsService.js"></script>
+    <script src="/js/app/Controllers/CircularsController.js"></script>
+
+    <script src="/js/app/Services/AuditFeedBack/AuditFeedbackService.js"></script>
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Services/Audit/AuditService.js"></script>
+    <script src="/js/app/Controllers/Audit/AuditController.js"></script>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+
+        @*<script src="https://cdn.jsdelivr.net/npm/progressbar.js@1.0.1/dist/progressbar.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            DashController.init(@Model.Count);
+            CircularsController.init();
+            AuditController.init();
+
+        });
+    </script>
+}

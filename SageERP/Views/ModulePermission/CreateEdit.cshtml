@@ -1,0 +1,106 @@
+﻿@model Shampan.Models.ModulePermission
+
+@{
+	ViewData["Title"] = "Index";
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Module Permission Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/ModulePermission","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+
+<div class="container-fluid">
+
+
+	<form id="frm_ModulePermission">
+		<div class="card card-secondary">
+
+
+			<div class="card-header">
+				<h3 class="card-title">Create ModulePermission</h3>
+			</div>
+
+
+			<div class="card-body">
+
+				@Html.HiddenFor(model => model.Id)
+				@Html.HiddenFor(model => model.Operation)
+
+
+				<div class="form-group row">
+
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.UserId)
+						@Html.DropDownListFor(model => model.UserId,Enumerable.Empty<SelectListItem>(),  new {  @class = "form-control form-control-sm",@data_selected=Model.UserName })
+						@Html.ValidationMessageFor(model => model.UserId)
+
+					</div>
+
+					<div class="col-sm-2">
+
+						@Html.LabelFor(model => model.ModuleName)
+						@Html.DropDownListFor(model => model.ModuleName,Enumerable.Empty<SelectListItem>(),  new {  @class = "form-control form-control-sm",@data_selected=Model.ModuleName })
+						@Html.ValidationMessageFor(model => model.ModuleName)
+
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsActive, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+								@Html.CheckBoxFor(model => model.IsActive, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "IsActive" })
+							</label>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+	</form>
+
+
+
+	<div class="card">
+		<div class="card-header p-2">
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+				<button type="button" class="button btnsave sslUpdate">Update</button>
+			}
+			else
+			{
+				<button class="button btnsave sslSave" type="button" id="">Save</button>
+			}
+		</div>
+	</div>
+
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+	<script src="/js/app/Services/ModulePermissionService.js"></script>
+	<script src="/js/app/Controllers/ModulePermissionController.js"></script>
+
+
+
+	<script>
+		$(document).ready(function () {
+
+			ModulePermissionController.init();
+
+		});
+
+	</script>
+
+
+}

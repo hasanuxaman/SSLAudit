@@ -1,0 +1,481 @@
+﻿@model Shampan.Models.UserRolls
+
+@{
+	ViewData["Title"] = "Index";
+	////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "User Roll Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/UserRolls","Index"},
+    {"","Index"},
+}})
+
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+	<form id="frm_UserRolls">
+		<div class="card card-secondary">
+
+			<div class="card-header">
+				<h3 class="card-title">Approval Hierarchy </h3>
+			</div>
+
+			<div class="card-body">
+
+				@Html.HiddenFor(model => model.Id)
+				@Html.HiddenFor(model => model.Operation)
+
+				<div class="form-group row">
+
+
+					<div class="col-sm-2">
+
+						<div>
+							@Html.LabelFor(model => model.UserId)
+							@Html.DropDownListFor(model => model.UserId, Enumerable.Empty<SelectListItem>(), new { @class = "form-control form-control-sm", @data_readonly=Model.UserId, @data_selected=Model.UserId })
+							@Html.ValidationMessageFor(model => model.UserId)
+						</div>
+
+					</div>
+
+
+				</div>
+
+
+				<div class="form-group row">
+
+
+					<div class="col-sm-3">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsAudit, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsAudit, new { @class = "form-check-input",  style = "margin-left: 135px;    margin-top: 34px; transform: scale(1.9);", id = "isAudit" })
+							</label>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditApproval1, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditApproval1, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditApproval1" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditApproval2, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditApproval2, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditApproval2" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditApproval3, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditApproval3, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditApproval3" })
+							</label>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditApproval4, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditApproval4, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditApproval4" })
+							</label>
+						</div>
+					</div>
+			
+
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-sm-3">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsTour, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsTour, new { @class = "form-check-input",  style = "margin-left: 138px;    margin-top: 34px; transform: scale(1.9);", id = "IsTour" })
+							</label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.TourApproval1, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.TourApproval1, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "TourApproval1" })
+							</label>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.TourApproval2, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.TourApproval2, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "TourApproval2" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.TourApproval3, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.TourApproval3, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "TourApproval3" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.TourApproval4, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.TourApproval4, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "TourApproval4" })
+							</label>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-sm-3">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsAdvance, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsAdvance, new { @class = "form-check-input",  style = "margin-left: 115px;    margin-top: 34px; transform: scale(1.9);", id = "IsAdvance" })
+							</label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AdvanceApproval1, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AdvanceApproval1, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AdvanceApproval1" })
+							</label>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AdvanceApproval2, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AdvanceApproval2, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AdvanceApproval2" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AdvanceApproval3, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AdvanceApproval3, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AdvanceApproval3" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AdvanceApproval4, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AdvanceApproval4, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AdvanceApproval4" })
+							</label>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-sm-3">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsTa, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsTa, new { @class = "form-check-input",  style = "margin-left: 98px;    margin-top: 34px; transform: scale(1.9);", id = "IsTa" })
+							</label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsTaApproval1, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsTaApproval1, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "IsTaApproval1" })
+							</label>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsTaApproval2, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsTaApproval2, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "IsTaApproval2" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsTaApproval3, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsTaApproval3, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "IsTaApproval3" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsTaApproval4, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsTaApproval4, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "IsTaApproval4" })
+							</label>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-sm-3">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsTourCompletionReport, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsTourCompletionReport, new { @class = "form-check-input",  style = "margin-left: 17px;    margin-top: 34px; transform: scale(1.9);", id = "IsTourCompletionReport" })
+							</label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.TourCompletionReportApproval1, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.TourCompletionReportApproval1, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "TourCompletionReportApproval1" })
+							</label>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.TourCompletionReportApproval2, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.TourCompletionReportApproval2, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "TourCompletionReportApproval2" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.TourCompletionReportApproval3, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.TourCompletionReportApproval3, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "TourCompletionReportApproval3" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.TourCompletionReportApproval4, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.TourCompletionReportApproval4, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "TourCompletionReportApproval4" })
+							</label>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-sm-3">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsAuditIssue, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsAuditIssue, new { @class = "form-check-input",  style = "margin-left: 94px;    margin-top: 34px; transform: scale(1.9);", id = "IsAuditIssue" })
+							</label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditIssueApproval1, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditIssueApproval1, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditIssueApproval1" })
+							</label>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditIssueApproval2, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditIssueApproval2, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditIssueApproval2" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditIssueApproval3, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditIssueApproval3, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditIssueApproval3" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditIssueApproval4, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditIssueApproval4, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditIssueApproval4" })
+							</label>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+				<div class="form-group row">
+
+					<div class="col-sm-3">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.IsAuditFeedback, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.IsAuditFeedback, new { @class = "form-check-input",  style = "margin-left: 64px;    margin-top: 34px; transform: scale(1.9);", id = "IsAuditFeedback" })
+							</label>
+						</div>
+					</div>
+
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditFeedbackApproval1, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditFeedbackApproval1, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditFeedbackApproval1" })
+							</label>
+						</div>
+					</div>
+
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditFeedbackApproval2, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditFeedbackApproval2, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditFeedbackApproval2" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditFeedbackApproval3, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditFeedbackApproval3, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditFeedbackApproval3" })
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.LabelFor(model => model.AuditFeedbackApproval4, new { @class = "form-check-label", style = "margin-top: 30px;font-weight: bold;"})
+
+								@Html.CheckBoxFor(model => model.AuditFeedbackApproval4, new { @class = "form-check-input",  style = "margin-left: 37px;    margin-top: 34px; transform: scale(1.9);", id = "AuditFeedbackApproval4" })
+							</label>
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+	</form>
+
+
+
+	<div class="card">
+		<div class="card-header p-2">
+			@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+			{
+				<button type="button" class="button btnsave sslUpdate">Update</button>
+			}
+			else
+			{
+				<button class="button btnsave sslSave" type="button" id="">Save</button>
+			}
+		</div>
+	</div>
+
+
+
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+	<script src="/js/app/Services/UserRollsService.js"></script>
+	<script src="/js/app/Controllers/UserRollsController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			UserRollsController.init();
+
+		});
+
+	</script>
+
+
+}

@@ -1,0 +1,272 @@
+﻿@using Shampan.Models
+@using Shampan.Models.AuditModule
+@model AuditFeedback
+
+<!-- Include Summernote CSS and JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.js"></script>
+
+<style>
+    /*.cke_bottom {*/
+    .cke_path {
+        display: none !important;
+    }
+</style>
+
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="modal-dialog draggable modal-lg" role="document" style="max-width:65%;">
+    <div class="modal-content" style="width:100%;">
+        <div class="modal-header">
+            <h4 class="modal-title">Feedback Details</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+
+        <div class="modal fade" id="modal-FeedbackSubmit" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(model => model.ReasonOfUnPost)
+                            <div class="input-group ">
+                                @Html.TextArea("ReasonOfUnPost",null, new { @class = "  form-control form-control-sm " ,@id="UnPostReasonOfFeedback"})
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="modelClose">Close</button>
+                        <button type="button" class="btn btn-primary FeedbackSubmit">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="container-fluid">
+
+                @using (Html.BeginForm("CreateEdit", "AuditFeedback", FormMethod.Post, new { @Id = "frm_Audit_feedback" }))
+                {
+                    <!-- Master Start-->
+                    @Html.HiddenFor(model => model.Id, new {@Id = "feedbackId"})
+                    @Html.HiddenFor(model => model.AuditId)
+
+                    @Html.HiddenFor(model => model.IsPost)
+                    @Html.HiddenFor(model => model.IsFeedback)
+
+                    @Html.HiddenFor(model => model.Operation, new {@Id = "feedbackOperation"})
+
+                    <div class="form-group row">
+
+                        <div class="col-sm-7">
+                            @Html.LabelFor(model => model.AuditIssueId)                          
+                            @Html.DropDownListFor(model => model.AuditIssueId, Enumerable.Empty<SelectListItem>(), new {@class = "form-control", @data_selected = Model.AuditIssueId})
+                            @Html.ValidationMessageFor(model => model.AuditIssueId)
+                        </div>
+
+                        <div class="col-sm-3">
+                            @Html.LabelFor(model => model.Heading)
+                            @Html.TextBoxFor(model => model.Heading, new { @class = "  form-control input-sm" })
+                            @Html.ValidationMessageFor(model => model.Heading)
+                        </div>
+
+                        <div class="col-sm-2" style="margin-top:25px;">
+
+                            <button type="button" title="Audit Issue Preview" id="seeAuditIssuePreviewForFeedback" class="btn btn-lg btn-primary ">
+                                <i class="fas fa-eye"></i> Preview
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-12">
+                            @Html.LabelFor(model => model.FeedbackDetails)
+                            @*@Html.TextAreaFor(model => model.FeedbackDetails, new { @class = "  form-control input-sm issueFeedbackSummerNote" , @Id="IssueDetailsFeedback", @name ="IssueDetails" })*@
+                            @*@Html.TextAreaFor(model => model.FeedbackDetails, new { @class = "  form-control input-sm issueFeedbackSummerNote" , @Id="IssueDetailsFeedback", @name ="FeedbackDetails" })*@
+                            @Html.TextAreaFor(model => model.FeedbackDetails, new { @class = "  form-control input-sm issueFeedbackSummerNote", @name ="FeedbackDetails" })
+                            @*@Html.TextAreaFor(model => model.IssueDetails, new { @class = "  form-control input-sm" })*@
+                            @Html.ValidationMessageFor(model => model.FeedbackDetails)
+                        </div>
+
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <div class="editor-label">
+                                <label>Attachments</label>
+                            </div>
+                            <input type="file" accept=".jpg,.jpeg, .png,.pdf, .xls, .xlsx,.docx" id="fileToUpload" name="Attachments" multiple="multiple" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <ul class="list-group fileGroup">
+
+                            @foreach (AuditFeedbackAttachments item in Model.AttachmentsList)
+                            {
+                                <li class="list-group-item" id="file-@item.Id">
+                                    <span>
+                                        @item.DisplayName
+                                    </span>
+                                    @*<a target="_blank" href="/AuditIssue/DownloadFile?filePath=@item.FileName" class=" ml-2 btn btn-primary btn-sm float-right ml-2">Download</a>*@
+                                    <a target="_blank" href="/AuditFeedback/DownloadFile?filePath=@item.FileName" class=" ml-2 btn btn-primary btn-sm float-right ml-2">Download</a>
+                                    <button onclick="AuditController.deleteFeedbackFile('@item.Id' ,'@item.FileName')" class=" ml-2 btn btn-danger btn-sm float-right" type="button">Delete</button>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+
+
+                    <!-- Master End-->
+                }
+
+                @if (Model.Edit.Equals("feedback", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+                            {                              
+                                @if (Model.IsFeedback.Equals(true))
+                                {                             
+                                }
+
+                                @if (Model.IsFeedback.Equals(true))
+                                {
+                                    <button type="button" class="button sslUpdate frm_Audit_feedbackbtnMainSave pt-1 btnSaveFeedback"> Update</button>                                    
+
+                                    @if (Model.IsTeam.Equals(true))
+                                    {
+                                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_feedback pt-1 btnFeedback">Team Feedback</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_feedback pt-1 btnFeedback">Reviewer Feedback</button>
+
+                                    }
+                                }
+                                else
+                                {                        
+                                    @if (Model.IsTeam.Equals(true))
+                                    {
+                                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_feedback pt-1 btnFeedback">Team Feedback</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" id="divFeedback" class="button sslSave frm_Audit_feedback pt-1 btnFeedback">Reviewer Feedback</button>
+                                    }
+
+                                }
+
+                                <button type="button" class="button sslReset  pt-1" onclick="resetForm('frm_Audit_feedback',['IssueDetailsFeedback'])">
+                                    <i class="fas fa-sync-alt"></i>   Reset
+                                    </button>
+
+                                <div style="float:right;">
+
+                                    <button type="button" class="button btnPost sslPost AuditFeedback">Post</button>
+                                    @if (Model.IsPost.Equals("Y", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                    <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" data-target="#modal-FeedbackSubmit">UnPost</button>
+                                    }
+                                    else
+                                    {
+                                    <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-FeedbackSubmit">UnPost</button>
+                                    }
+
+                                </div>
+
+                            }
+                            else
+                            {
+
+                                <button type="button" class="button sslSave frm_Audit_feedbackbtnMainSave pt-1 btnSaveFeedback">Save &nbsp;</button>
+                                @*<button type="button" style="display:none;" id="divFeedback" class="button sslSave frm_Audit_feedbackbtnMainSave pt-1 btnFeedback"> Feedback</button>*@
+                                @if (Model.IsFeedback.Equals(true))
+                                {
+                                    <button type="button" style="display:none;" id="divFeedback" class="button sslSave frm_Audit_feedback pt-1 btnFeedback">Feedback</button>
+
+                                }
+                                <button type="button" class="button sslReset  pt-1" onclick="resetForm('frm_Audit_feedback',['IssueDetailsFeedback'])">
+                                    <i class="fas fa-sync-alt"></i> Reset
+                                </button>
+
+                                <div style="float:right;">
+
+                                    <button class="button btnPost sslPost AuditFeedback" type="button" id="SavePost" style="display:none;">Post</button>
+                                    <button type="button" class="button btnUnPost sslUnPost" data-toggle="modal" style="display:none;" data-target="#modal-FeedbackSubmit">UnPost</button>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row mt-1">
+                        <div class="col-2">
+                            
+                        </div>
+                    </div>
+
+                }
+
+
+                @*change for email*@
+
+                @* <div style="display: none; width: 100%;" id="allSectionsIssueUser">
+                <div class="row mt-2">
+                <div class="col-3">
+                <button type="button" title="Add Email Details" id="addIssueAuditUser" class="btn btn-primary mb-2"><i class="fa fa-plus"></i>Add User Email</button>
+                </div>
+                </div>
+                <table class="table table-bordered" id="issueUserAudit" style="width: 100% !important;">
+                <thead>
+                <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="UserBody">
+                </tbody>
+                </table>
+                </div>*@
+
+
+                @*end*@
+
+
+
+
+            </div>
+
+
+
+
+
+
+        </div>
+        <div class="modal-footer">
+            @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+            <button type="button" class="button sslClose" data-dismiss="modal">
+                <i class="fas fa-times-circle"></i> Close
+            </button>
+
+        </div>
+    </div>
+</div>

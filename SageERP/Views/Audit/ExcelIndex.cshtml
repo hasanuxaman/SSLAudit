@@ -1,0 +1,228 @@
+﻿@model Shampan.Models.AuditModule.AuditMaster
+
+
+<h1>Excel Index</h1>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link href="~/css/button.css" rel="stylesheet" />
+
+<div id="accordion">
+
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseExcel" aria-expanded="true" aria-controls="collapseExcel">
+                    <h3>Multiple Audit Upload</h3>
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseExcel" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+
+                <div class="card card-secondary">
+
+                    <div class="card-body">
+
+                        @*@using (Html.BeginForm("ExcelCreateEdit", "Audit", FormMethod.Post, new { @Id = "frm_Audit_Excel" }))
+                        {
+
+                        <div class="form-group">
+                        <label asp-for="Attachments" class="control-label">Audit Excel Upload</label>
+                        <input asp-for="Attachments" type="file" class="form-control-file" multiple />
+                        <span asp-validation-for="Attachments" class="text-danger"></span>
+                        </div>
+
+
+                        <button class="button sslSave" type="submit" id="">Submit</button>
+
+                        }*@
+
+                        @using (Html.BeginForm("ExcelCreateEdit", "Audit", FormMethod.Post, new { enctype = "multipart/form-data", id = "frm_Audit_Excel" }))
+                        {
+                            <div class="form-group">
+                                <label asp-for="Attachments" class="control-label">Audit Excel Upload</label>
+                                <input asp-for="Attachments" type="file" class="form-control-file" multiple />
+                                <span asp-validation-for="Attachments" class="text-danger"></span>
+                            </div>
+
+                            <button class="button sslSave" type="submit" id="">Show</button>
+                        }
+
+
+
+
+
+
+                        <div>
+                            @*<button class="button btnExcelSave sslSave" type="button" id="">ExcelSave</button>*@
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+
+
+
+@*@{
+
+    ViewData["Title"] = "Index";
+    var auditlist1 = TempData["mydata"];
+
+    List<Shampan.Models.AuditModule.AuditMaster> auditlist = ViewBag.AuditList as List<Shampan.Models.AuditModule.AuditMaster>;
+
+    if (auditlist == null)
+    {
+        auditlist = new List<Shampan.Models.AuditModule.AuditMaster>();
+    }
+}
+
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Audit","Audit"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<style>
+    .visible-icon {
+        display: inline-block;
+    }
+
+    .hidden-icon {
+        display: none;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+
+            <button type="button" title="Add New Audit"
+                    data-url="/Audit/Create" onclick="GoTo(this)"
+                    id="" class="button NewButton addNewButton">
+                Save
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container-fluid">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+            @Html.HiddenFor(model => model.Edit)
+
+
+        </div>
+
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="AuditList">
+                    <thead>
+                        <tr>
+                            <th class="action"><input type="checkbox" class="chkAll" />&nbsp;Action</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Approved Level</th>
+                            <th>Complete Issue</th>
+                            <th hidden>Complete Feedback</th>
+                            <th class="bool">Post</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var audit in auditlist)
+                        {
+                            <tr>
+                                <td class="action">
+                             
+                                    <input type="checkbox" class="chkAll" />&nbsp;Action
+                                </td>
+                                <td>@audit.Code</td>
+                                <td>@audit.Name</td>
+                                <td>@audit.StartDate</td>
+                                <td>@audit.EndDate</td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+</div>*@
+
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="/js/app/Services/CommonService.js"></script>
+
+    <script src="/js/app/Services/AuditFeedBack/AuditFeedbackService.js"></script>
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Services/Audit/AuditService.js"></script>
+    <script src="/js/app/Controllers/Audit/AuditController.js"></script>
+
+    <script src="/js/app/controllers/dashcontroller.js"></script>
+
+    <script src="/js/app/Services/AuditApproveStatusService.js"></script>
+    <script src="/js/app/Controllers/AuditApproveStatusController.js"></script>
+
+    @*accordian*@
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    @*Remarks*@
+
+    <script>
+
+        $(document).ready(function () {
+
+            AuditController.init();
+
+
+        });
+
+    </script>
+
+
+    }

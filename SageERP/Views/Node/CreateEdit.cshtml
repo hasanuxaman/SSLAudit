@@ -1,0 +1,148 @@
+﻿@model Shampan.Models.SubmanuList
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Node Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Node","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+    <form id="frm_Node">
+        <div class="card card-secondary">
+
+
+            <div class="card-header">
+                <h3 class="card-title">Create Advance</h3>
+            </div>
+
+
+            <div class="card-body">
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Operation)
+
+
+
+                <div class="form-group row">
+                  
+                    <div class="col-sm-2">
+
+                        <div>
+
+                            @Html.LabelFor(model => model.UserId)
+                            @Html.DropDownListFor(model => model.UserId, Enumerable.Empty<SelectListItem>(), new { @class = "form-control",  @data_selected=Model.UserId })
+                            @Html.ValidationMessageFor(model => model.UserId)
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2">
+
+                        <div>
+
+                            @Html.LabelFor(model => model.ModulId)
+                            @Html.DropDownListFor(model => model.ModulId, Enumerable.Empty<SelectListItem>(), new { @class = "form-control",@data_selected=Model.ModulId })
+                            @Html.ValidationMessageFor(model => model.ModulId)
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2">
+
+                        <div>
+
+                            @Html.LabelFor(model => model.NodeName)
+                            @Html.DropDownListFor(model => model.NodeName, Enumerable.Empty<SelectListItem>(), new { @class = "form-control",@data_selected=Model.NodeName })
+                            @Html.ValidationMessageFor(model => model.NodeName)
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.Url)
+                        @Html.TextBoxFor(model => model.Url, new { @class = "form-control input-sm", @readonly="readonly" })
+                        @Html.ValidationMessageFor(model => model.Url)
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.Node)
+                        @Html.TextBoxFor(model => model.Node, new { @class = "form-control input-sm", @readonly="readonly" })
+                        @Html.ValidationMessageFor(model => model.Node)
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.ActionName)
+                        @Html.TextBoxFor(model => model.ActionName, new { @class = "form-control input-sm" , @readonly="readonly"})
+                        @Html.ValidationMessageFor(model => model.ActionName)
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.LabelFor(model => model.ControllerName)
+                        @Html.TextBoxFor(model => model.ControllerName, new { @class = "form-control input-sm", @readonly="readonly" })
+                        @Html.ValidationMessageFor(model => model.ControllerName)
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </form>
+
+
+    <div class="card">
+        <div class="card-header p-2">
+
+            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+            {
+                <button type="button" class="button btnsave sslUpdate">Update</button>
+
+                <button type="button" class="button sslUnPost  pt-1 btnNodeDelete">Delete</button>
+            }
+
+
+            else
+            {
+                <button class="button btnsave sslSave" type="button" id="">Save</button>
+
+
+            }
+
+        </div>
+    </div>
+
+
+</div>
+
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    <script src="/js/app/Services/NodeService.js"></script>
+    <script src="/js/app/Controllers/NodeController.js"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            NodeController.init();
+
+        });
+
+    </script>
+    }

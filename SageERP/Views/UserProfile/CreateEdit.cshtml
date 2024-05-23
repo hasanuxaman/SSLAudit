@@ -1,0 +1,212 @@
+﻿@using Shampan.Models
+@model Shampan.Models.UserProfile
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "User Profile Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/UserProfile","Index"},
+    {"","Index"},
+}})
+<link href="~/css/button.css" rel="stylesheet" />
+@if (!string.IsNullOrEmpty(Model.UserName))
+{
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header p-2">
+                <button type="button" title="Add New"
+                        data-url="/GLJournalEntry/Create"
+                        id="CreateGL" class="btn btn-success btn-sm mt-2 mb-2 mr-0 btnSave">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    &nbsp;
+                    New
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="container-fluid">
+
+
+    <form id="frm_user">
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Create User</h3>
+            </div>
+            <div class="card-body">
+                @Html.HiddenFor(model => model.Id)
+
+                @*@Html.HiddenFor(model => model.RequisitionNo)*@
+                @Html.HiddenFor(model => model.Operation)
+
+                <div class="form-group row">
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.UserName)
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.UserName)
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.ProfileName)
+                        @Html.TextBoxFor(model => model.ProfileName, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.ProfileName)
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.ConfirmPassword)
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                    </div>
+
+
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.PhoneNumber)
+                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber)
+                    </div>
+
+                    
+
+                </div>
+
+
+                <div class="form-group row">
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.PFNo)
+                        @Html.TextBoxFor(model => model.PFNo, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.PFNo)
+                    </div>
+
+                    <div class="col-sm-2">
+                        @Html.LabelFor(model => model.Designation)
+                        @Html.TextBoxFor(model => model.Designation, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.Designation)
+                    </div>
+
+                   @*<div class="col-sm-2">
+                        @Html.LabelFor(model => model.SageUserName)
+                        <div class="input-group ">
+                            @Html.TextBoxFor(model => model.SageUserName, new { @class = "  form-control form-control-sm " })
+                            <div class="input-group-append"><button class="btn btn-success btn-sm btn-SageUserName" type="button"><i class='fa fa-search'></i></button></div>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.SageUserName)
+                    </div>*@
+
+                    @*AdditionForUpdateBranchName*@
+
+                    @*<div class="col-sm-2">
+                        @Html.LabelFor(model => model.BranchName)
+                        @Html.TextBoxFor(model => model.BranchName, new { @class = "form-control form-control-sm" })
+                        @Html.ValidationMessageFor(model => model.BranchName)
+                    </div>*@
+
+                    @*<div class="col-sm-2">
+                        @Html.LabelFor(model => model.BranchID)
+                        @Html.DropDownListFor(model => model.BranchID, Enumerable.Empty<SelectListItem>(), new {@class = "form-control form-control-sm", @data_selected = Model.BranchID})
+                        @Html.ValidationMessageFor(model => model.BranchID)
+                    </div>*@
+
+
+                </div>
+
+
+
+
+                @*Attachment*@
+
+                <div class="form-group row">
+
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <div class="editor-label">
+                                <label>Attachments</label>
+                            </div>
+                            <input type="file" accept=".jpg,.jpeg, .png,.pdf, .xls, .xlsx,.docx" id="fileToUpload" name="Attachments" multiple="multiple" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <ul class="list-group fileGroup">
+                            @foreach (UserProfileAttachments item in Model.AttachmentsList)
+                            {
+                                <li class="list-group-item" id="file-@item.Id">
+                                    <span>
+                                        @item.DisplayName
+                                    </span>                                    
+                                    @*<button onclick="UserProfileController.deleteFile('@item.Id' ,'@item.FileName')" class=" ml-2 btn btn-danger btn-sm float-right" type="button">Delete</button>*@
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </form>
+
+
+
+
+
+    <div class="card">
+        <div class="card-header p-2">
+
+            @if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+            {
+                <button class="button btnsave sslUpdate" type="button" id="">Update</button>
+               
+            }
+            else
+            {
+                <button class="button btnsave sslSave" type="button" id="">Save</button>
+
+
+            }
+
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script src="/js/app/Services/CommonService.js"></script>
+    <script src="/js/app/Services/UserProfileService.js"></script>
+    <script src="/js/app/Controllers/UserProfileController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            UserProfileController.init();
+
+
+        });
+
+    </script>
+    }
+

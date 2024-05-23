@@ -1,0 +1,130 @@
+﻿@model Shampan.Models.PrePaymentMaster
+
+@{
+	ViewData["Title"] = "Index";
+	////var message = ViewBag.SuccessMsg;
+}
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "NonFinancial Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Deshboard/NonFinacilaIndex","Index"},
+    {"","Index"},
+}})
+<link href="~/css/button.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+
+
+	<div class="card card-secondary">
+		<div class="card-header">
+			<h3 class="card-title">NonFinacila Details</h3>
+		</div>
+
+
+		@Html.HiddenFor(model => model.Id)
+		@Html.HiddenFor(model => model.Operation)
+		@Html.HiddenFor(model => model.IsPost)
+		@Html.HiddenFor(model => model.Edit)
+
+
+
+		<div class="card-body">
+
+			<button type="button" title="Add Order Details" id="preAddRowNonFinacial" class="btn btn-lg btn-success mb-2"> <i class="fa fa-plus"></i> </button>
+
+			<table class="table table-bordered table-striped table-sm" id="NonFinancialListDetails">
+				<thead>
+					<tr>
+
+
+						<th data-type="text" style="width: 7%;" data-required="true" data-name="Auditor">Auditor</th>
+						<th data-type="text" style="width: 8%;" data-required="true" data-name="EmployeeName">Employee Name</th>
+						<th data-type="text" style="width: 10%;" data-required="true" data-name="Details">Details</th>
+						<th data-type="date" style="width: 10%; text-align: right;" data-name="FinalCorrectionDate">FinalCorrection Date</th>					
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="PreviousAmount">Previous Amount</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="CorrectedAmount">Corrected Amount</th>
+						<th data-type="decimal" style="width: 10%; text-align: right;" data-name="AdditionalPayment">Additional Payment</th>
+						<th data-type="text" style="width: 15%;" data-required="true" data-name="PaymentMemoReferenceNo">PaymentMemo ReferenceNo</th>
+						<th data-type="text" style="width: 10%;" data-required="true" data-name="Department">Department</th>
+						<th data-type="text" style="width: 10%;" data-required="true" data-name="Remarks">Remarks</th>
+
+
+					</tr>
+
+
+				</thead>
+				<tbody id="PrepamentBody">
+
+					<tr>
+
+
+						<td> @Model.Auditor</td>
+						<td> @Model.EmployeeName</td>
+						<td> @Model.Details</td>
+						<td> @Model.FinalCorrectionDate </td>
+						@*<td> @Model.FinalAmount</td>*@
+						<td> @Model.PreviousAmount</td>
+						<td> @Model.CorrectedAmount</td>
+						<td> @Model.AdditionalPayment</td>
+						<td> @Model.PaymentMemoReferenceNo</td>
+						<td> @Model.Department</td>
+						<td> @Model.Remarks</td>
+
+
+
+						<td> <button class="btn btn-danger btn-sm remove-row-btn"><i class='fa fa-trash'></i></button> </td>
+
+					</tr>
+
+
+				</tbody>
+
+			</table>
+
+
+		</div>
+	</div>
+
+		<div class="card">
+			<div class="card-header p-2">
+
+				@if (Model.Operation.Equals("update", StringComparison.OrdinalIgnoreCase))
+				{
+				<button type="button" class="button btnSaveNonFinancial sslUpdate">Update</button>
+					
+
+
+				}
+				else
+				{
+				<button class="button btnSaveNonFinancial sslSave" type="button" id="">Save</button>
+
+				
+				}
+
+			</div>
+		</div>
+
+</div>
+
+
+@section scripts{
+
+	<script src="/js/app/Services/CommonService.js"></script>
+
+
+	<script src="/js/app/Services/DeshboardEntryService.js"></script>
+	<script src="/js/app/Controllers/DeshboardEntryController.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			DeshboardEntryController.init();
+
+
+		});
+
+	</script>
+
+
+}

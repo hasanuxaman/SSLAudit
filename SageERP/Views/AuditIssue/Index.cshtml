@@ -1,0 +1,138 @@
+﻿@model Shampan.Models.AuditIssue
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Audit Issues", BreadCrums = new Dictionary<string, string>()
+{
+    {"/AuditIssue/index/"+@Model.AuditId,"Audit Issues"},
+    {"","Index"},
+}})
+
+
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header card-secondary">
+            <h4 style="text-align: center"><strong>Audit Details</strong></h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        @*                    <th scope="col"></th>
+                        <th scope="col">Column 1</th>
+                        <th scope="col">Column 2</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.Code)</th>
+                        <td>@Model.AuditMaster.Code</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.Name)</th>
+                        <td>@Model.AuditMaster.Name</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.StartDate)</th>
+                        <td>@Model.AuditMaster.StartDate</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.EndDate)</th>
+                        <td>@Model.AuditMaster.EndDate</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.Location)</th>
+                        <td>@Model.AuditMaster.Location</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.BusinessTarget)</th>
+                        <td>@Model.AuditMaster.BusinessTarget</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.AuditStatus)</th>
+                        <td>@Model.AuditMaster.AuditStatus</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.ReportStatus)</th>
+                        <td>@Model.AuditMaster.ReportStatus</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.AuditTypeName)</th>
+                        <td>@Model.AuditMaster.AuditTypeName</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@Html.LabelFor(model => model.AuditMaster.TeamName)</th>
+                        <td>@Model.AuditMaster.TeamName</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New Audit"
+                    data-url="/AuditIssue/Create/@Model.AuditId" onclick="GoTo(this)"
+                    id="" class="NewButton">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                &nbsp;
+                New
+            </button>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped" id="AuditIssueList">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Issue Name</th>
+                        <th>Issue Priority</th>
+                        <th>Date Of Submission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+
+    <script src="/js/app/Services/AuditIssue/AuditIssueService.js"></script>
+    <script src="/js/app/Controllers/AuditIssue/AuditIssueController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            AuditIssueController.init({ auditId: @Model.AuditId});
+
+        });
+
+    </script>
+}

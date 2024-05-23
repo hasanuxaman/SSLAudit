@@ -1,0 +1,27 @@
+﻿
+@*<div class="row">
+    <div class="col-md-12 text-center">
+
+        <h1>Calender</h1>
+
+    </div>
+
+</div>*@
+
+<div id="calender">
+</div>
+
+
+
+
+@section scripts{
+    <script src="/js/app/Controllers/CalenderController.js"></script>
+
+        <script>
+            $(document).ready(function () {
+
+                CalenderController.init();
+
+            });
+        </script>
+}

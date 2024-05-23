@@ -1,0 +1,100 @@
+﻿@using ShampanERP.Models
+@{
+    ViewData["Title"] = "Test Header";
+    ////var message = ViewBag.SuccessMsg;
+}
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Test", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Test","Test"},
+    {"","Index"},
+}})
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add Test"
+                    data-url="/Test/Create" onclick="GoTo(this)"
+                    id="" class="NewButton">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                &nbsp;
+                New
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <h5>Filters</h5>
+        </div>
+        <div class="card-body p-2">
+
+            <div class="form-group row">
+                &nbsp;   &nbsp;
+                &nbsp;
+                <label for="inputEmail3" class="label">Is Active</label>
+                <div class="col-sm-2">
+                    <select id="IsActive" name="IsActive" class="form-control">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" title="Add New Customers"
+                            id="tblSearch" class="searchButton">
+                        <span class="fa fa-search"></span> Search
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+
+        </div>
+        <div class="card-body">
+            <table id="testTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Code</th>
+                        <th>Transaction Date</th>
+                        <th>GL Account No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script src="/js/app/Services/CommonService.js"></script>
+    <script src="/js/app/Controllers/TestController.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            TestController.init();
+        });
+    </script>
+}
+
+
+
+
+
+

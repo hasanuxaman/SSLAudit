@@ -1,0 +1,98 @@
+﻿@model Shampan.Models.DateWisePolicyEditLog
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+
+<style>
+    .pagination-left {
+        float: left;
+    }
+</style>
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "DateWisePolicyEditLog Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/DateWisePolicyEditLog","DateWisePolicyEditLogIndex"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New BankEntry"
+                    data-url="/DateWisePolicyEditLog/Create" onclick="GoTo(this)"
+                    id="" class="button NewButton addNewButton">
+                New
+            </button>
+
+
+        </div>
+    </div>
+
+
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" style="width:100%" id="DateWisePolicyEditLogList">
+                    <thead>
+                        <tr>
+
+                            <th class="action">&nbsp;Action</th>
+
+                            <th>Doc No</th>
+                            <th>PC Name</th>
+                            <th>User Id</th>
+                            <th>Entry Date</th>
+                            <th>Branch Code</th>
+                            <th>Class</th>
+                            <th>Status</th>
+                            <th>Doc Date</th>
+                            <th>Customer Id</th>
+                            <th>Net Premium</th>
+                            <th>Sum Insured</th>
+                            <th>Produeer Code</th>
+                            <th>Business</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+
+
+    <script src="/js/app/Services/DateWisePolicyEditLogService.js"></script>
+    <script src="/js/app/Controllers/DateWisePolicyEditLogController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            DateWisePolicyEditLogController.init();
+
+
+        });
+
+    </script>
+    }
+

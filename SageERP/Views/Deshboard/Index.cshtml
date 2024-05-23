@@ -1,0 +1,103 @@
+﻿@model Shampan.Models.PrePaymentMaster
+
+
+@{
+    ViewData["Title"] = "Index";
+    ////var message = ViewBag.SuccessMsg;
+}
+
+@Html.Partial("_Header",new HeaderModel(){ HeaderName = "Financial Entry", BreadCrums = new Dictionary<string, string>()
+{
+    {"/Advances","Index"},
+    {"","Index"},
+}})
+
+<link href="~/css/button.css" rel="stylesheet" />
+
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-header p-2">
+            <button type="button" title="Add New BankEntry"
+                    data-url="/Deshboard/Create" onclick="GoTo(this)"
+                    id="" class="button NewButton addNewButton">
+                New
+            </button>
+        </div>
+    </div>
+
+    <h4>Prepayment Reviewed</h4>
+    <div class="card">
+        <div class="card-header p-2">
+            <div class="row">            
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="PrepaymentReview" value="@Model.PrepaymentReview.Value"/>
+                </div>
+                <div class="col-md-3">
+                    <button class="button btnPrepaymentReviewed sslSave" type="button" id="">Save</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+        <div class="card-header p-2 bg-green">
+            <h4>Total Additional Payment : @Model.AdditionalPayment</h4>
+        </div>
+    </div>
+
+
+    <div class="card card-secondary">
+
+        <div class="card-header">
+            <h3 class="card-title">
+                List Of Data
+            </h3>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped" style="width:100%" id="PrePaymentList">
+                    <thead>
+                        <tr>
+                            <th class="action">&nbsp;Action</th>
+                            <th>Code</th>
+                            <th>Auditor</th>
+                            <th>Employee Name</th>
+                            <th>Details</th>
+                            <th>FinalCorrection Date</th>
+                            <th>Previous Amount</th>
+                            <th>Corrected Amount</th>
+                            <th>Additional Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script src="/js/app/Services/CommonService.js"></script>
+    <script src="/js/app/Services/DeshboardEntryService.js"></script>
+    <script src="/js/app/Controllers/DeshboardEntryController.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            DeshboardEntryController.init();
+
+        });
+
+    </script>
+    }
+
